@@ -11,7 +11,7 @@ public class MainScript : MonoBehaviour
     bool flowInitialized = false;
 
     CurrentState currentState;
-    Flow curFlow;
+    [HideInInspector] public Flow curFlow;
     
     public void Initialize(CurrentState cs)
     {
