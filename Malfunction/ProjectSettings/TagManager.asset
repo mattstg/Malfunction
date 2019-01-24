@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Platform
+  - PlatformTrigger
+  - Raindrop
+  - RainCollector
+  - Aphid
+  - Rain Cloud
+  - PlayerPlantSprite
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Rain
+  - RainCollector
+  - PlayerFeet
+  - Platform
+  - Cloud
+  - Awning
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: sky
+    uniqueID: 1057883769
+    locked: 0
+  - name: clouds behind mtns
+    uniqueID: 1772528535
+    locked: 0
+  - name: mountains
+    uniqueID: 3250609809
+    locked: 0
+  - name: clouds in front of mtns
+    uniqueID: 2932715619
+    locked: 0
+  - name: midground trees far
+    uniqueID: 2924455317
+    locked: 0
+  - name: midground trees medium
+    uniqueID: 515916223
+    locked: 0
+  - name: midground trees close
+    uniqueID: 1084535421
+    locked: 0
+  - name: grass back
+    uniqueID: 2400796985
+    locked: 0
+  - name: foreground trees
+    uniqueID: 3667843209
+    locked: 0
+  - name: rocks back
+    uniqueID: 594588869
+    locked: 0
+  - name: Platform
+    uniqueID: 943831127
+    locked: 0
+  - name: Player & Bugs
+    uniqueID: 2400002349
+    locked: 0
+  - name: Shadows
+    uniqueID: 2686338415
+    locked: 0
+  - name: lab
+    uniqueID: 1653702817
+    locked: 0
+  - name: Rain Clouds
+    uniqueID: 2798980417
+    locked: 0
+  - name: grass front
+    uniqueID: 234517999
+    locked: 0
+  - name: Popup
+    uniqueID: 2843504725
+    locked: 0
+  - name: rocks front
+    uniqueID: 3086569933
+    locked: 0
