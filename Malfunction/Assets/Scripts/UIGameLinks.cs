@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIGameLinks : MonoBehaviour {
 
-    public VerticalLayoutGroup samplesVerticalGroup;
+    public VerticalLayoutGroup historicalDataGroup;
     public VerticalLayoutGroup functionChoicesVerticalGroup;
     public Text timeRemainingText;
     public Text inputToSolveText;
