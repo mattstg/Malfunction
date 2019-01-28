@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using LoLSDK;
 
+[SerializeField] public enum SoundEffects { ButtonClick, PositiveFeedback, NegativeFeedback }
+
+//This is one of the grossest classes ever, we salavaged it from one of our other titles and are in a hurry, do not judge us
+
 public class LOLAudio
 {
 #region Singleton
@@ -20,18 +24,21 @@ public class LOLAudio
         }
     }
     #endregion
-    public static readonly string bgMusic = "bgMusic.mp3";
-    public static readonly string heavyRain = "heavyRain.mp3";
-    //public static readonly string lightRain = "lightRain.mp3";
-    public static readonly string land = "land.wav";
-    public static readonly string collectRain = "raindrop.wav";
-    public static readonly string aphidHit = "aphidHit.wav";
+    //public static readonly string bgMusic = "bgMusic.mp3";
+    //public static readonly string heavyRain = "heavyRain.mp3";
+    ////public static readonly string lightRain = "lightRain.mp3";
+    //public static readonly string land = "land.wav";
+    //public static readonly string collectRain = "raindrop.wav";
+    //public static readonly string aphidHit = "aphidHit.wav";
         
+    //List<string> disabledSounds;
+    AudioSource musicPlayer;  //Plays music for non-lol
 
-    List<string> disabledSounds;
-    AudioSource musicPlayer;
+
     AudioSource bgMusicPlayer;
-    AudioClip landingAC;
+    AudioClip   buttonClick;
+    AudioClip   correctFeedback;
+    AudioClip   incorrectFeedback;
 
     private LOLAudio()
     {
@@ -40,21 +47,18 @@ public class LOLAudio
 
     public void Initialize()
     {
-        disabledSounds = new List<string>();
-        landingAC = Resources.Load<AudioClip>("Music/land");
-        //PlayBackgroundAudio(heavyRain);
-        //SetBGLevel(0);
-        PlayAudio(bgMusic, true);
+        //bgMusicPlayer = Resources.Load<AudioClip>("Music/land");
+        buttonClick = Resources.Load<AudioClip>("Music/ButtonClick");
+        correctFeedback = Resources.Load<AudioClip>("Music/PositiveFeedback");
+        incorrectFeedback = Resources.Load<AudioClip>("Music/NegativeFeedback");
+        PlayBackgroundAudio("bgMusic");
     }
 
     public void PlayBackgroundAudio(string _name)
     {
-        if (disabledSounds.Contains(_name))
-            return;
-
 #if UNITY_EDITOR
         GameObject go = new GameObject();
-        go.name = "RainSound";
+        go.name = "BgMusic";
         AudioSource audioSrc = go.AddComponent<AudioSource>();
         string filePath = "Music/" + System.IO.Path.GetFileNameWithoutExtension(_name);
         audioSrc.clip = Resources.Load<AudioClip>(filePath);
@@ -75,12 +79,11 @@ public class LOLAudio
         LOLSDK.Instance.ConfigureSound(1, volume, 1); //Should be 0 or 1? who knows
 #endif
     }
-
+    
     public void PlayAudio(string _name, bool loop = false)
     {
-        if (!GV.Sound_Active || !LOLSDK.Instance.IsInitialized || disabledSounds.Contains(_name))
+        if (!GV.Sound_Active || !LOLSDK.Instance.IsInitialized)
             return;
-
 #if UNITY_EDITOR
         PlayEditorAudio(_name, loop);        
 #elif UNITY_WEBGL
@@ -116,8 +119,24 @@ public class LOLAudio
                 go.name = "musicPlayer";
                 musicPlayer = go.AddComponent<AudioSource>();
             }
-            
-            AudioClip ac = (_name == "land")? landingAC : Resources.Load<AudioClip>("Music/" + _name);
+
+            AudioClip ac;
+            switch (_name)
+            { //, 
+                case "ButtonClick":
+                    ac = buttonClick;
+                    break;
+                case "PositiveFeedback":
+                    ac = correctFeedback;
+                    break;
+                case "NegativeFeedback":
+                    ac = incorrectFeedback;
+                    break;
+                default:
+                    Debug.Log("you fucked up audio for name: " + _name);
+                    ac = buttonClick;
+                    break;
+            }
             musicPlayer.PlayOneShot(ac);
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
@@ -128,21 +147,4 @@ public class LOLAudio
         //musicPlayer.PlayOneShot(Resources.Load<AudioClip>("Music/" + _name));
     }
 
-    public void AddDisabledSound(string toDisable)
-    {
-        if (!disabledSounds.Contains(toDisable))
-            disabledSounds.Add(toDisable);
-    }
-
-
-    public void RemoveDisabledSound(string toRemove)
-    {
-        StopAudio(toRemove);
-        disabledSounds.Remove(toRemove);
-    }
-
-    public void ClearDisabledSounds()
-    {
-        disabledSounds.Clear();
-    }
 }

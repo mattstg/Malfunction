@@ -16,5 +16,6 @@ public class TutorialFlow : Flow
         //{
         //             
         //}
+        //ProgressTracker.Instance.SubmitProgress(2->6);  Submit all progress numbers, from 1 to 6 during tutorial, 7 and 8 are for game 
     }
 }

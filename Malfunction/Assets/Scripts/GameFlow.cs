@@ -25,8 +25,6 @@ public class GameFlow : Flow
     {
         historicalDataTabPrefab = Resources.Load<GameObject>("UI/Prefabs/HistoricalDataTab");
         funcButtonPrefab = Resources.Load<GameObject>("UI/Prefabs/FuncButton");
-
-        LOLAudio.Instance.ClearDisabledSounds();
         uiLinks = GameObject.FindObjectOfType<UIGameLinks>();
         initialized = true;
         currentDifficulty = 0;
@@ -39,6 +37,10 @@ public class GameFlow : Flow
         {
             timeRemaining -= dt;
             uiLinks.timeRemainingText.text = timeRemaining.ToString();
+            if(timeRemaining <= 0)
+            {
+                EndGame();
+            }
         }
     }
 
@@ -93,12 +95,22 @@ public class GameFlow : Flow
         currentDifficulty++;
         LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         timeRemaining += timeAddedForCorrect;
+        ProgressTracker.Instance.SetScore(currentDifficulty);
+        ProgressTracker.Instance.SubmitProgress(7);
         Debug.Log("LEVEL PASSED");
+        LOLAudio.Instance.PlayAudio("PositiveFeedback");
     }
 
     private void IncorrectLevelPackageGuess()
     {
         timeRemaining -= timeRemovedForWrong;
         Debug.Log("Incorrect guess you fucking failure of a child");
+        LOLAudio.Instance.PlayAudio("NegativeFeedback");
+    }
+
+    private void EndGame()
+    {
+        ProgressTracker.Instance.SubmitProgress(8);
+        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.PostGame);
     }
 }

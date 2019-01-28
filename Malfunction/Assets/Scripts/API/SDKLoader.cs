@@ -62,7 +62,7 @@ public class SDKLoader {
                 }
             }
 
-            //Extract Score
+            //Extract Score  --- How do we want to handle last score? Start from that difficulty again with less time? Start over?
             if (startGameData["score"] != null)
             {
                 int result = 1;
@@ -70,7 +70,7 @@ public class SDKLoader {
                 if (parseSuccess)
                 {
                     ProgressTracker.Instance.score = result;
-                    ProgressTracker.Instance.SetMaxHeight(Mathf.Max(result, 50));
+                    ///ProgressTracker.Instance.SetMaxHeight(Mathf.Max(result, 50));
                 }
             }
         }

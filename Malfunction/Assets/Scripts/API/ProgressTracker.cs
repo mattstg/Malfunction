@@ -30,12 +30,6 @@ public class ProgressTracker {
 	{        
     }
 
-    public void SetMaxHeight(int _height)
-    {
-        if (maxGrowthHeight < _height)
-            maxGrowthHeight = _height;
-    }
-
     public void SetScore(int _score)
     {
         score = _score;
@@ -53,7 +47,7 @@ public class ProgressTracker {
         SubmitProgress(currentProgress, score);        
     }
 
-    public void SubmitProgress(int progressNumber, int progressScore)
+    private void SubmitProgress(int progressNumber, int progressScore)
 	{
         if (LOLSDK.Instance.IsInitialized)
         {            
