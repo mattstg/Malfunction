@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class UIGameLinks : MonoBehaviour {
 
-    public VerticalLayoutGroup historicalDataGroup;
-    public VerticalLayoutGroup functionChoicesVerticalGroup;
-    public Text timeRemainingText;
-    public Text inputToSolveText;
-    public InputField solutionInputField;
+    public Text questionText;
+    public Text scienceAmt;
+    public Text sampleInputText;
+    public InputField ansInputField;
     public Button submitButton;
 
 

@@ -11,7 +11,7 @@ public class GameFlow : Flow
     GameObject funcButtonPrefab;
 
     LevelPkg currentLevelPkg;
-    UIGameLinks uiLinks;
+    public static UIGameLinks uiLinks;
     LoLFunction selectedFuncAsAnswer;
 
     int currentDifficulty;
@@ -36,7 +36,6 @@ public class GameFlow : Flow
         if (initialized)
         {
             timeRemaining -= dt;
-            uiLinks.timeRemainingText.text = timeRemaining.ToString();
             if(timeRemaining <= 0)
             {
                 EndGame();
@@ -46,6 +45,7 @@ public class GameFlow : Flow
 
     private void LoadLevelPkg(LevelPkg _toLoad, int difficultyLevel)
     {
+        /*
         currentLevelPkg = _toLoad;
         foreach (Transform t in uiLinks.historicalDataGroup.transform)
             GameObject.Destroy(t.gameObject);
@@ -72,7 +72,7 @@ public class GameFlow : Flow
             dataTab.GetComponentInChildren<Button>().onClick.AddListener(new UnityAction(() => { SelectFuncAsAnswer(f); }));
         }
 
-        uiLinks.inputToSolveText.text = currentLevelPkg.inputToSolve.ToString();
+        uiLinks.inputToSolveText.text = GV.OutputSampleInput(currentLevelPkg.inputToSolve, difficultyLevel);*/
     }
 
     public void SelectFuncAsAnswer(LoLFunction lf)
@@ -82,12 +82,12 @@ public class GameFlow : Flow
 
     public void ConfirmButtonPressed()
     {
-        int solvedOutputGuess = int.Parse(uiLinks.solutionInputField.text);
+        /*int solvedOutputGuess = int.Parse(uiLinks.solutionInputField.text);
         bool correctFunc = (currentLevelPkg.lolFunc == selectedFuncAsAnswer);
         if (solvedOutputGuess == currentLevelPkg.outputToSolve && correctFunc)
             SolvedLevelPackage();
         else
-            IncorrectLevelPackageGuess();
+            IncorrectLevelPackageGuess();*/
     }
 
     private void SolvedLevelPackage()
