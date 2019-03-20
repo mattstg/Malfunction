@@ -21,8 +21,10 @@
 	"Game_HardwarePieces":"Hardware Pieces",
 	"Game_Submit":"Submit",
 	"Game_EnterAns":"Enter Ans",
-	"Game_InputToSolve":"Input to solve"
-	
+	"Game_InputToSolve":"Input to solve",
+	"Button_Submit":"Submit",
+	"Button_Input_Placeholder":"Enter Ans...",
+	"Title_Input":"Input"
 	
 	 },
 
