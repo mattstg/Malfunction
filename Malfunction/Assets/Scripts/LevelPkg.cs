@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//I think this whole class is garbage now?
 public class LevelPkg  {
-
+    /*
     public LoLFunction lolFunc;
 
     public Vector3Int[] sampleInputs;
@@ -34,5 +35,5 @@ public class LevelPkg  {
         };
         lvlpkg.outputToSolve = lvlpkg.lolFunc.Solve(lvlpkg.inputToSolve);
         return lvlpkg;
-    }
+    }*/
 }

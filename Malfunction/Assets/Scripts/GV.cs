@@ -6,15 +6,17 @@ public class GV : MonoBehaviour {
 
 	public static bool Sound_Active = true;
     public static MainScript ms;
-    [HideInInspector] public static Vector2Int difficultyLevelInputIncrease = new Vector2Int(5, 12);
+    [HideInInspector] public static Vector2Int difficultyLevelInputIncrease = new Vector2Int(10, 35);
+    public static float difficultyModifier = .7f;
 
 
-    public static Vector3Int GetSampleRandomInput(int difficultyLevel)
-    {
-        return CleanseForDifficultyLevel(new Vector3Int(Random.Range(0, 6), Random.Range(0, 6), Random.Range(0, 6)), difficultyLevel);
-    }
+    //public static int[] GetSampleRandomInput(int difficultyLevel)
+    //{
+    //
+    //    return CleanseForDifficultyLevel(new int[] { Random.Range(0, 6), Random.Range(0, 6), Random.Range(0, 6) }, difficultyLevel);
+    //}
 
-    public static Vector3Int CleanseForDifficultyLevel(Vector3Int v3, int difficultyLevel)
+    public static int[] CleanseForDifficultyLevel(int[] v3, int difficultyLevel)
     {
         if (difficultyLevel < difficultyLevelInputIncrease[1])
             v3[2] = 0;
@@ -36,6 +38,12 @@ public class GV : MonoBehaviour {
         toOut += ")";
         Debug.Log("TOUT: " + toOut);
         return toOut;
+    }
+
+
+    public static string OutputSampleInput(int[] v3, int difficultyLevel)
+    {
+        return OutputSampleInput(new Vector3Int(v3[0], v3[1], v3[2]), difficultyLevel);
     }
 
     public static int GetNumberOfDigitsFromDifficulty(int difficultyLevel)

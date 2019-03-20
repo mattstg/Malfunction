@@ -10,11 +10,4 @@ public class UIGameLinks : MonoBehaviour {
     public Text sampleInputText;
     public InputField ansInputField;
     public Button submitButton;
-
-
-
-    public void ConfirmButton()
-    {
-        ((GameFlow)GV.ms.curFlow).ConfirmButtonPressed();    
-    }
 }

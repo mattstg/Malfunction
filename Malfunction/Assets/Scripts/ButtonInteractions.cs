@@ -11,6 +11,7 @@ public class ButtonInteractions : MonoBehaviour {
 
     public void SubmitAnswerPressed()
     {
-        string ans = GameFlow.uiLinks.ansInputField.text;
+        int ans = int.Parse(GameFlow.uiLinks.ansInputField.text);
+        GameFlow.instance.SubmitButtonPressed(ans);
     }
 }
