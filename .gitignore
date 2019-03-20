@@ -303,3 +303,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.sln
+Malfunction/Malfunction.sln
