@@ -23,6 +23,14 @@ public class SceneObjectManager : MonoBehaviour {
     public HashSet<Transform> activeAsteroids = new HashSet<Transform>();
     public HashSet<Transform> activeBuildings = new HashSet<Transform>();
 
+    public Building GetRandomBuilding()
+    {
+        Building[] buildings = activeObjectParentDict[BaseObject.Type.Building].GetComponentsInChildren<Building>();
+        if (buildings.Length > 0)
+            return buildings[Random.Range(0, buildings.Length)];
+        else return null;
+    }
+
     public void Initialize(GameManager newManager)
     {
         manager = newManager;

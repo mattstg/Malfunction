@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public enum Stage { Uninitialized = 0, Initialized = 1, GameRunning = 2, GameOver = 3 }
+    public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
 
     public SceneObjectManager objManager;
@@ -64,5 +65,42 @@ public class GameManager : MonoBehaviour {
     private bool CheckEndCondition()
     {
         return objManager.activeBuildings.Count == 0;
+    }
+
+    public bool BuyBuilding(BuyableBuilding typeToBuy)
+    {
+        if(objManager.spawnManager.city.availableSlots > 0)
+        {
+            SpawnManager.CitySlot slot = objManager.spawnManager.city.PopSlot();
+            ((BO_Static)objManager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
+            return true;
+        }
+        else
+        {
+            Building toReplace = objManager.GetRandomBuilding();
+            if (toReplace == null)
+                return false;
+            else
+            {
+                toReplace.Despawn();
+                ((BO_Static)objManager.SpawnObjectFromPool(BaseObject.Type.Sam, toReplace.citySlot.position)).AssignCitySlot(toReplace.citySlot);
+
+                return true;
+            }
+        }
+    }
+
+    private void CreateBuilding(BuyableBuilding typeToBuy)
+    {
+        switch (typeToBuy)
+        {
+            case BuyableBuilding.Sam:
+
+                break;
+            case BuyableBuilding.Nuke:
+                break;
+            case BuyableBuilding.Shield:
+                break;
+        }
     }
 }
