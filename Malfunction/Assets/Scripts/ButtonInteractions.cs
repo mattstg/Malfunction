@@ -24,6 +24,6 @@ public class ButtonInteractions : MonoBehaviour {
 
     public void GameOverButtonPressed()
     {
-        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.MainMenu);
+        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
     }
 }
