@@ -58,6 +58,7 @@ public class BO_Static : BaseObject
     public override void Spawn(Vector2 posistion)
     {
         base.Spawn(posistion);
+        citySlot = new SpawnManager.CitySlot(-1, Vector3.zero);
         manager.activeBuildings.Add(transform);
         wasRemoved = false;
     }
