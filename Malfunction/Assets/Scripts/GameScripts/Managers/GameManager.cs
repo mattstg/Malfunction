@@ -76,8 +76,18 @@ public class GameManager : MonoBehaviour {
         {
             Debug.Log(objManager.spawnManager.city.availableSlots);
             SpawnManager.CitySlot slot = objManager.spawnManager.city.PopSlot();
-            ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), slot.position)).AssignCitySlot(slot);
-            return true;
+
+            if(slot.slotID != -1)
+            {
+                ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), slot.position)).AssignCitySlot(slot);
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Pop Returned an empty city slot... full? Count: " + objManager.spawnManager.city.availableSlots);
+                return false;
+            }
+            
         }
         else
         {
@@ -95,7 +105,7 @@ public class GameManager : MonoBehaviour {
                 {
                     SpawnManager.CitySlot slot = new SpawnManager.CitySlot(toReplace.citySlot.slotID, toReplace.citySlot.position);
                     toReplace.ExternalDeath();
-                    toReplace.gameObject.SetActive(false);
+                    //toReplace.gameObject.SetActive(false);
                     ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), slot.position)).AssignCitySlot(slot);
                     return true;
                 }

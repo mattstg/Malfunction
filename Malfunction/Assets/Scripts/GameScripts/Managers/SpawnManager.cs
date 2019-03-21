@@ -153,6 +153,7 @@ public class SpawnManager : MonoBehaviour {
                     {
                         Debug.LogError("Exceeded max attempts, but passed a brute search?!?!");
                         availableSlots--;
+                        slotOccupied[random] = true;
                         return new CitySlot(i, buildingSlots[i]);
                     }
                     else
