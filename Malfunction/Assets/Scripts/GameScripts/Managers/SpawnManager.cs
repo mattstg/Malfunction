@@ -10,7 +10,6 @@ public class SpawnManager : MonoBehaviour {
 
     public float buildingSeperation = 0.5f;
     public int citySize = 10;
-    public int numberOfSamTurrets = 10;
     
     public float startTimePerAsteroid = 2;
     public float maxTimePerAsteroid = 0.25f;

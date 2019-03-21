@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public SceneObjectManager objManager;
 
     public float gameTime = 0;
+    public float gameTimeModifier = .2f;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
-        Refresh(Time.deltaTime);
+        Refresh(Time.deltaTime * gameTimeModifier);
     }
     
     public void Initialize()
