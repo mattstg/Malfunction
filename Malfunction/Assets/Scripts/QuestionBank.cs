@@ -23,15 +23,20 @@ public class QuestionBank
 
     Stack<LoLFunction> questionBank = new Stack<LoLFunction>();
     readonly int questionBankInitialSize = 200;
+    public static bool debugMode = false;
 
     public LoLFunction Initialize()
     {
         //Initialize the question bank
-        for(int i = questionBankInitialSize; i > 0;--i)
-            questionBank.Push(LoLFunction.GenerateLoLFunction(i));
-        questionBank.Push(LoLFunction.GenerateLoLFunction(0));
-        questionBank.Push(LoLFunction.GenerateLoLFunction(0));
-        return LoLFunction.GenerateLoLFunction(0);
+        for (int i = questionBankInitialSize; i > 0; --i)
+        {
+            LoLFunction lf = LoLFunction.GenerateLoLFunction(i);
+            if(debugMode)
+                Debug.Log(lf.DebugOutput());
+            questionBank.Push(lf);
+
+        }
+        return questionBank.Pop();
 
     }
 
