@@ -98,4 +98,9 @@ public class GameManager : MonoBehaviour {
         }
         return BaseObject.Type.Building;
     }
+
+    public void SetStreak(float currentStreak)
+    {
+        Debug.Log("Current Streak: " + currentStreak);
+    }
 }

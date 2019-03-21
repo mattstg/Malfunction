@@ -21,6 +21,7 @@ public class GameFlow : Flow
     const float timeAddedForCorrect = 10;
     const float timeRemovedForWrong = 5;
     bool isTutorial = true;
+    int winningStreak = 0;
 
     public override void Initialize(int progressNumber)
     {
@@ -63,10 +64,15 @@ public class GameFlow : Flow
             return;
 
         bool correctFunc = currentLevelFunction.Solve() == attempt;
+
+        winningStreak = (correctFunc) ? winningStreak + 1 : 0;
+        gameManager.SetStreak(winningStreak);
+
         if (correctFunc)
             SolvedLevelPackage();
         else
             IncorrectLevelPackageGuess();
+
     }
 
     public void BuyBuilding(GameManager.BuyableBuilding toBuy)
