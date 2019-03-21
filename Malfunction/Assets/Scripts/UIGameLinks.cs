@@ -10,4 +10,13 @@ public class UIGameLinks : MonoBehaviour {
     public Text sampleInputText;
     public InputField ansInputField;
     public Button submitButton;
+
+    [Header("QuestionBalances")]
+    public AnimationCurve inputvarUpperRange;
+    public AnimationCurve inputvarLowerRange;
+    public AnimationCurve coefficentUpperRange;
+    public AnimationCurve coefficentLowerRange;
+    public AnimationCurve numberOfCoefficents;
+    public AnimationCurve chanceOfConstant;
+
 }

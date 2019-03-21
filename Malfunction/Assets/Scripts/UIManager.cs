@@ -38,7 +38,7 @@ public class UIManager  {
     public void ChangeLolFunction(LoLFunction newLolFunction)
     {
         uiLinks.questionText.text = newLolFunction.ToString();
-        uiLinks.sampleInputText.text = GV.OutputSampleInput(GV.CleanseForDifficultyLevel(newLolFunction.inputVars, newLolFunction.difficultyLevel),newLolFunction.difficultyLevel);    
+        uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);    
     }
 
     public void ChangeScienceAmt(int newAmt)

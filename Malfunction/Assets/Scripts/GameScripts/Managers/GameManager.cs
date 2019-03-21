@@ -11,19 +11,14 @@ public class GameManager : MonoBehaviour {
 
     public float gameTime = 0;
     public float gameTimeModifier = .2f;
-
+    
     public bool buildTrigger = false;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
-    private void Update()
+    public void UpdateGameManager()
     {
         Refresh(Time.deltaTime * gameTimeModifier);
     }
-    
+
     public void Initialize()
     {
         objManager.Initialize(this);
@@ -67,6 +62,7 @@ public class GameManager : MonoBehaviour {
     {
         stage = Stage.GameOver;
         objManager.EndGame();
+        GameFlow.instance.EndGame();
     }
 
     private bool CheckEndCondition()
@@ -109,5 +105,10 @@ public class GameManager : MonoBehaviour {
                 return BaseObject.Type.ShieldGenerator;
         }
         return BaseObject.Type.Building;
+    }
+
+    public void SetStreak(float currentStreak)
+    {
+        Debug.Log("Current Streak: " + currentStreak);
     }
 }
