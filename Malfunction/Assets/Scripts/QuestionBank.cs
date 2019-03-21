@@ -41,12 +41,7 @@ public class QuestionBank
             Debug.Log("Holy shit someone beat the game....");
         return questionBank.Pop();
     }
-
-    public bool AttemptSolve(int ans)
-    {
-        
-        return true;
-    }
+     
 
 
 }

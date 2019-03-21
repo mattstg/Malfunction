@@ -24,7 +24,7 @@ public class LoLFunction  {
                 toOut += " + ";
            toOut += coefficents[i].ToString() + coefficentVarNames[i].ToString();
         }
-        if (hasConstant)
+        if (hasConstant && coefficents[3] != 0)
             toOut += " + " + coefficents[3];
         return toOut;
     }
@@ -48,6 +48,10 @@ public class LoLFunction  {
         i[1] = Random.Range(GetLowerRange(difficultLevel), GetUpperRange(difficultLevel));
         i[2] = Random.Range(GetLowerRange(difficultLevel), GetUpperRange(difficultLevel));
         i[3] = (hasConstant) ? Random.Range(GetLowerRange(difficultLevel), GetUpperRange(difficultLevel)) :0;
+
+        if(difficultLevel < 5)
+            i[0] = (i[0] == 0)? 1 : i[0];
+
         return i;
     }
 

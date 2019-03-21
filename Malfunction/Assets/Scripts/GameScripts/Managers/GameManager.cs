@@ -12,16 +12,10 @@ public class GameManager : MonoBehaviour {
     public float gameTime = 0;
     public float gameTimeModifier = .2f;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
-    private void Update()
+    public void UpdateGameManager()
     {
         Refresh(Time.deltaTime * gameTimeModifier);
     }
-
 
     public void Initialize()
     {
@@ -61,6 +55,7 @@ public class GameManager : MonoBehaviour {
     {
         stage = Stage.GameOver;
         objManager.EndGame();
+        GameFlow.instance.EndGame();
     }
 
     private bool CheckEndCondition()

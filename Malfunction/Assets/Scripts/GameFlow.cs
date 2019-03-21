@@ -10,10 +10,12 @@ public class GameFlow : Flow
     //LevelPkg currentLevelPkg;
     public static GameFlow instance;
     public static UIGameLinks uiLinks;
+    public static GameManager gameManager;
     LoLFunction currentLevelFunction;
     
     int numberOfStacksSolved;
-    public int amtOfScience = 5;
+    public int amtOfScience = 5000;
+    int[] buildingPrices = new int[3]{ 3, 5, 7 };
 
     const float timeAddedForCorrect = 10;
     const float timeRemovedForWrong = 5;
@@ -23,11 +25,14 @@ public class GameFlow : Flow
     {
         instance = this; //half sad singleton
         uiLinks = GameObject.FindObjectOfType<UIGameLinks>();
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        gameManager.Initialize();
         
         currentLevelFunction = QuestionBank.Instance.Initialize();
         UIManager.Instance.Initialize(currentLevelFunction);
         initialized = true;
         numberOfStacksSolved = 0;
+        UIManager.Instance.ChangeScienceAmt(amtOfScience);
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
     }
 
@@ -36,6 +41,7 @@ public class GameFlow : Flow
         if (initialized)
         {
             UIManager.Instance.Update();
+            gameManager.UpdateGameManager();
         }
     }
     
@@ -46,6 +52,21 @@ public class GameFlow : Flow
             SolvedLevelPackage();
         else
             IncorrectLevelPackageGuess();
+    }
+
+    public void BuyBuilding(GameManager.BuyableBuilding toBuy)
+    {
+        int i = (int)toBuy;
+        if(amtOfScience >= buildingPrices[i])
+        {
+            amtOfScience -= buildingPrices[i];
+            gameManager.BuyBuilding(toBuy);
+            UIManager.Instance.ChangeScienceAmt(amtOfScience);
+        }
+        else
+        {
+            Debug.Log("Not enough science to buy building");
+        }
     }
 
     static bool submit7 = false;
@@ -74,9 +95,11 @@ public class GameFlow : Flow
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
     }
 
-    private void EndGame()
+    public void EndGame()
     {
+        Debug.Log("GAME OVER");
         ProgressTracker.Instance.SubmitProgress(8);
         GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.PostGame);
+
     }
 }
