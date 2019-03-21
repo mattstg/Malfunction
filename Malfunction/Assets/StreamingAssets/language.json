@@ -24,7 +24,10 @@
 	"Game_InputToSolve":"Input to solve",
 	"Button_Submit":"Submit",
 	"Button_Input_Placeholder":"Enter Ans...",
-	"Title_Input":"Input"
+	"Title_Input":"Input",
+	"Buy_Rocket","Buy Rocket",
+	"Buy_Nuke","Buy Nuke",
+	"Buy_Shield","Buy Shield"
 	
 	 },
 
