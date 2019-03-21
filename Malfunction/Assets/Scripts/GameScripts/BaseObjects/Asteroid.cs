@@ -8,7 +8,7 @@ public class Asteroid : BO_Raycast
     public override void Initialize(SceneObjectManager newManager)
     {
         base.Initialize(newManager);
-        layerMask = LayerMask.GetMask("Buildings", "Planet", "Explosions");
+        layerMask = LayerMask.GetMask("Buildings", "Planet", "Explosions", "Shield");
     }
 
     public override void Refresh(float dt)

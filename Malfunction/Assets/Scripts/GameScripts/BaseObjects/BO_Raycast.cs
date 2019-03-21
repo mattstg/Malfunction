@@ -50,6 +50,10 @@ public class BO_Raycast : BaseObject {
     public virtual bool TestForCollision(float dt)
     {
         deathRay = Physics2D.Raycast(transform.position, velocity.normalized, velocity.magnitude * dt, layerMask);
+        if (deathRay.transform != null && deathRay.transform.gameObject.layer.Equals(LayerMask.NameToLayer("Shield")))
+        {
+            ((ShieldGenerator)manager.TransformToBaseObjext(deathRay.transform.parent)).TurnShieldOff();
+        }
         return deathRay.transform != null;
     }
 }

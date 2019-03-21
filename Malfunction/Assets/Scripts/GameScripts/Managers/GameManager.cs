@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour {
     {
         Refresh(Time.deltaTime);
     }
-
-
+    
     public void Initialize()
     {
         objManager.Initialize(this);
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour {
         if(objManager.spawnManager.city.availableSlots > 0)
         {
             SpawnManager.CitySlot slot = objManager.spawnManager.city.PopSlot();
-            ((BO_Static)objManager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
+            ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), slot.position)).AssignCitySlot(slot);
             return true;
         }
         else
@@ -83,24 +82,23 @@ public class GameManager : MonoBehaviour {
             else
             {
                 toReplace.Despawn();
-                ((BO_Static)objManager.SpawnObjectFromPool(BaseObject.Type.Sam, toReplace.citySlot.position)).AssignCitySlot(toReplace.citySlot);
-
+                ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), toReplace.citySlot.position)).AssignCitySlot(toReplace.citySlot);
                 return true;
             }
         }
     }
 
-    private void CreateBuilding(BuyableBuilding typeToBuy)
+    public BaseObject.Type BuildBuilding(BuyableBuilding typeToBuy)
     {
         switch (typeToBuy)
         {
             case BuyableBuilding.Sam:
-
-                break;
+                return BaseObject.Type.Sam;
             case BuyableBuilding.Nuke:
-                break;
+                return BaseObject.Type.NukeLauncher;
             case BuyableBuilding.Shield:
-                break;
+                return BaseObject.Type.ShieldGenerator;
         }
+        return BaseObject.Type.Building;
     }
 }

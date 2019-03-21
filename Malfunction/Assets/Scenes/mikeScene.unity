@@ -416,6 +416,7 @@ Transform:
   - {fileID: 1371802672}
   - {fileID: 22969821}
   - {fileID: 1199345043}
+  - {fileID: 1056616271}
   m_Father: {fileID: 1202042674}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -439,6 +440,7 @@ MonoBehaviour:
   nukeExplosion: {fileID: 349574029}
   nuke: {fileID: 1199345044}
   nukeLauncher: {fileID: 22969822}
+  shieldGenerator: {fileID: 1056616272}
 --- !u!1 &438729567
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +744,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4429562479495234, guid: fc98d980860be4a4f90834b03ccffcc4,
     type: 2}
   m_PrefabInternal: {fileID: 928988445}
+--- !u!1001 &1056616270
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 381828690}
+    m_Modifications:
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e2e313f63032e534d876462e827ce547, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!4 &1056616271 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4011267585736732, guid: e2e313f63032e534d876462e827ce547,
+    type: 2}
+  m_PrefabInternal: {fileID: 1056616270}
+--- !u!114 &1056616272 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114111614267818916, guid: e2e313f63032e534d876462e827ce547,
+    type: 2}
+  m_PrefabInternal: {fileID: 1056616270}
+  m_Script: {fileID: 11500000, guid: 1e20a165f45a3544ab4649c6dd016733, type: 3}
 --- !u!1 &1187298275
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,8 +949,9 @@ MonoBehaviour:
   startTimePerAsteroid: 1
   maxTimePerAsteroid: 0.1
   gameTimeToMaxTimePerAsteroid: 120
-  samsToSpawn: 10
+  samsToSpawn: 8
   nukeLaunchersToSpawn: 2
+  shieldGeneratorsToSpawn: 4
 --- !u!1 &1318753832
 GameObject:
   m_ObjectHideFlags: 0
