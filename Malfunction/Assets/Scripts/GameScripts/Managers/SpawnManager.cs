@@ -125,7 +125,6 @@ public class SpawnManager : MonoBehaviour {
         {
             if(availableSlots > 0)
             {
-                availableSlots--;
                 int maxAttempts = buildingSlots.Length;
                 int random = Random.Range(0, buildingSlots.Length);
                 while (slotOccupied[random] && maxAttempts > 0)
@@ -137,6 +136,7 @@ public class SpawnManager : MonoBehaviour {
                 if(maxAttempts > 0)
                 {
                     slotOccupied[random] = true;
+                    availableSlots--;
                     return new CitySlot(random, buildingSlots[random]);
                 }
                 else
@@ -152,6 +152,7 @@ public class SpawnManager : MonoBehaviour {
                     if (redundancyCheck)
                     {
                         Debug.LogError("Exceeded max attempts, but passed a brute search?!?!");
+                        availableSlots--;
                         return new CitySlot(i, buildingSlots[i]);
                     }
                     else
