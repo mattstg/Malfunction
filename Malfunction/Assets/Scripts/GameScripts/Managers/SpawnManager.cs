@@ -8,25 +8,63 @@ public class SpawnManager : MonoBehaviour {
     public Transform planetFloor;
     public Transform sky;
 
-    public float buildingSeperation = 1;
-    public float cityXSize = 10;
+    public float buildingSeperation = 0.5f;
+    public int citySize = 10;
+    public int numberOfSamTurrets = 10;
 
-    public Vector3 Shift(Vector3 origion, float xOffset)
+    public float timeBetweenAsteroids = 1;
+    private float asteroidClock = 0;
+
+    public int samsToSpawn = 10;
+    public int nukeLaunchersToSpawn = 2;
+
+    public CityManager city;
+
+    public static Vector3 Shift(Vector3 origion, float xOffset)
     {
         return new Vector3(origion.x + xOffset, origion.y, 0);
     }
 
-	public void Initialize()
+    public void Initialize()
     {
-        float currentSeperation = 0;
-        manager.SpawnObjectFromPool(BaseObject.Type.Building, Shift(planetFloor.position, currentSeperation));
-        while(currentSeperation <= cityXSize)
+        city = new CityManager(this);
+        int samsToBuild = samsToSpawn;
+        int nukesToBuild = nukeLaunchersToSpawn;
+        while(city.availableSlots > 0)
         {
-            manager.SpawnObjectFromPool(BaseObject.Type.Building, Shift(planetFloor.position, currentSeperation));
-            manager.SpawnObjectFromPool(BaseObject.Type.Building, Shift(planetFloor.position, -currentSeperation));
-            currentSeperation += buildingSeperation;
+            CitySlot slot = city.PopSlot();
+            if(samsToBuild > 0)
+            {
+               ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
+                samsToBuild--;
+            }
+            else if(nukesToBuild > 0)
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position)).AssignCitySlot(slot);
+                nukesToBuild--;
+            }
+            else
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Building, slot.position)).AssignCitySlot(slot);
+            }
         }
-        
+    }
+
+
+    public void Refresh(float dt)
+    {
+
+        if (asteroidClock > timeBetweenAsteroids)
+        {
+            asteroidClock = 0;
+            float random = Random.Range(-citySize, citySize);
+            Vector3 spawnPos = new Vector3(sky.position.x + random, sky.position.y, 0);
+            manager.SpawnObjectFromPool(BaseObject.Type.Asteroid, spawnPos);
+        }
+        else
+        {
+            asteroidClock += dt;
+        }
     }
 
     public void StartGame()
@@ -38,4 +76,66 @@ public class SpawnManager : MonoBehaviour {
     {
 
     }
+
+    public class CitySlot
+    {
+        public int slotID;
+        public Vector3 position;
+
+        public CitySlot(int id, Vector3 pos)
+        {
+            slotID = id;
+            position = pos;
+        }
+    }
+
+    public class CityManager
+    {
+        public int availableSlots { private set; get; }
+        Vector3[] buildingSlots;
+        bool[] slotOccupied;
+
+        public CityManager(SpawnManager manager) //float citySize, float buildingSeperation)
+        {
+            float totalSize = manager.citySize * 2;
+            int slots = Mathf.FloorToInt(totalSize / manager.buildingSeperation);
+            buildingSlots = new Vector3[slots];
+            slotOccupied = new bool[slots];
+            availableSlots = slots;
+
+            for (int i = 0; i < slots; i++)
+            {
+                buildingSlots[i] = Shift(manager.planetFloor.position, i * (manager.buildingSeperation) - (totalSize / 2));
+            }
+            
+            Stack<Vector3> randomSlots = new Stack<Vector3>();
+        }
+
+        public CitySlot PopSlot()
+        {
+            if(availableSlots > 0)
+            {
+                availableSlots--;
+                int random = Random.Range(0, buildingSlots.Length);
+                while (slotOccupied[random])
+                {
+                    random = (random == buildingSlots.Length - 1) ? 0 : random + 1;
+                }
+                slotOccupied[random] = true;
+                return new CitySlot(random, buildingSlots[random]);
+            }
+            else
+            {
+                Debug.LogError("Not Enough Slots...");
+                return new CitySlot(-1, Vector2.zero);
+            }
+        }
+        
+        public void PushSlot(CitySlot citySlot)
+        {
+            availableSlots++;
+            slotOccupied[citySlot.slotID] = false;
+        }
+    }
+
 }

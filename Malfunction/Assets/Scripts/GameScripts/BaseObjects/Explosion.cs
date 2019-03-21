@@ -32,7 +32,7 @@ public class Explosion : BaseObject
         base.Initialize(newManager);
         sizes = new Vector3[] { new Vector3(sizeRange.x, sizeRange.x, sizeRange.x), new Vector3(sizeRange.y, sizeRange.y, sizeRange.y) };
         contactFilter = new ContactFilter2D();
-        contactFilter.SetLayerMask(LayerMask.GetMask("Buildings", "Asteroids", "Rockets"));
+        contactFilter.SetLayerMask(LayerMask.GetMask("Buildings", "Asteroids"));
         contactFilter.ClearDepth();
     }
 
@@ -84,6 +84,15 @@ public class Explosion : BaseObject
                         result.ExternalDeath();
                         break;
                     case Type.Rocket:
+                        result.ExternalDeath();
+                        break;
+                    case Type.Sam:
+                        result.ExternalDeath();
+                        break;
+                    case Type.NukeLauncher:
+                        result.ExternalDeath();
+                        break;
+                    case Type.Nuke:
                         result.ExternalDeath();
                         break;
                     default:

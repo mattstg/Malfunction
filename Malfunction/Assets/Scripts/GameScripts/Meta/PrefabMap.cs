@@ -9,5 +9,9 @@ public class PrefabMap : MonoBehaviour {
     public Explosion explosion;
     public Rocket rocket;
     public Planet planet;
+    public Sam sam;
+    public Explosion nukeExplosion;
+    public Nuke nuke;
+    public NukeLauncher nukeLauncher;
 
 }

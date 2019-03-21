@@ -5,97 +5,72 @@ using UnityEngine;
 public class SceneObjectManager : MonoBehaviour {
 
     public Transform objectPoolParent;
-    private Dictionary<BaseObject.Type, ObjectPool> objectPoolDictionary = new Dictionary<BaseObject.Type, ObjectPool>();
+    public Transform activeObjectParent;
+    
     public PrefabMap prefabs;
     public SpawnManager spawnManager;
 
-    BinaryQueues activeObjects;
+    public static int emergencyPoolFillQuantity = 10;
 
+    //updates all active objects
+    BinaryQueues activeObjectQueues;
 
-    public float timeBetweenAsteroids = 1;
-    private float asteroidClock = 0;
+    //holds links to the head transform of each type of active object and object pool transforms
+    Dictionary<BaseObject.Type, Transform> activeObjectParentDict = new Dictionary<BaseObject.Type, Transform>();
+    Dictionary<BaseObject.Type, ObjectPool> objectPoolDictionary = new Dictionary<BaseObject.Type, ObjectPool>();
 
-    //active buildings? 
+    public HashSet<Transform> activeAsteroids = new HashSet<Transform>();
 
     public void Initialize()
     {
-        activeObjects = new BinaryQueues();
-        activeObjects.AddObjectToUpdate(prefabs.planet);
-        FillObjectPools();
+        activeObjectQueues = new BinaryQueues();
+        activeObjectQueues.AddObjectToUpdate(prefabs.planet);
+        InitializeStorageObjects();
         spawnManager.Initialize();
     }
 
     public void Refresh(float dt)
     {
-        activeObjects.Refresh(dt);
-
-        if(asteroidClock > timeBetweenAsteroids)
-        {
-            asteroidClock = 0;
-            float random = Random.Range(-spawnManager.cityXSize,spawnManager.cityXSize);
-            Vector3 spawnPos = new Vector3(spawnManager.sky.position.x + random, spawnManager.sky.position.y, 0);
-            SpawnObjectFromPool(BaseObject.Type.Asteroid, spawnPos);
-        }
-        else
-        {
-            asteroidClock += dt;
-        }
+        spawnManager.Refresh(dt);
+        activeObjectQueues.Refresh(dt);
+        
     }
 
     public void AddObjectToUpdateQueue(BaseObject bo)
     {
-        activeObjects.AddObjectToUpdate(bo);
+        activeObjectQueues.AddObjectToUpdate(bo);
     }
 
-    private void FillObjectPools()
+    private void InitializeStorageObjects()
     {
         objectPoolDictionary.Clear();
+        activeObjectParentDict.Clear();
         
-        FillTypePool(BaseObject.Type.Asteroid, prefabs.asteroid);
-        FillTypePool(BaseObject.Type.Building, prefabs.building);
-        FillTypePool(BaseObject.Type.Explosion, prefabs.explosion);
-        FillTypePool(BaseObject.Type.Rocket, prefabs.rocket);
-        
+        DeclareBaseObjectType(BaseObject.Type.Asteroid, prefabs.asteroid);
+        DeclareBaseObjectType(BaseObject.Type.Building, prefabs.building);
+        DeclareBaseObjectType(BaseObject.Type.Explosion, prefabs.explosion);
+        DeclareBaseObjectType(BaseObject.Type.Rocket, prefabs.rocket);
+        DeclareBaseObjectType(BaseObject.Type.Sam, prefabs.sam);
+        DeclareBaseObjectType(BaseObject.Type.Nuke, prefabs.nuke);
+        DeclareBaseObjectType(BaseObject.Type.NukeLauncher, prefabs.nukeLauncher);
+        DeclareBaseObjectType(BaseObject.Type.NukeExplosion, prefabs.nukeExplosion);
     }
 
-    private void FillTypePool(BaseObject.Type type, BaseObject prefab) 
+    private void DeclareBaseObjectType(BaseObject.Type type, BaseObject prefab) 
     {
-        ObjectPool newPool = new ObjectPool();
+        ObjectPool newPool = new ObjectPool(this,type,prefab);
         objectPoolDictionary.Add(type, newPool);
 
-        for (int i = 0; i < prefab.pooledQuantity; i++)
-        {
-            BaseObject newBO = prefab.CreateCopy();
-            newBO.Initialize(this);
-            newPool.Push(newBO);
-        }
-
-        prefab.gameObject.SetActive(false);
+        GameObject activeObjs = new GameObject("Active " + type.ToString() + "s");
+        activeObjs.transform.parent = activeObjectParent;
+        activeObjectParentDict.Add(type, activeObjs.transform);
     }
 
     public BaseObject SpawnObjectFromPool(BaseObject.Type type, Vector2 position)
     {
-        BaseObject toRet = null;
-        /*
-        switch (type)
-        {
-            case BaseObject.Type.Building:
-                if (objectPoolDictionary[type].NotEmpty)
-                {
-                    toRet = objectPoolDictionary[type].Pop();
-                }
-                break;
-            case BaseObject.Type.Asteroid:
-                if (objectPoolDictionary[type].NotEmpty)
-                {
-                    toRet = objectPoolDictionary[type].Pop();
-                }
-                break;
-        }*/
-
-        toRet = objectPoolDictionary[type].Pop();
-
-        toRet?.Spawn(position);
+        BaseObject toRet = objectPoolDictionary[type].Pop();
+        toRet.transform.parent = activeObjectParentDict[type];
+        toRet.Spawn(position);
         return toRet;
     }
 
@@ -106,31 +81,57 @@ public class SceneObjectManager : MonoBehaviour {
 
     private class ObjectPool
     {
-        public Stack<BaseObject> stack;
-        public BaseObject.Type type;
-
-        public BaseObject Peek => stack.Peek();
-
+        private Transform transformParent;
+        private SceneObjectManager manager;
+        private Stack<BaseObject> stack;
+        public BaseObject.Type type { private set; get; }
+        public BaseObject referenceObject { private set; get; }
+        
         public bool NotEmpty => stack.Count > 0;
 
-        public ObjectPool()
+        public ObjectPool(SceneObjectManager newManager, BaseObject.Type newType, BaseObject newReferenceObject)
         {
+            manager = newManager;
+            type = newType;
+            referenceObject = newReferenceObject;
+
+            transformParent = new GameObject(type.ToString() + "s").transform;
+            transformParent.parent = manager.objectPoolParent.transform;
+            
             stack = new Stack<BaseObject>();
+            for (int i = 0; i < referenceObject.pooledQuantity; i++)
+            {
+                BaseObject newBO = referenceObject.CreateCopy();
+                newBO.Initialize(manager);
+                Push(newBO);
+            }
+
+            referenceObject.gameObject.SetActive(false);
         }
 
         public void Push(BaseObject bo)
         {
             stack.Push(bo);
+            bo.transform.parent = transformParent;
         }
 
         public BaseObject Pop()
         {
+            if(stack.Count == 0)
+            {
+                for (int i = 0; i < emergencyPoolFillQuantity; i++)
+                {
+                    BaseObject newBO = referenceObject.CreateCopy();
+                    newBO.Initialize(manager);
+                    Push(newBO);
+                }
+            }
             return stack.Pop();
         }
     }
 
     public BaseObject TransformToBaseObjext(Transform input)
     {
-        return activeObjects.TransformToBaseObject(input);
+        return activeObjectQueues.TransformToBaseObject(input);
     }
 }

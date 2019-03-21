@@ -14,8 +14,11 @@ public class BO_Raycast : BaseObject {
     public override void Refresh(float dt)
     {
         base.Refresh(dt);
+        
         if (!TestForCollision(dt))
+        {
             transform.position = new Vector3(transform.position.x + velocity.x * dt, transform.position.y + velocity.y * dt, 0);
+        }
         else
         {
             if (isActive == true)
@@ -36,6 +39,7 @@ public class BO_Raycast : BaseObject {
     {
         base.Spawn(posistion);
         SetVelocity();
+        transform.eulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.up, velocity));
     }
 
     public virtual void SetVelocity()
