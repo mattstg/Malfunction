@@ -19,8 +19,9 @@ public class SpawnManager : MonoBehaviour {
 
     private float asteroidClock = 0;
 
-    public int samsToSpawn = 10;
-    public int nukeLaunchersToSpawn = 2;
+    public int samsToSpawn =0;
+    public int nukeLaunchersToSpawn = 0;
+    public int shieldGeneratorsToSpawn = 15;
 
     public CityManager city;
 
@@ -56,6 +57,7 @@ public class SpawnManager : MonoBehaviour {
     {
         int samsToBuild = samsToSpawn;
         int nukesToBuild = nukeLaunchersToSpawn;
+        int shieldsToSpawn = shieldGeneratorsToSpawn;
         while (city.availableSlots > 0)
         {
             CitySlot slot = city.PopSlot();
@@ -68,6 +70,10 @@ public class SpawnManager : MonoBehaviour {
             {
                 ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position)).AssignCitySlot(slot);
                 nukesToBuild--;
+            }else if(shieldsToSpawn > 0)
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.ShieldGenerator, slot.position)).AssignCitySlot(slot);
+                shieldsToSpawn--;
             }
             else
             {

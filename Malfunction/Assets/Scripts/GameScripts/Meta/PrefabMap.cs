@@ -13,5 +13,5 @@ public class PrefabMap : MonoBehaviour {
     public Explosion nukeExplosion;
     public Nuke nuke;
     public NukeLauncher nukeLauncher;
-
+    public ShieldGenerator shieldGenerator;
 }

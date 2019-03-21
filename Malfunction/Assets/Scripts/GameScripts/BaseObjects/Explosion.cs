@@ -95,6 +95,9 @@ public class Explosion : BaseObject
                     case Type.Nuke:
                         result.ExternalDeath();
                         break;
+                    case Type.ShieldGenerator:
+                        result.ExternalDeath();
+                        break;
                     default:
                         break;
                 }

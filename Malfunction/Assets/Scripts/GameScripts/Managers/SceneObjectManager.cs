@@ -77,6 +77,7 @@ public class SceneObjectManager : MonoBehaviour {
         DeclareBaseObjectType(BaseObject.Type.Nuke, prefabs.nuke);
         DeclareBaseObjectType(BaseObject.Type.NukeLauncher, prefabs.nukeLauncher);
         DeclareBaseObjectType(BaseObject.Type.NukeExplosion, prefabs.nukeExplosion);
+        DeclareBaseObjectType(BaseObject.Type.ShieldGenerator, prefabs.shieldGenerator);
     }
 
     private void DeclareBaseObjectType(BaseObject.Type type, BaseObject prefab) 

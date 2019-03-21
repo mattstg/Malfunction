@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseObject : MonoBehaviour {
-    public enum Type { Null = 0, Building = 1, Asteroid = 2, Explosion = 3, Rocket = 4, Sam = 5, Nuke = 6, NukeLauncher = 7, NukeExplosion = 8, Planet = 9 }
+    public enum Type { Null = 0, Building = 1, Asteroid = 2, Explosion = 3, Rocket = 4, Sam = 5, Nuke = 6, NukeLauncher = 7, NukeExplosion = 8, Planet = 9, ShieldGenerator  = 10}
     protected SceneObjectManager manager;
 
     public Collider2D coli;
