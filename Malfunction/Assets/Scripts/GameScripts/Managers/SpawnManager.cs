@@ -11,8 +11,13 @@ public class SpawnManager : MonoBehaviour {
     public float buildingSeperation = 0.5f;
     public int citySize = 10;
     public int numberOfSamTurrets = 10;
+    
+    public float startTimePerAsteroid = 2;
+    public float maxTimePerAsteroid = 0.25f;
+    public float gameTimeToMaxTimePerAsteroid = 120;
 
-    public float timeBetweenAsteroids = 1;
+    public float TimePerAsteroid => Mathf.Lerp(startTimePerAsteroid, maxTimePerAsteroid, manager.manager.gameTime/gameTimeToMaxTimePerAsteroid);
+
     private float asteroidClock = 0;
 
     public int samsToSpawn = 10;
@@ -28,33 +33,14 @@ public class SpawnManager : MonoBehaviour {
     public void Initialize()
     {
         city = new CityManager(this);
-        int samsToBuild = samsToSpawn;
-        int nukesToBuild = nukeLaunchersToSpawn;
-        while(city.availableSlots > 0)
-        {
-            CitySlot slot = city.PopSlot();
-            if(samsToBuild > 0)
-            {
-               ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
-                samsToBuild--;
-            }
-            else if(nukesToBuild > 0)
-            {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position)).AssignCitySlot(slot);
-                nukesToBuild--;
-            }
-            else
-            {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Building, slot.position)).AssignCitySlot(slot);
-            }
-        }
+        
     }
 
 
     public void Refresh(float dt)
     {
 
-        if (asteroidClock > timeBetweenAsteroids)
+        if (asteroidClock > TimePerAsteroid)
         {
             asteroidClock = 0;
             float random = Random.Range(-citySize, citySize);
@@ -69,12 +55,31 @@ public class SpawnManager : MonoBehaviour {
 
     public void StartGame()
     {
-
+        int samsToBuild = samsToSpawn;
+        int nukesToBuild = nukeLaunchersToSpawn;
+        while (city.availableSlots > 0)
+        {
+            CitySlot slot = city.PopSlot();
+            if (samsToBuild > 0)
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
+                samsToBuild--;
+            }
+            else if (nukesToBuild > 0)
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position)).AssignCitySlot(slot);
+                nukesToBuild--;
+            }
+            else
+            {
+                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Building, slot.position)).AssignCitySlot(slot);
+            }
+        }
     }
 
     public void EndGame()
     {
-
+        asteroidClock = 0;
     }
 
     public class CitySlot

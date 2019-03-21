@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
 
     public SceneObjectManager objManager;
 
+    public float gameTime = 0;
+
     private void Start()
     {
         Initialize();
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
     public void Initialize()
     {
-        objManager.Initialize();
+        objManager.Initialize(this);
         stage = Stage.Initialized;
     }
 
@@ -35,9 +37,13 @@ public class GameManager : MonoBehaviour {
                 GameStart();
                 break;
             case Stage.GameRunning:
+                gameTime += dt;
                 objManager.Refresh(dt);
+                if (CheckEndCondition())
+                    GameEnd();
                 break;
             case Stage.GameOver:
+                GameStart();
                 break;
         }
     }
@@ -45,12 +51,18 @@ public class GameManager : MonoBehaviour {
     public void GameStart()
     {
         stage = Stage.GameRunning;
+        gameTime = 0;
+        objManager.StartGame();
     }
 
     public void GameEnd()
     {
         stage = Stage.GameOver;
+        objManager.EndGame();
     }
 
-
+    private bool CheckEndCondition()
+    {
+        return objManager.activeBuildings.Count == 0;
+    }
 }

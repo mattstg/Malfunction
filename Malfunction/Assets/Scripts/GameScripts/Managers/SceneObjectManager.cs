@@ -9,6 +9,7 @@ public class SceneObjectManager : MonoBehaviour {
     
     public PrefabMap prefabs;
     public SpawnManager spawnManager;
+    public GameManager manager;
 
     public static int emergencyPoolFillQuantity = 10;
 
@@ -20,9 +21,11 @@ public class SceneObjectManager : MonoBehaviour {
     Dictionary<BaseObject.Type, ObjectPool> objectPoolDictionary = new Dictionary<BaseObject.Type, ObjectPool>();
 
     public HashSet<Transform> activeAsteroids = new HashSet<Transform>();
+    public HashSet<Transform> activeBuildings = new HashSet<Transform>();
 
-    public void Initialize()
+    public void Initialize(GameManager newManager)
     {
+        manager = newManager;
         activeObjectQueues = new BinaryQueues();
         activeObjectQueues.AddObjectToUpdate(prefabs.planet);
         InitializeStorageObjects();
@@ -33,7 +36,19 @@ public class SceneObjectManager : MonoBehaviour {
     {
         spawnManager.Refresh(dt);
         activeObjectQueues.Refresh(dt);
-        
+    }
+
+    public void StartGame()
+    {
+        spawnManager.StartGame();
+    }
+
+    public void EndGame()
+    {
+        spawnManager.EndGame();
+        activeObjectQueues.EndGame();
+        activeAsteroids.Clear();
+        activeBuildings.Clear();
     }
 
     public void AddObjectToUpdateQueue(BaseObject bo)

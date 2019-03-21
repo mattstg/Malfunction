@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objManager: {fileID: 1202042675}
+  gameTime: 0
 --- !u!1 &534125583
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +873,7 @@ MonoBehaviour:
   activeObjectParent: {fileID: 124444411}
   prefabs: {fileID: 381828691}
   spawnManager: {fileID: 1202042676}
+  manager: {fileID: 0}
 --- !u!114 &1202042676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,7 +891,9 @@ MonoBehaviour:
   buildingSeperation: 0.3
   citySize: 5
   numberOfSamTurrets: 10
-  timeBetweenAsteroids: 1
+  startTimePerAsteroid: 1
+  maxTimePerAsteroid: 0.1
+  gameTimeToMaxTimePerAsteroid: 120
   samsToSpawn: 10
   nukeLaunchersToSpawn: 2
 --- !u!1 &1318753832

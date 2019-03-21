@@ -57,4 +57,16 @@ public class BinaryQueues  {
     {
         return activeObjectDict[transform];
     }
+
+    public void EndGame()
+    {
+        while (MainQueue.Count > 0)
+        {
+            BaseObject workingObject = MainQueue.Dequeue();
+            workingObject.Despawn();
+            activeObjectDict.Remove(workingObject.transform);
+        }
+        MainQueue.Clear();
+        AuxQueue.Clear();
+    }
 }

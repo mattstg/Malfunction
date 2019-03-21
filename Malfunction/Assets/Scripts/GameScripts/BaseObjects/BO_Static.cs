@@ -15,6 +15,7 @@ public class BO_Static : BaseObject
     {
         base.Despawn();
         manager.spawnManager.city.PushSlot(citySlot);
+        manager.activeBuildings.Remove(transform);
     }
 
     public override void ExternalDeath()
@@ -45,6 +46,7 @@ public class BO_Static : BaseObject
     public override void Spawn(Vector2 posistion)
     {
         base.Spawn(posistion);
+        manager.activeBuildings.Add(transform);
     }
     
 }
