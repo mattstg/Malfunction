@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BO_Static : BaseObject
 {
-    SpawnManager.CitySlot citySlot;
+    public SpawnManager.CitySlot citySlot { private set; get; }
 
     public override BaseObject CreateCopy()
     {
