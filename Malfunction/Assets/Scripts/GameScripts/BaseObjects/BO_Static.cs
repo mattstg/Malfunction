@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BO_Static : BaseObject
 {
+    private bool wasRemoved = false;
     public SpawnManager.CitySlot citySlot { private set; get; }
 
     public override BaseObject CreateCopy()
@@ -14,13 +15,24 @@ public class BO_Static : BaseObject
     public override void Despawn()
     {
         base.Despawn();
-        manager.spawnManager.city.PushSlot(citySlot);
-        manager.activeBuildings.Remove(transform);
+        if (!wasRemoved)
+        {
+            manager.spawnManager.city.PushSlot(citySlot);
+            manager.activeBuildings.Remove(transform);
+            wasRemoved = true;
+        }
     }
 
     public override void ExternalDeath()
     {
         base.ExternalDeath();
+        if (!wasRemoved)
+        {
+            manager.spawnManager.city.PushSlot(citySlot);
+            manager.activeBuildings.Remove(transform);
+            wasRemoved = true;
+        }
+        
     }
 
     public override void Initialize(SceneObjectManager newManager)
@@ -47,6 +59,7 @@ public class BO_Static : BaseObject
     {
         base.Spawn(posistion);
         manager.activeBuildings.Add(transform);
+        wasRemoved = false;
     }
     
 }

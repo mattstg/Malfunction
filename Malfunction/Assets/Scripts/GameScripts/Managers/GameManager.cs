@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
     public float gameTime = 0;
     public float gameTimeModifier = .2f;
 
+    public bool buildTrigger = false;
+
     private void Start()
     {
         Initialize();
@@ -38,6 +40,11 @@ public class GameManager : MonoBehaviour {
                 GameStart();
                 break;
             case Stage.GameRunning:
+                if (buildTrigger)
+                {
+                    buildTrigger = false;
+                    BuyBuilding(BuyableBuilding.Sam);
+                }
                 gameTime += dt;
                 objManager.Refresh(dt);
                 if (CheckEndCondition())
@@ -82,8 +89,9 @@ public class GameManager : MonoBehaviour {
                 return false;
             else
             {
+                SpawnManager.CitySlot slot = toReplace.citySlot;
                 toReplace.Despawn();
-                ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), toReplace.citySlot.position)).AssignCitySlot(toReplace.citySlot);
+                ((BO_Static)objManager.SpawnObjectFromPool(BuildBuilding(typeToBuy), slot.position)).AssignCitySlot(slot);
                 return true;
             }
         }

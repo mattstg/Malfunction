@@ -126,13 +126,40 @@ public class SpawnManager : MonoBehaviour {
             if(availableSlots > 0)
             {
                 availableSlots--;
+                int maxAttempts = buildingSlots.Length;
                 int random = Random.Range(0, buildingSlots.Length);
-                while (slotOccupied[random])
+                while (slotOccupied[random] && maxAttempts > 0)
                 {
-                    random = (random == buildingSlots.Length - 1) ? 0 : random + 1;
+                    random = Random.Range(0, buildingSlots.Length);
+                    maxAttempts--;
                 }
-                slotOccupied[random] = true;
-                return new CitySlot(random, buildingSlots[random]);
+
+                if(maxAttempts > 0)
+                {
+                    slotOccupied[random] = true;
+                    return new CitySlot(random, buildingSlots[random]);
+                }
+                else
+                {
+                    bool redundancyCheck = false;
+                    int i;
+                    for (i = 0; i < buildingSlots.Length && !redundancyCheck; i++)
+                    {
+                        if (!slotOccupied[i])
+                            redundancyCheck = true;
+                    }
+
+                    if (redundancyCheck)
+                    {
+                        Debug.LogError("Exceeded max attempts, but passed a brute search?!?!");
+                        return new CitySlot(i, buildingSlots[i]);
+                    }
+                    else
+                    {
+                        Debug.LogError("Exceeded max attempts?");
+                        return new CitySlot(-1, Vector3.zero);
+                    }
+                }
             }
             else
             {
@@ -143,8 +170,15 @@ public class SpawnManager : MonoBehaviour {
         
         public void PushSlot(CitySlot citySlot)
         {
-            availableSlots++;
-            slotOccupied[citySlot.slotID] = false;
+            if (slotOccupied[citySlot.slotID])
+            {
+                availableSlots++;
+                slotOccupied[citySlot.slotID] = false;
+            }
+            else
+            {
+                Debug.LogError("Trying to push empty slot?");
+            }
         }
     }
 
