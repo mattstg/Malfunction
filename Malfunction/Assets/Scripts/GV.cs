@@ -36,7 +36,6 @@ public class GV : MonoBehaviour {
             toOut += v3[i].ToString();
         }
         toOut += ")";
-        Debug.Log("TOUT: " + toOut);
         return toOut;
     }
 

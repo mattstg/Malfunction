@@ -48,16 +48,23 @@ public class GameFlow : Flow
             IncorrectLevelPackageGuess();
     }
 
+    static bool submit7 = false;
     private void SolvedLevelPackage()
     {
+        Debug.Log("Solved!");
         numberOfStacksSolved++;
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);
-        ProgressTracker.Instance.SubmitProgress(7);
+        if (!submit7)
+        {
+            ProgressTracker.Instance.SubmitProgress(7);
+            submit7 = true;
+        }
         LOLAudio.Instance.PlayAudio("PositiveFeedback");
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
-}
+        UIManager.Instance.ChangeScienceAmt(++amtOfScience);
+    }
 
     private void IncorrectLevelPackageGuess()
     {
