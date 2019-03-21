@@ -21,4 +21,9 @@ public class ButtonInteractions : MonoBehaviour {
         int ans = int.Parse(GameFlow.uiLinks.ansInputField.text);
         GameFlow.instance.SubmitButtonPressed(ans);
     }
+
+    public void GameOverButtonPressed()
+    {
+        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.MainMenu);
+    }
 }

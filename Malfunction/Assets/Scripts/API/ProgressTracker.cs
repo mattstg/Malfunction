@@ -21,7 +21,7 @@ public class ProgressTracker {
 	}
     #endregion
 
-    public int maxProgress = 8;
+    public int maxProgress = 3;
     public int currentProgress = 1;
     public int score = 0;
     public int maxGrowthHeight = 50;
@@ -43,8 +43,10 @@ public class ProgressTracker {
     public void SubmitProgress(int progressScore)
     {
         if (progressScore > currentProgress)
+        {
             currentProgress = progressScore;
-        SubmitProgress(currentProgress, score);        
+            SubmitProgress(currentProgress, score);
+        }
     }
 
     private void SubmitProgress(int progressNumber, int progressScore)

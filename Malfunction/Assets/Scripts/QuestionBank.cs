@@ -21,13 +21,14 @@ public class QuestionBank
     }
     #endregion Singleton
 
-    Stack<LoLFunction> questionBank = new Stack<LoLFunction>();
+    Stack<LoLFunction> questionBank;
     readonly int questionBankInitialSize = 200;
     public static bool debugMode = false;
 
     public LoLFunction Initialize()
     {
         //Initialize the question bank
+        questionBank = new Stack<LoLFunction>();
         for (int i = questionBankInitialSize; i > 0; --i)
         {
             LoLFunction lf = LoLFunction.GenerateLoLFunction(i);

@@ -20,8 +20,8 @@ public class GameFlow : Flow
 
     const float timeAddedForCorrect = 10;
     const float timeRemovedForWrong = 5;
+    float winningStreak;
     bool isTutorial = true;
-    int winningStreak = 0;
 
     public override void Initialize(int progressNumber)
     {
@@ -37,6 +37,7 @@ public class GameFlow : Flow
         initialized = true;
         numberOfStacksSolved = 0;
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
+        winningStreak = 0;
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
     }
 
@@ -83,9 +84,12 @@ public class GameFlow : Flow
         int i = (int)toBuy;
         if(amtOfScience >= buildingPrices[i])
         {
-            amtOfScience -= buildingPrices[i];
-            gameManager.BuyBuilding(toBuy);
-            UIManager.Instance.ChangeScienceAmt(amtOfScience);
+            bool buildSuccessful = gameManager.BuyBuilding(toBuy); //also is the line that builds
+            if (buildSuccessful)
+            {
+                amtOfScience -= buildingPrices[i];
+                UIManager.Instance.ChangeScienceAmt(amtOfScience);
+            } //else thing wasnt built
         }
         else
         {
@@ -93,7 +97,6 @@ public class GameFlow : Flow
         }
     }
 
-    static bool submit7 = false;
     private void SolvedLevelPackage()
     {
         Debug.Log("Solved!");
@@ -101,11 +104,7 @@ public class GameFlow : Flow
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);
-        if (!submit7)
-        {
-            ProgressTracker.Instance.SubmitProgress(7);
-            submit7 = true;
-        }
+        ProgressTracker.Instance.SubmitProgress(2);        
         LOLAudio.Instance.PlayAudio("PositiveFeedback");
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
         UIManager.Instance.ChangeScienceAmt(++amtOfScience);
@@ -121,9 +120,8 @@ public class GameFlow : Flow
 
     public void EndGame()
     {
-        Debug.Log("GAME OVER");
-        ProgressTracker.Instance.SubmitProgress(8);
-        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.PostGame);
-
+        uiLinks.gameOverPanel.SetActive(true);
+        isTutorial = true; //acts like a pause
+        ProgressTracker.Instance.SubmitProgress(3);        
     }
 }

@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour {
         loadingText.gameObject.SetActive(false);
         progressPt = _progressPt;
         freshGame = (_progressPt <= 1);
+        ProgressTracker.Instance.SubmitProgress(progressPt);
         mainButton.GetComponentInChildren<Text>().text = LangDict.Instance.GetText("StartButton") ;
         mainButton.gameObject.SetActive(true);
         //lessonAgainBtn.gameObject.SetActive(!freshGame);
