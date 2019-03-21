@@ -27,8 +27,11 @@
 	"Title_Input":"Input",
 	"Buy_Rocket":"Buy Rocket",
 	"Buy_Nuke":"Buy Nuke",
-	"Buy_Shield":"Buy Shield"
-	
+	"Buy_Shield":"Buy Shield",
+	"Tutorial_1":"This is the first tutorial panel",
+	"Tutorial_2":"This is the 2rd tutorial panel",
+	"Tutorial_3":"This is the 3th tutorial panel",
+	"Tutorial_NextButton":"Next"
 	 },
 
   "jp": {
