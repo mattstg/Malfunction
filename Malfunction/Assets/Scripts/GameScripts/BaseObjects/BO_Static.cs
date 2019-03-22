@@ -39,4 +39,9 @@ public class BO_Static : BaseObject
             citySlot = SpawnManager.CitySlot.nullSlot;
         }
     }
+
+    public override void DeathFromExplosion()
+    {
+        base.DeathFromExplosion();
+    }
 }

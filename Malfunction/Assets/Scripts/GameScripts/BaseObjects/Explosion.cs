@@ -65,6 +65,20 @@ public class Explosion : BaseObject
         clock = 0;
         SetScale();
         velo = new Vector2(Random.Range(-randomXMax, randomXMax), yVelo);
+        switch (type)
+        {
+            case Type.Explosion:
+                LOLAudio.Instance.PlayExplosion();
+                break;
+            case Type.NukeExplosion:
+                LOLAudio.Instance.PlayNukeExplosion();
+                break;
+        }
+    }
+
+    public override void DeathFromExplosion()
+    {
+        base.DeathFromExplosion();
     }
 
     public void SetScale()
