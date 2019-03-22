@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     private Stage stage = Stage.Uninitialized;
 
     public SceneObjectManager objManager;
+    public BuffManager bman;
 
     public float gameTime = 0;
     public float gameTimeModifier = .2f;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour {
     {
         objManager.Initialize(this);
         stage = Stage.Initialized;
+        bman = new BuffManager(this);
     }
 
     public void Refresh(float dt)
@@ -133,5 +135,6 @@ public class GameManager : MonoBehaviour {
     public void SetStreak(float currentStreak)
     {
         Debug.Log("Current Streak: " + currentStreak);
+        bman.SetStreak((int)currentStreak);
     }
 }

@@ -22,6 +22,8 @@ public class Rocket : BO_Raycast
 
     public override void Refresh(float dt)
     {
+        velocity += velocity.normalized * BuffManager.rocketAcceleration * dt;
+
         if (targetAsteroid != null)
         {
             if (!manager.activeAsteroids.Contains(targetAsteroid))

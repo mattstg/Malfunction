@@ -13,6 +13,8 @@ public class Sam : BO_Static {
     Transform targetAsteroid;
     LineRenderer lineRenderer;
 
+    public Material lineRendMat;
+    public float rayAlfaBuffer = 0.4f;
     public virtual Type RocketTypeToSpawn => Type.Rocket;
 
     public override void Spawn(Vector2 posistion)
@@ -28,9 +30,11 @@ public class Sam : BO_Static {
 
         UpdateTargetting(dt);
 
-        clock += dt;
+        clock += dt * BuffManager.turretFireTimePerc;
 
-        if (clock > rocketTime)
+        UpdateLaser();
+
+        if (clock > rocketTime) // - rocketTime * BuffManager.turretLockOnReduction));
         {
             clock = 0;
             Rocket rocket = (Rocket)manager.SpawnObjectFromPool(RocketTypeToSpawn, transform.position);
@@ -46,6 +50,12 @@ public class Sam : BO_Static {
             int index = Random.Range(0, manager.activeAsteroids.Count);
             targetAsteroid = manager.activeAsteroids.ToArray()[index];
         }
+    }
+
+    public void UpdateLaser()
+    {
+        lineRenderer.startColor = new Color(rayColor.r, rayColor.g, rayColor.b, Mathf.Clamp01((clock / rocketTime) - rayAlfaBuffer + 0.1f));
+        lineRenderer.endColor = new Color(rayColor.r, rayColor.g, rayColor.b, Mathf.Clamp01((clock / rocketTime) - rayAlfaBuffer));
     }
 
     public virtual void UpdateTargetting(float dt)
@@ -67,6 +77,7 @@ public class Sam : BO_Static {
             lineRenderer = transform.gameObject.AddComponent<LineRenderer>();
             lineRenderer.startColor = lineRenderer.endColor = rayColor;
             lineRenderer.startWidth = lineRenderer.endWidth = rayWidth;
+            lineRenderer.material = lineRendMat;
         }
     }
 
