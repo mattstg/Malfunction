@@ -15,7 +15,7 @@ public class LoLFunction  {
 
     public override string ToString()
     {
-        string toOut = coefficents[0].ToString() + coefficentVarNames[0].ToString();
+        string toOut = "f" + GV.OutputSampleInputVariables(inputVars, false) + " = " + coefficents[0].ToString() + coefficentVarNames[0].ToString();
         //int digits = GV.GetNumberOfDigitsFromDifficulty(difficultyLevel);
         for(int i = 1; i < 4; ++i)
         {
@@ -64,7 +64,7 @@ public class LoLFunction  {
 
     private static int[] GenerateLoLFunctionCoefficents(int currentLevel)
     {
-        int numOfCoefficents = Mathf.Min(3,Mathf.Max(1,(int)GameFlow.uiLinks.numberOfCoefficents.Evaluate(currentLevel)));
+        int numOfCoefficents = Mathf.Min(3,Mathf.Max(1, (int)GameFlow.uiLinks.numberOfCoefficents.Evaluate(currentLevel)));
         int[] coefficents = new int[4] { 0, 0, 0, 0 };
         for(int i = 0; i < numOfCoefficents;i++)
             coefficents[i] = GetValue(RangeType.coefficent, currentLevel);

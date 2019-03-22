@@ -39,14 +39,14 @@ public class UIManager  {
             answerFocused = uiLinks.ansInputField.isFocused;
             SetPlaceholderContainerActive(!answerFocused);
         }
-        if (answerFocused && Input.GetKey(KeyCode.Return) && uiLinks.ansInputField.text != "")
+        if (Input.GetKey(KeyCode.Return) && uiLinks.ansInputField.text != "")
             uiLinks.buttonInteractions.SubmitAnswerPressed();
     }
 
     public void ChangeLolFunction(LoLFunction newLolFunction)
     {
         uiLinks.questionText.text = newLolFunction.ToString();
-        uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);    
+        uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);
     }
 
     public void ChangeScienceAmt(int newAmt)
