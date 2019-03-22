@@ -29,6 +29,6 @@ public class ButtonInteractions : MonoBehaviour {
 
     public void MusicSelected(int i)
     {
-
+        LOLAudio.Instance.PlayBackgroundAudio("bgMusic" + i);
     }
 }

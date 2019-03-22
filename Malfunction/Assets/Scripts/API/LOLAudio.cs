@@ -24,13 +24,16 @@ public class LOLAudio
         }
     }
     #endregion
-    //public static readonly string bgMusic = "bgMusic.mp3";
-    //public static readonly string heavyRain = "heavyRain.mp3";
-    ////public static readonly string lightRain = "lightRain.mp3";
+    public static readonly string bgMusic0 = "bgMusic0";
+    public static readonly string bgMusic1 = "bgMusic1";
+    public static readonly string bgMusic2 = "bgMusic2";
+    public static readonly string bgMusicMainMenu = "bgMusic3";
+
+    //public static readonly string lightRain = "lightRain.mp3";
     //public static readonly string land = "land.wav";
     //public static readonly string collectRain = "raindrop.wav";
     //public static readonly string aphidHit = "aphidHit.wav";
-        
+
     //List<string> disabledSounds;
     AudioSource musicPlayer;  //Plays music for non-lol
 
@@ -39,6 +42,8 @@ public class LOLAudio
     AudioClip   buttonClick;
     AudioClip   correctFeedback;
     AudioClip   incorrectFeedback;
+
+    
 
     private LOLAudio()
     {
@@ -59,16 +64,30 @@ public class LOLAudio
     public void PlayBackgroundAudio(string _name)
     {
 #if UNITY_EDITOR
-        GameObject go = new GameObject();
-        go.name = "BgMusic";
-        AudioSource audioSrc = go.AddComponent<AudioSource>();
-        string filePath = "Music/" + System.IO.Path.GetFileNameWithoutExtension(_name);
-        audioSrc.clip = Resources.Load<AudioClip>(filePath);
-        audioSrc.loop = true;
-        audioSrc.Play();
-        bgMusicPlayer = audioSrc;
-        Object.DontDestroyOnLoad(go);
+        if (!bgMusicPlayer)
+        {
+            GameObject go = new GameObject();
+            go.name = "BgMusic";
+            AudioSource audioSrc = go.AddComponent<AudioSource>();
+            string filePath = "Music/" + System.IO.Path.GetFileNameWithoutExtension(_name);
+            audioSrc.clip = Resources.Load<AudioClip>(filePath);
+            audioSrc.loop = true;
+            audioSrc.Play();
+            bgMusicPlayer = audioSrc;
+            Object.DontDestroyOnLoad(go);
+        }
+        else
+        {
+            bgMusicPlayer.Stop();
+            string filePath = "Music/" + System.IO.Path.GetFileNameWithoutExtension(_name);
+            bgMusicPlayer.clip = Resources.Load<AudioClip>(filePath);
+            bgMusicPlayer.Play();
+        }
 #elif UNITY_WEBGL
+        StopAudio("bgMusic0");
+        StopAudio("bgMusic1");
+        StopAudio("bgMusic2");
+        StopAudio("bgMusic3");
         LOLSDK.Instance.PlaySound(_name, true, true);
 #endif
     }
