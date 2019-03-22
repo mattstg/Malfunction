@@ -9,8 +9,10 @@ public class UIGameLinks : MonoBehaviour {
     public Text scienceAmt;
     public Text sampleInputText;
     public InputField ansInputField;
+    public GameObject ansPlaceholderContainer;
     public Button submitButton;
     public GameObject gameOverPanel;
+    public ButtonInteractions buttonInteractions;
 
     [Header("QuestionBalances")]
     public AnimationCurve inputvarUpperRange;

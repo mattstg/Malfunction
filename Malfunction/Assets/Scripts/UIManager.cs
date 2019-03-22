@@ -22,17 +22,25 @@ public class UIManager  {
     }
     #endregion
 
-
     UIGameLinks uiLinks;
+    bool answerFocused = false;
+
     public void Initialize(LoLFunction firstLolFunction)
     {
         uiLinks = GameFlow.uiLinks;
         ChangeLolFunction(firstLolFunction);
+        SetPlaceholderContainerActive(!answerFocused);
     }
 
     public void Update()
     {
-
+        if (uiLinks.ansInputField.isFocused != answerFocused)
+        {
+            answerFocused = uiLinks.ansInputField.isFocused;
+            SetPlaceholderContainerActive(!answerFocused);
+        }
+        if (answerFocused && Input.GetKey(KeyCode.Return) && uiLinks.ansInputField.text != "")
+            uiLinks.buttonInteractions.SubmitAnswerPressed();
     }
 
     public void ChangeLolFunction(LoLFunction newLolFunction)
@@ -44,5 +52,10 @@ public class UIManager  {
     public void ChangeScienceAmt(int newAmt)
     {
         uiLinks.scienceAmt.text = newAmt.ToString();
+    }
+
+    public void SetPlaceholderContainerActive(bool active)
+    {
+        uiLinks.ansPlaceholderContainer.SetActive(active);
     }
 }
