@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SpawnManager : MonoBehaviour {
     public SceneObjectManager manager;
@@ -24,16 +25,11 @@ public class SpawnManager : MonoBehaviour {
     public int shieldGeneratorsToSpawn = 15;
 
     public CityManager city;
-
-    public static Vector3 Shift(Vector3 origion, float xOffset)
-    {
-        return new Vector3(origion.x + xOffset, origion.y, 0);
-    }
-
+    
     public void Initialize()
     {
+
         city = new CityManager(this);
-        
     }
 
 
@@ -58,26 +54,26 @@ public class SpawnManager : MonoBehaviour {
         int samsToBuild = samsToSpawn;
         int nukesToBuild = nukeLaunchersToSpawn;
         int shieldsToSpawn = shieldGeneratorsToSpawn;
-        while (city.availableSlots > 0)
+        while (CitySlot.availableSlots > 0)
         {
-            CitySlot slot = city.PopSlot();
+            CitySlot slot = CitySlot.GetRandomEmptySlot();
             if (samsToBuild > 0)
             {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position)).AssignCitySlot(slot);
+                slot.SetOccupant((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Sam, slot.position));
                 samsToBuild--;
             }
             else if (nukesToBuild > 0)
             {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position)).AssignCitySlot(slot);
+                slot.SetOccupant((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.NukeLauncher, slot.position));
                 nukesToBuild--;
             }else if(shieldsToSpawn > 0)
             {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.ShieldGenerator, slot.position)).AssignCitySlot(slot);
+                slot.SetOccupant((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.ShieldGenerator, slot.position));
                 shieldsToSpawn--;
             }
             else
             {
-                ((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Building, slot.position)).AssignCitySlot(slot);
+                slot.SetOccupant((BO_Static)manager.SpawnObjectFromPool(BaseObject.Type.Building, slot.position));
             }
         }
     }
@@ -89,98 +85,221 @@ public class SpawnManager : MonoBehaviour {
 
     public class CitySlot
     {
-        public int slotID;
-        public Vector3 position;
+        private static Dictionary<BaseObject.Type, List<CitySlot>> boTypeDict;
+        
+        public static CitySlot nullSlot { private set; get; }
+        private static CitySlot[] city;
+        private static List<CitySlot> freeSlotList;
+        public static int availableSlots = 0;
 
-        public CitySlot(int id, Vector3 pos)
+        private static List<CitySlot> TypeToList(BaseObject.Type t)
+        {
+            if (!boTypeDict.ContainsKey(t))
+                boTypeDict.Add(t, new List<CitySlot>());
+            return boTypeDict[t];
+        }
+
+        private static bool TypeAdd(CitySlot toAdd)
+        {
+            if (toAdd.hasOccupant)
+            {
+                TypeToList(toAdd.occupant.type).Add(toAdd);
+                return true;
+            }
+            Debug.LogError("Type add on an empty city slot? fill city slot first...");
+            return false;
+        }
+
+        private static bool TypeRemove(CitySlot toRemove)
+        {
+            if (toRemove.hasOccupant)
+            {
+                List<CitySlot> list = TypeToList(toRemove.occupant.type);
+                if (list.Contains(toRemove))
+                {
+                    list.Remove(toRemove);
+                    return true;
+                }
+                else
+                {
+                    Debug.Log("Trying to type remove an empty city slot.");
+                    return false;
+                }
+            }
+            Debug.LogError("Type add on an empty city slot? fill city slot first...");
+            return false;
+        }
+
+        public static CitySlot[] CreateNewCity(SpawnManager manager)
+        {
+            boTypeDict = new Dictionary<BaseObject.Type, List<CitySlot>>();
+            float totalSize = manager.citySize * 2;
+            int nbSlots = Mathf.FloorToInt(totalSize / manager.buildingSeperation);
+            city = new CitySlot[nbSlots];
+            freeSlotList = new List<CitySlot>(nbSlots);
+            availableSlots = nbSlots;
+
+            for (int i = 0; i < nbSlots; i++)
+            {
+                city[i] = new CitySlot(i, new Vector3(manager.planetFloor.position.x + i * (manager.buildingSeperation) - (totalSize / 2), manager.planetFloor.position.y, 0));
+                freeSlotList.Add(city[i]);
+            }
+            
+            nullSlot = new CitySlot(-1, Vector3.zero);
+            return city;
+        }
+
+        public static bool HasAvailableSlot => availableSlots > 0;
+
+        public static CitySlot GetRandomEmptySlot()
+        {
+            if(availableSlots > 0)
+            {
+                if(freeSlotList.Count > 0)
+                {
+                    int rand = Random.Range(0, freeSlotList.Count);
+                    return freeSlotList.ElementAt(rand);
+                }
+            }
+            Debug.Log("Could not get empty slot, returning nullSlot...");
+            return nullSlot;
+        }
+
+        public static CitySlot GetRandomSlotOfType(BaseObject.Type type)
+        {
+            if (boTypeDict.ContainsKey(type))
+            {
+                List<CitySlot> slotsOfType = boTypeDict[type];
+                if (slotsOfType.Count == 0)
+                    return nullSlot;
+                int rand = Random.Range(0, slotsOfType.Count);
+                return slotsOfType.ElementAt(rand);
+            }
+            Debug.Log("Could not get empty slot, returning nullSlot...");
+            return nullSlot;
+        }
+
+
+        //Non Static
+        public bool IsAvailable => !hasOccupant;
+        
+        public int slotID { private set; get; }
+        public Vector3 position { private set; get; }
+        public BO_Static occupant { private set; get; }
+        private bool hasOccupant = false;
+        public bool IsNull => slotID == -1;
+
+        private CitySlot(int id, Vector3 pos)
         {
             slotID = id;
             position = pos;
+            occupant = null;
+            hasOccupant = false;
+        }
+
+        public bool SetOccupant(BO_Static newOcc)
+        {
+            if (IsAvailable)
+            {
+                if (freeSlotList.Remove(this))
+                    availableSlots--;
+                else
+                    Debug.LogError("available slot desync?");
+                hasOccupant = true;
+                occupant = newOcc;
+                if (!TypeAdd(this))
+                {
+                    Debug.LogError("type lookup dict desync?");
+                }
+                occupant.AssignCitySlot(this);
+                return true;
+            }
+            return false;
+        } 
+
+        public bool EmptyOccupant()
+        {
+            if (!IsAvailable)
+            {
+                if (!freeSlotList.Contains(this))
+                {
+                    freeSlotList.Add(this);
+                    availableSlots++;
+                }
+                else
+                    Debug.LogError("available slot desync?");
+
+                if (!TypeRemove(this))
+                {
+                    Debug.LogError("type lookup dict desync?");
+                }
+                hasOccupant = false;
+                occupant = null;
+                return true;
+            }
+            return false;
         }
     }
 
     public class CityManager
     {
-        public int availableSlots { private set; get; }
-        Vector3[] buildingSlots;
-        bool[] slotOccupied;
-
-        public CityManager(SpawnManager manager) //float citySize, float buildingSeperation)
+        SpawnManager manager;
+        public CityManager(SpawnManager newMan) //float citySize, float buildingSeperation)
         {
-            float totalSize = manager.citySize * 2;
-            int slots = Mathf.FloorToInt(totalSize / manager.buildingSeperation);
-            buildingSlots = new Vector3[slots];
-            slotOccupied = new bool[slots];
-            availableSlots = slots;
-
-            for (int i = 0; i < slots; i++)
-            {
-                buildingSlots[i] = Shift(manager.planetFloor.position, i * (manager.buildingSeperation) - (totalSize / 2));
-            }
-            
-            Stack<Vector3> randomSlots = new Stack<Vector3>();
+            manager = newMan;
+            CitySlot.CreateNewCity(manager);
         }
 
-        public CitySlot PopSlot()
+        public bool BuildNewBuilding(BaseObject.Type typeToBuild)
         {
-            if(availableSlots > 0)
+            if (CitySlot.HasAvailableSlot)
             {
-                int maxAttempts = buildingSlots.Length;
-                int random = Random.Range(0, buildingSlots.Length);
-                while (slotOccupied[random] && maxAttempts > 0)
+                CitySlot s = CitySlot.GetRandomEmptySlot();
+                if (!s.IsNull)
                 {
-                    random = Random.Range(0, buildingSlots.Length);
-                    maxAttempts--;
-                }
-
-                if(maxAttempts > 0)
-                {
-                    slotOccupied[random] = true;
-                    availableSlots--;
-                    return new CitySlot(random, buildingSlots[random]);
+                    s.SetOccupant(((BO_Static)manager.manager.SpawnObjectFromPool(typeToBuild, s.position)));
                 }
                 else
                 {
-                    bool redundancyCheck = false;
-                    int i;
-                    for (i = 0; i < buildingSlots.Length && !redundancyCheck; i++)
-                    {
-                        if (!slotOccupied[i])
-                            redundancyCheck = true;
-                    }
-
-                    if (redundancyCheck)
-                    {
-                        Debug.LogError("Exceeded max attempts, but passed a brute search?!?!");
-                        availableSlots--;
-                        slotOccupied[random] = true;
-                        return new CitySlot(i, buildingSlots[i]);
-                    }
-                    else
-                    {
-                        Debug.LogError("Exceeded max attempts?");
-                        return new CitySlot(-1, Vector3.zero);
-                    }
+                    Debug.LogError("Get Random Empty Slot error?");
+                    return false;
                 }
             }
             else
             {
-                Debug.LogError("Not Enough Slots...");
-                return new CitySlot(-1, Vector2.zero);
+                BaseObject.Type replaceType;
+                CitySlot s = CitySlot.nullSlot;
+                switch (typeToBuild)
+                {
+                    case BaseObject.Type.Sam:
+                        replaceType = BaseObject.Type.Building;
+                        if ((s = CitySlot.GetRandomSlotOfType(replaceType)).IsNull)
+                            return false;
+                        break;
+                    case BaseObject.Type.NukeLauncher:
+                        replaceType = BaseObject.Type.Building;
+
+                        if ((s = CitySlot.GetRandomSlotOfType(replaceType)).IsNull)
+                            replaceType = BaseObject.Type.Sam;
+                        if ((s = CitySlot.GetRandomSlotOfType(replaceType)).IsNull)
+                            return false;
+                        break;
+                    case BaseObject.Type.ShieldGenerator:
+                        replaceType = BaseObject.Type.Building;
+                        if ((s = CitySlot.GetRandomSlotOfType(replaceType)).IsNull)
+                            replaceType = BaseObject.Type.Sam;
+                        if ((s = CitySlot.GetRandomSlotOfType(replaceType)).IsNull)
+                            return false;
+                        break;
+                }
+                
+                if (s.IsNull)
+                    return false;
+                s.occupant.GetReplaced();
+                s.SetOccupant(((BO_Static)manager.manager.SpawnObjectFromPool(typeToBuild, s.position)));
+                return true;
             }
-        }
-        
-        public void PushSlot(CitySlot citySlot)
-        {
-            if (slotOccupied[citySlot.slotID])
-            {
-                availableSlots++;
-                slotOccupied[citySlot.slotID] = false;
-            }
-            else
-            {
-                Debug.LogError("Trying to push empty slot?");
-            }
+            return false;
         }
     }
 

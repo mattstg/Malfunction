@@ -23,14 +23,14 @@ public class BO_Raycast : BaseObject {
         {
             if (isActive == true)
             {
-                InternalDeath();
+                InternalCollisionDeath();
                 isActive = false;
                 gameObject.SetActive(false);
             }
         }
     }
 
-    public override void InternalDeath()
+    public override void InternalCollisionDeath()
     {
         deathRay = new RaycastHit2D();
     }

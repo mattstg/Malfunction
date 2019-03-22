@@ -9,17 +9,17 @@ public class Planet : BaseObject
         return null;
     }
 
-    public override void InternalDeath()
+    public override void InternalCollisionDeath()
     {
         
     }
 
-    public override void Despawn()
+    public override void UpdateQueueRemove()
     {
         
     }
 
-    public override void ExternalDeath()
+    public override void DeathFromExplosion()
     {
         
     }

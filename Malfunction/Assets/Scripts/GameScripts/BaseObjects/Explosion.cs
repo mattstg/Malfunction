@@ -17,14 +17,14 @@ public class Explosion : BaseObject
         return base.CreateCopy();
     }
 
-    public override void InternalDeath()
+    public override void InternalCollisionDeath()
     {
-        base.InternalDeath();
+        base.InternalCollisionDeath();
     }
 
-    public override void Despawn()
+    public override void UpdateQueueRemove()
     {
-        base.Despawn();
+        base.UpdateQueueRemove();
     }
 
     public override void Initialize(SceneObjectManager newManager)
@@ -78,25 +78,25 @@ public class Explosion : BaseObject
                 switch (result.type)
                 {
                     case Type.Building:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.Asteroid:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.Rocket:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.Sam:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.NukeLauncher:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.Nuke:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     case Type.ShieldGenerator:
-                        result.ExternalDeath();
+                        result.DeathFromExplosion();
                         break;
                     default:
                         break;

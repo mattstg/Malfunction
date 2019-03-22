@@ -22,16 +22,16 @@ public class Asteroid : BO_Raycast
         manager.activeAsteroids.Add(transform);
     }
 
-    public override void Despawn()
+    public override void UpdateQueueRemove()
     {
-        base.Despawn();
+        base.UpdateQueueRemove();
         manager.activeAsteroids.Remove(transform);
     }
 
-    public override void InternalDeath()
+    public override void InternalCollisionDeath()
     {
         manager.SpawnObjectFromPool(Type.Explosion, deathRay.point);
-        base.InternalDeath();
+        base.InternalCollisionDeath();
         manager.activeAsteroids.Remove(transform);
     }
     
@@ -42,9 +42,9 @@ public class Asteroid : BO_Raycast
         velocity = (point - transform.position).normalized * startVelocity;
     }
 
-    public override void ExternalDeath()
+    public override void DeathFromExplosion()
     {
-        base.ExternalDeath();
+        base.DeathFromExplosion();
         manager.SpawnObjectFromPool(Type.Explosion, transform.position);
     }
 }

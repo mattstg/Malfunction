@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour {
 
     public bool BuyBuilding(BuyableBuilding typeToBuy)
     {
+        return objManager.spawnManager.city.BuildNewBuilding(BuildBuilding(typeToBuy));
+
+        /*
         if(objManager.spawnManager.city.availableSlots > 0)
         {
             Debug.Log(objManager.spawnManager.city.availableSlots);
@@ -110,7 +113,7 @@ public class GameManager : MonoBehaviour {
                     return true;
                 }
             }
-        }
+        } */
     }
 
     public BaseObject.Type BuildBuilding(BuyableBuilding typeToBuy)

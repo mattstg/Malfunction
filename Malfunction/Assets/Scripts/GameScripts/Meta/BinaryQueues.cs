@@ -28,7 +28,7 @@ public class BinaryQueues  {
             }
             else
             {
-                workingObject.Despawn();
+                workingObject.UpdateQueueRemove();
                 activeObjectDict.Remove(workingObject.transform);;
             }
         }
@@ -63,7 +63,7 @@ public class BinaryQueues  {
         while (MainQueue.Count > 0)
         {
             BaseObject workingObject = MainQueue.Dequeue();
-            workingObject.Despawn();
+            workingObject.UpdateQueueRemove();
             activeObjectDict.Remove(workingObject.transform);
         }
         MainQueue.Clear();
