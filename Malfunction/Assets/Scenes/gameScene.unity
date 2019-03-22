@@ -2411,34 +2411,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114373992047849694, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: gameTimeModifier
-      value: 0.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: nukeLaunchersToSpawn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: shieldGeneratorsToSpawn
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: samsToSpawn
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.78
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.78
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58728c05b089474409a649d2b93de975, type: 2}
   m_IsPrefabAsset: 0
