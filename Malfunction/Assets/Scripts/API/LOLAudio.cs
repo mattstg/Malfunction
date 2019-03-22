@@ -48,10 +48,12 @@ public class LOLAudio
     public void Initialize()
     {
         //bgMusicPlayer = Resources.Load<AudioClip>("Music/land");
+#if UNITY_EDITOR
         buttonClick = Resources.Load<AudioClip>("Music/ButtonClick");
         correctFeedback = Resources.Load<AudioClip>("Music/PositiveFeedback");
         incorrectFeedback = Resources.Load<AudioClip>("Music/NegativeFeedback");
-        PlayBackgroundAudio("bgMusic");
+#endif
+        //PlayBackgroundAudio("bgMusic");
     }
 
     public void PlayBackgroundAudio(string _name)

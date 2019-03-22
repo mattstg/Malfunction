@@ -26,4 +26,9 @@ public class ButtonInteractions : MonoBehaviour {
     {
         GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
     }
+
+    public void MusicSelected(int i)
+    {
+
+    }
 }
