@@ -7,11 +7,6 @@ public class ButtonInteractions : MonoBehaviour {
     public UIGameLinks uiGameLinks;
     GameManager gameManager;
 
-    public void Awake()
-    {
-        
-    }
-
     public void WeaponSelected(int i)
     {
         GameFlow.instance.BuyBuilding((GameManager.BuyableBuilding)i);
