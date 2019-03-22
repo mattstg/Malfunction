@@ -71,8 +71,9 @@ MonoBehaviour:
   coli: {fileID: 58106562453614660}
   type: 8
   pooledQuantity: 10
-  duration: 3
-  sizeRange: {x: 1, y: 6}
+  duration: 2.25
+  sizeRange: {x: 1, y: 5}
+  velo: {x: 0, y: 0}
 --- !u!212 &212552338789051794
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -109,7 +110,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 41868fafa7c831f4b834d811c7734012, type: 3}
-  m_Color: {r: 1, g: 0.67831004, b: 0.042452812, a: 0.50980395}
+  m_Color: {r: 1, g: 0.5147762, b: 0.033018887, a: 0.65882355}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

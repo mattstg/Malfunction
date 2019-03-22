@@ -17,6 +17,9 @@ public class Sam : BO_Static {
     public float rayAlfaBuffer = 0.4f;
     public virtual Type RocketTypeToSpawn => Type.Rocket;
 
+    public Transform turretHead;
+    public Transform firePoint;
+
     public override void Spawn(Vector2 posistion)
     {
         base.Spawn(posistion);
@@ -37,7 +40,7 @@ public class Sam : BO_Static {
         if (clock > rocketTime) // - rocketTime * BuffManager.turretLockOnReduction));
         {
             clock = 0;
-            Rocket rocket = (Rocket)manager.SpawnObjectFromPool(RocketTypeToSpawn, transform.position);
+            Rocket rocket = (Rocket)manager.SpawnObjectFromPool(RocketTypeToSpawn, firePoint.position);
             rocket.SetVelocity();
             rocket.SetTarget(targetAsteroid);
         }
@@ -67,6 +70,7 @@ public class Sam : BO_Static {
         else
         {
             UpdateLineRenderer();
+            turretHead.eulerAngles = new Vector3(0, 0, Vector2.SignedAngle(Vector2.up, (targetAsteroid.position - transform.position)));
         }
     }
 
@@ -83,6 +87,6 @@ public class Sam : BO_Static {
 
     public virtual void UpdateLineRenderer()
     {
-        lineRenderer.SetPositions(new Vector3[] { transform.position, targetAsteroid.transform.position } );
+        lineRenderer.SetPositions(new Vector3[] { firePoint.position, targetAsteroid.transform.position } );
     }
 }
