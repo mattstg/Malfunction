@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Explosion : BaseObject
 {
+    public static Vector2 yBounds;
     public float duration = 1;
     public Vector2 sizeRange = new Vector2(1f, 3f);
+
+    public static float yVelo = 0.2f;
+    public static float randomXMax = 0.2f;
+
+    public Vector2 velo = Vector2.zero;
 
     private Vector3[] sizes;
 
@@ -46,6 +52,7 @@ public class Explosion : BaseObject
         }
         else
         {
+            transform.position = new Vector3(transform.position.x + velo.x * dt, transform.position.y + velo.y * dt, 0);
             clock += dt;
             SetScale();
             TestCollisions();
@@ -57,6 +64,7 @@ public class Explosion : BaseObject
         base.Spawn(posistion);
         clock = 0;
         SetScale();
+        velo = new Vector2(Random.Range(-randomXMax, randomXMax), yVelo);
     }
 
     public void SetScale()
