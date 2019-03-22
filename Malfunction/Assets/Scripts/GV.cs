@@ -25,20 +25,41 @@ public class GV : MonoBehaviour {
 
     public static string OutputSampleInput(int[] v3)
     {
-        string toOut = "(" + v3[0];
+        string toOut = OutputSampleInputVariables(v3, true) + " = ";
+        string values = v3[0].ToString();
+        bool onlyOne = true;
         for (int i = 1; i < 3; ++i)
         {
             if (v3[i] != 0)
             {
-                toOut += ",";
-                toOut += v3[i].ToString();
+                values += ", ";
+                values += v3[i].ToString();
+                onlyOne = false;
             }
         }
-        toOut += ")";
+        if (!onlyOne)
+            values = "(" + values + ")";
+        toOut += values;
         return toOut;
     }
 
-    
+    public static string OutputSampleInputVariables(int[] v3, bool noParensForOnlyX)
+    {
+        string toOut = LoLFunction.coefficentVarNames[0].ToString();
+        bool onlyOne = noParensForOnlyX;
+        for (int i = 1; i < 3; ++i)
+        {
+            if (v3[i] != 0)
+            {
+                toOut += ", ";
+                toOut += LoLFunction.coefficentVarNames[i];
+                onlyOne = false;
+            }
+        }
+        if (!onlyOne)
+            toOut = "(" + toOut + ")";
+        return toOut;
+    }
 
     //public static int GetNumberOfDigitsFromDifficulty(int difficultyLevel)
     //{
