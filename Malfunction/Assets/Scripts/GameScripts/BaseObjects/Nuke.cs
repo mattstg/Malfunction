@@ -6,7 +6,7 @@ public class Nuke : Rocket {
 
     public override Type TypeToSpawnOnDeath => Type.NukeExplosion;
 
-    public override void ExternalDeath()
+    public override void DeathFromExplosion()
     {
         manager.SpawnObjectFromPool(TypeToSpawnOnDeath, transform.position);
         isActive = false;

@@ -45,10 +45,10 @@ public class Rocket : BO_Raycast
         }
     }
 
-    public override void InternalDeath()
+    public override void InternalCollisionDeath()
     {
         manager.SpawnObjectFromPool(TypeToSpawnOnDeath, deathRay.point);
-        base.InternalDeath();
+        base.InternalCollisionDeath();
     }
 
     public override void SetVelocity()
@@ -70,9 +70,9 @@ public class Rocket : BO_Raycast
         lifespan = flatLifespan + additionalLifespanMax * Random.Range(0f, 1f);
     }
 
-    public override void ExternalDeath()
+    public override void DeathFromExplosion()
     {
-        base.ExternalDeath();
+        base.DeathFromExplosion();
         manager.SpawnObjectFromPool(TypeToSpawnOnDeath, transform.position);
     }
 }

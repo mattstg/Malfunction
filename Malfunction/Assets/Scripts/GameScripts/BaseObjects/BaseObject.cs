@@ -34,7 +34,7 @@ public class BaseObject : MonoBehaviour {
         manager.AddObjectToUpdateQueue(this);
     }
 
-    public virtual void Despawn()
+    public virtual void UpdateQueueRemove()
     {
         isActive = false;
         gameObject.SetActive(false);
@@ -49,12 +49,12 @@ public class BaseObject : MonoBehaviour {
         return bo;
     }
 
-    public virtual void InternalDeath()
+    public virtual void InternalCollisionDeath()
     {
 
     }
 
-    public virtual void ExternalDeath()
+    public virtual void DeathFromExplosion()
     {
         isActive = false;
         gameObject.SetActive(false);
