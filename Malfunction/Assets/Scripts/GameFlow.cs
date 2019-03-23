@@ -15,11 +15,9 @@ public class GameFlow : Flow
     LoLFunction currentLevelFunction;
     
     int numberOfStacksSolved;
-    public int amtOfScience = 5000;
+    public int amtOfScience = 0;
     int[] buildingPrices = new int[3]{ 3, 5, 7 };
-
-    const float timeAddedForCorrect = 10;
-    const float timeRemovedForWrong = 5;
+    
     float winningStreak;
     bool isTutorial = true;
 
@@ -102,7 +100,7 @@ public class GameFlow : Flow
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);
         ProgressTracker.Instance.SubmitProgress(2);        
-        LOLAudio.Instance.PlayAudio("PositiveFeedback");
+        //LOLAudio.Instance.PlayAudio("PositiveFeedback");
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
         UIManager.Instance.ChangeScienceAmt(++amtOfScience);
 
@@ -114,7 +112,7 @@ public class GameFlow : Flow
 
     private void IncorrectLevelPackageGuess()
     {
-        LOLAudio.Instance.PlayAudio("NegativeFeedback");
+        //LOLAudio.Instance.PlayAudio("NegativeFeedback");
         amtOfScience--;
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
 
