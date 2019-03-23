@@ -27,13 +27,12 @@ public class LOLAudio
 
     public static readonly int soundPack = 0;   //0(1), 1(0):Kinda thundery and high pitch, 2(0): Super quiet, would need to lower music
     static readonly int numOfExplosionSounds = 9;  //0: 9, 1:6, 2:5
-    static readonly int numOfNukeExplosionSounds = 5;
+    static readonly int numOfNukeExplosionSounds = 4;
 
     public static readonly string bgMusic0 = "bgMusic0";
     public static readonly string bgMusic1 = "bgMusic1";
     public static readonly string bgMusic2 = "bgMusic2";
     public static readonly string bgMusicMainMenu = "bgMusic3";
-    public static readonly int maxExplosionSounds = 20;
     //public static readonly string lightRain = "lightRain.mp3";
     //public static readonly string land = "land.wav";
     //public static readonly string collectRain = "raindrop.wav";
@@ -44,12 +43,10 @@ public class LOLAudio
     
     AudioSource bgMusicPlayer;
     AudioClip   buttonClick;
-    AudioClip   correctFeedback;
-    AudioClip   incorrectFeedback;
-
+    //AudioClip   correctFeedback;
+    //AudioClip   incorrectFeedback;
+    Dictionary<string, AudioClip> audioClips;
     
-
-    Queue<float> explosionExpires;
 
     private LOLAudio()
     {
@@ -59,19 +56,31 @@ public class LOLAudio
     public void Initialize()
     {
         //bgMusicPlayer = Resources.Load<AudioClip>("Music/land");
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         buttonClick = Resources.Load<AudioClip>("Music/ButtonClick");
-        correctFeedback = Resources.Load<AudioClip>("Music/PositiveFeedback");
-        incorrectFeedback = Resources.Load<AudioClip>("Music/NegativeFeedback");
-#endif
+        //correctFeedback = Resources.Load<AudioClip>("Music/PositiveFeedback");
+        //incorrectFeedback = Resources.Load<AudioClip>("Music/aphidHit");
+        audioClips = new Dictionary<string, AudioClip>()
+        {
+            { "PositiveFeedback", Resources.Load<AudioClip>("Music/PositiveFeedback")},
+            {"NegativeFeedback", Resources.Load<AudioClip>("Music/aphidHit") },
+            {"ButtonClick", Resources.Load<AudioClip>("Music/ButtonClick") }
+        };
+
+        for (int i = 0; i < numOfExplosionSounds; i++)
+            audioClips.Add("exp" + i, Resources.Load<AudioClip>("Music/" + soundPack + "/exp" + i));
+        for (int i = 0; i < numOfNukeExplosionSounds; i++)
+            audioClips.Add("nuke" + i, Resources.Load<AudioClip>("Music/nuke" + i));
+
+        //#endif
         //PlayBackgroundAudio("bgMusic");
-        explosionExpires = new Queue<float>();
+        //explosionExpires = new Queue<float>();
 
     }
 
     public void PlayBackgroundAudio(string _name)
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (!bgMusicPlayer)
         {
             GameObject go = new GameObject();
@@ -91,13 +100,13 @@ public class LOLAudio
             bgMusicPlayer.clip = Resources.Load<AudioClip>(filePath);
             bgMusicPlayer.Play();
         }
-#elif UNITY_WEBGL
+/*#elif UNITY_WEBGL
         StopAudio("bgMusic0");
         StopAudio("bgMusic1");
         StopAudio("bgMusic2");
         StopAudio("bgMusic3");
         LOLSDK.Instance.PlaySound(_name, true, true);
-#endif
+#endif*/
     }
 
     public void PlayExplosion()
@@ -121,22 +130,22 @@ public class LOLAudio
 
     public void SetBGLevel(float volume)
     {
-#if UNITY_EDITOR    
+//#if UNITY_EDITOR    
             bgMusicPlayer.volume = volume;
-#elif UNITY_WEBGL
+/*#elif UNITY_WEBGL
         LOLSDK.Instance.ConfigureSound(1, volume, 1); //Should be 0 or 1? who knows
-#endif
+#endif*/
     }
     
     public void PlayAudio(string _name, bool loop = false)
     {
         if (!GV.Sound_Active || !LOLSDK.Instance.IsInitialized)
             return;
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         PlayEditorAudio(_name, loop);        
-#elif UNITY_WEBGL
+/*#elif UNITY_WEBGL
         LOLSDK.Instance.PlaySound(_name, false, loop);
-#endif
+#endif*/
     }
 
     public void StopAudio(string _name)
@@ -153,8 +162,7 @@ public class LOLAudio
             GameObject go = new GameObject();
             go.name = _name;
             AudioSource audioSrc = go.AddComponent<AudioSource>();
-            string filePath = "Music/" + System.IO.Path.GetFileNameWithoutExtension(_name);
-            audioSrc.clip = Resources.Load<AudioClip>(filePath);
+            audioSrc.clip = audioClips[_name];
             audioSrc.loop = true;
             audioSrc.Play();            
             Object.DontDestroyOnLoad(go);
@@ -167,16 +175,14 @@ public class LOLAudio
                 go.name = "musicPlayer";
                 musicPlayer = go.AddComponent<AudioSource>();
             }
-
-            string soundname = System.IO.Path.GetFileNameWithoutExtension(_name);
-            string musicPath;
-            if (soundname.Contains("exp"))
-                musicPath = "Music/" + soundPack + "/" + soundname;
-            else
-                musicPath = "Music/" + soundname;
-
-            AudioClip ac = Resources.Load<AudioClip>(musicPath);            
-            musicPlayer.PlayOneShot(ac);
+            try
+            {
+                musicPlayer.PlayOneShot(audioClips[_name]);
+            }
+            catch
+            {
+                Debug.Log("Could not find clip: " + _name);
+            }
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
         }
