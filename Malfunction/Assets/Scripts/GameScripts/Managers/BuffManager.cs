@@ -12,11 +12,13 @@ public class BuffManager {
     public float maxRocketAcc = 3;
     public float turretLockOnBuff = 0.25f;
 
-    private int currentStreak = 0;
+    private int _currentStreak = 0;
+    private int currentStreak { set { _currentStreak = value; UpdateStreakText(); } get { return _currentStreak; } }
 
     public BuffManager(GameManager newMan)
     {
         manager = newMan;
+        Reset();
     }
 
     public void Reset()
@@ -31,5 +33,10 @@ public class BuffManager {
         currentStreak = newS;
         rocketAcceleration = Mathf.Clamp01(currentStreak / maxStreak) * maxRocketAcc;
         turretFireTimePerc = 1 + Mathf.Clamp01(currentStreak / maxStreak) * turretLockOnBuff;
+    }
+
+    public void UpdateStreakText()
+    {
+        GameFlow.uiLinks.streakText.text = currentStreak.ToString();
     }
 }

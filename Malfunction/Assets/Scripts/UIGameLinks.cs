@@ -7,6 +7,7 @@ public class UIGameLinks : MonoBehaviour {
 
     public Text questionText;
     public Text scienceAmt;
+    public Text streakText;
     public Text sampleInputText;
     public InputField ansInputField;
     public GameObject ansPlaceholderContainer;
