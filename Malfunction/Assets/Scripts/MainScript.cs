@@ -39,7 +39,8 @@ public class MainScript : MonoBehaviour
             if (curFlow == null)
                 return; //This means Initialize hasnt been called yet, can happen in weird Awake/Update way (should not though, but be safe)
             float dt = Time.deltaTime;
-            curFlow.Update(dt);
+            if(curFlow.initialized)
+                curFlow.Update(dt);
         }
     }
 

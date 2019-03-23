@@ -34,10 +34,11 @@ public class GameFlow : Flow
 
         currentLevelFunction = QuestionBank.Instance.Initialize();
         UIManager.Instance.Initialize(currentLevelFunction);
-        initialized = true;
+      
         numberOfStacksSolved = 0;
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
         winningStreak = 0;
+        base.Initialize(progressNumber);
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
     }
 

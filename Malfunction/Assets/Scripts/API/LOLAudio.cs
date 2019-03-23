@@ -24,6 +24,11 @@ public class LOLAudio
         }
     }
     #endregion
+
+    public static readonly int soundPack = 0;   //0(1), 1(0):Kinda thundery and high pitch, 2(0): Super quiet, would need to lower music
+    static readonly int numOfExplosionSounds = 9;  //0: 9, 1:6, 2:5
+    static readonly int numOfNukeExplosionSounds = 5;
+
     public static readonly string bgMusic0 = "bgMusic0";
     public static readonly string bgMusic1 = "bgMusic1";
     public static readonly string bgMusic2 = "bgMusic2";
@@ -42,8 +47,7 @@ public class LOLAudio
     AudioClip   correctFeedback;
     AudioClip   incorrectFeedback;
 
-    static readonly int numOfExplosionSounds = 7;
-    static readonly int numOfNukeExplosionSounds = 3;
+    
 
     Queue<float> explosionExpires;
 
@@ -104,7 +108,7 @@ public class LOLAudio
           //  explosionExpires.Enqueue(Time.time + 3f);
             int expIndex = Random.Range(0, numOfExplosionSounds);
             PlayAudio("exp" + expIndex);
-        Debug.Log("Play explosion called for: " + "exp" + expIndex);
+       // Debug.Log("Play explosion called for: " + "exp" + expIndex);
         //}
     }
 
@@ -112,7 +116,7 @@ public class LOLAudio
     {
         int expIndex = Random.Range(0, numOfNukeExplosionSounds);
         PlayAudio("nuke" + expIndex);
-        Debug.Log("Play explosion called for: " + "nukeexp" + numOfNukeExplosionSounds);
+        //Debug.Log("Play explosion called for: " + "nukeexp" + numOfNukeExplosionSounds);
     }
 
     public void SetBGLevel(float volume)
@@ -163,7 +167,15 @@ public class LOLAudio
                 go.name = "musicPlayer";
                 musicPlayer = go.AddComponent<AudioSource>();
             }
-            AudioClip ac = Resources.Load<AudioClip>("Music/" + System.IO.Path.GetFileNameWithoutExtension(_name));            
+
+            string soundname = System.IO.Path.GetFileNameWithoutExtension(_name);
+            string musicPath;
+            if (soundname.Contains("exp"))
+                musicPath = "Music/" + soundPack + "/" + soundname;
+            else
+                musicPath = "Music/" + soundname;
+
+            AudioClip ac = Resources.Load<AudioClip>(musicPath);            
             musicPlayer.PlayOneShot(ac);
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
             //AudioSource.PlayClipAtPoint(Resources.Load<AudioClip>(_name), new Vector3());
