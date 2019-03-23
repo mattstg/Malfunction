@@ -7,6 +7,9 @@ using System.Linq;
 
 public class GameFlow : Flow
 {
+    bool useChildBot = true;
+    ChildBot childBot;
+
     //LevelPkg currentLevelPkg;
     public static GameFlow instance;
     public static UIGameLinks uiLinks;
@@ -16,7 +19,7 @@ public class GameFlow : Flow
     
     int numberOfStacksSolved;
     public int amtOfScience = 0;
-    int[] buildingPrices = new int[3]{ 3, 5, 7 };
+    int[] buildingPrices = new int[3]{ 2, 3, 3 };
     
     float winningStreak;
     bool isTutorial = true;
@@ -37,6 +40,9 @@ public class GameFlow : Flow
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
         winningStreak = 0;
         base.Initialize(progressNumber);
+
+        if (useChildBot)
+            childBot = new ChildBot();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
     }
 
@@ -47,10 +53,23 @@ public class GameFlow : Flow
             UIManager.Instance.Update();
             gameManager.UpdateGameManager();
             UpdateColorLerp();
+            if (useChildBot)
+                UpdateChildBot();
         }
         else if(isTutorial)
         {
             tutorialPanel.UpdateTutorialPanel();
+        }
+    }
+
+    private void UpdateChildBot()
+    {
+        if(childBot.ShouldChildAttempt(numberOfStacksSolved))
+        {
+            if (childBot.AttemptSolve(numberOfStacksSolved))
+                SolvedLevelPackage();
+            else
+                IncorrectLevelPackageGuess();
         }
     }
     

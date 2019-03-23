@@ -2427,6 +2427,33 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 12.957433
+      value: 13.033751
+      inSlope: 1.3634385
+      outSlope: 1.3634385
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33974552
+    - serializedVersion: 3
+      time: 14.667411
+      value: 11.550342
+      inSlope: Infinity
+      outSlope: Infinity
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    - serializedVersion: 3
+      time: 15
+      value: 5
+      inSlope: 0.52895826
+      outSlope: 0.52895826
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 50
       value: 25
       inSlope: 0
@@ -2450,6 +2477,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 15.016967
+      value: 3.4397073
+      inSlope: -0.76789296
+      outSlope: -0.76789296
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.030053431
     - serializedVersion: 3
       time: 50
       value: 15
@@ -4158,6 +4194,16 @@ Prefab:
     - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
+        type: 2}
+      propertyPath: samsToSpawn
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
+        type: 2}
+      propertyPath: shieldGeneratorsToSpawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58728c05b089474409a649d2b93de975, type: 2}
