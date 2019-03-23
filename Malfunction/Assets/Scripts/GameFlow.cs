@@ -125,6 +125,9 @@ public class GameFlow : Flow
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
         UIManager.Instance.ChangeScienceAmt(++amtOfScience);
 
+        winningStreak++;
+        gameManager.SetStreak(winningStreak);
+
         uiLinks.scienceAmt.color = Color.green;
         lerpTimeRemaining = colorLerpTotalTime;
         lerping = true;
@@ -137,6 +140,9 @@ public class GameFlow : Flow
         //LOLAudio.Instance.PlayAudio("NegativeFeedback");
         amtOfScience = Mathf.Clamp(amtOfScience - 1,0,int.MaxValue);
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
+
+        winningStreak = 0;
+        gameManager.SetStreak(winningStreak);
 
         uiLinks.scienceAmt.color = Color.red;
         lerpTimeRemaining = colorLerpTotalTime;
