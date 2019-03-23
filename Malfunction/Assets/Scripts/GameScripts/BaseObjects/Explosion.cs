@@ -76,6 +76,11 @@ public class Explosion : BaseObject
         }
     }
 
+    public void IncreaseYVelo(float perc)
+    {
+        velo = new Vector2(velo.x, velo.y * perc);
+    }
+
     public override void DeathFromExplosion()
     {
         base.DeathFromExplosion();

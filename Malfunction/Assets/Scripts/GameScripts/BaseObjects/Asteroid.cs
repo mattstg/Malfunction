@@ -30,7 +30,11 @@ public class Asteroid : BO_Raycast
 
     public override void InternalCollisionDeath()
     {
-        if (deathRay.transform.gameObject.layer != LayerMask.NameToLayer("Shield"))
+        if (deathRay.transform.gameObject.layer == LayerMask.NameToLayer("Shield"))
+        {
+            ((Explosion)manager.SpawnObjectFromPool(Type.Explosion, deathRay.point)).IncreaseYVelo(1.5f);
+        }
+        else
         {
             manager.SpawnObjectFromPool(Type.Explosion, deathRay.point);
         }
