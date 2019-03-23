@@ -13,6 +13,8 @@ public class ShieldGenerator : BO_Static {
     {
         base.Spawn(posistion);
         clock = 0;
+        shieldOn = true;
+        shield.gameObject.SetActive(true);
     }
 
     public override void Refresh(float dt)
