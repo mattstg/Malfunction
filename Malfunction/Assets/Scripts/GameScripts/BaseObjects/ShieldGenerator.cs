@@ -7,7 +7,7 @@ public class ShieldGenerator : BO_Static {
 
     float clock = 0;
     bool shieldOn = false;
-    public static float timeToRegen = 10;
+    public static float timeToRegen = 4;
 
     public override void Spawn(Vector2 posistion)
     {

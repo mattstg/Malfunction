@@ -2521,6 +2521,24 @@ MonoBehaviour:
       inWeight: 0.04983939
       outWeight: 0.12397655
     - serializedVersion: 3
+      time: 69.69506
+      value: 9.398869
+      inSlope: 0.14420564
+      outSlope: 0.14420564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 70
+      value: 5
+      inSlope: 0.22338237
+      outSlope: 0.22338237
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.063887276
+    - serializedVersion: 3
       time: 100
       value: 12
       inSlope: 0
@@ -2596,13 +2614,31 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 100
-      value: 25
-      inSlope: 0
-      outSlope: 0
+      time: 69.55627
+      value: 15
+      inSlope: 0.6574038
+      outSlope: 0.6574038
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.049441416
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 70
+      value: 6
+      inSlope: 0.32935345
+      outSlope: 0.32935345
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 25
+      inSlope: 1.2116429
+      outSlope: 1.2116429
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.04632314
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -4424,6 +4460,16 @@ Prefab:
     - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
+        type: 2}
+      propertyPath: gameTimeToMaxTimePerAsteroid
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
+        type: 2}
+      propertyPath: startTimePerAsteroid
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58728c05b089474409a649d2b93de975, type: 2}
