@@ -1,4 +1,4 @@
-{
+﻿{
   "_meta": {
     "NoteForTranslators1": "Please be careful to exactly preserve all formatting tags (like <b>...</b>) and special characters (like \r\n).",
     "NoteForTranslators2": "A mistake in the exact spelling of any of these will always break the formatting and cause text errors.",
@@ -25,12 +25,13 @@
 	"Buy_Rocket":"<size=24>BUY</size> ROCKET",
 	"Buy_Nuke":"<size=24>BUY</size> NUKE",
 	"Buy_Shield":"<size=24>BUY</size> SHIELD",
-	"Tutorial_1":"This is the first tutorial panel",
-	"Tutorial_2":"This is the 2rd tutorial panel",
-	"Tutorial_3":"This is the 3th tutorial panel",
-	"Tutorial_4":"Select your preferred music",
+	"Tutorial_1":"In this game, your goal is to save the earth from destruction by incoming asteroids!\r\n\r\nUse your strategy and mathematical skills to defend your buildings and equipment from the explosive impacts of the deadly asteroids.",
+	"Tutorial_2":"In order to defend against the asteroids, you can buy rockets, nukes, and shields. You need to spend science points to buy these, and you can earn more science points by correctly answering function questions.\r\n\r\nBuying rockets and nukes allows you shoot the asteroids out of the sky before they reach your buildings and equipment. Buying shields gives you extra protection on the ground in case any asteroids escape your rockets and nukes.\r\n\r\nIf all of your buildings and equipment are destroyed, you lose!",
+	"Tutorial_3":"For each function question, you are given a function and the input values for the function. Given this information, you must find the output.\r\n\r\nFor example, if the function is f(x) = 5x + 1, and the input is x = 2, then the output will be 11, which you can calculate by substituting the value of x into the function: (5 × 2) + 1 = 11.",
+    "Tutorial_4": "As you answer more questions, the difficulty will increase. The range of numbers used in the inputs and functions will gradually increase, and eventually you will move from 1 input variable (x) to 2 input variables (x, y) and then 3 input variables (x, y, z).\r\n\r\nMulti-variable functions work in the same way as single-variable functions. For example, if the function is f(x, y, z) = 2x + 3y − 4z, and the input is (x, y, z) = (4, 2, 1), then the output will be 10, which you can calculate by substituting the values of x, y, and z into the function: (2 × 4) + (3 × 2) − (4 × 1) = 8 + 6 − 4 = 10.",
+    "Tutorial_5": "Correct answers will earn you science points. But be careful: incorrect answers will cost you science points!\r\n\r\nIf you continuously answer questions correctly with no mistakes, you will build up a streak! The higher your streak, the faster your rockets and rocket fire rate. However, as soon as you make a mistake, you will lose your streak, and your rocket speed and fire rate will return to normal.",
 	"Tutorial_NextButton":"Next",
-	"GameOverText":"Game over loser",
+	"GameOverText":"Time survived\r\nSuccess rate\r\nCorrect answers\r\nIncorrect answers\r\nBest streak",
     "PlayAgainButton": "Play again",
     "ExitGameButton":  "Exit game"
 	 },

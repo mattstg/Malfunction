@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TutorialPanel : MonoBehaviour {
 
     public Text mainText;
-    string[] jsonHeaders = { "Tutorial_1", "Tutorial_2", "Tutorial_3","Tutorial_4" };
+    string[] jsonHeaders = { "Tutorial_1", "Tutorial_2", "Tutorial_3","Tutorial_4", "Tutorial_5" };
     int headerIndex = 0;
 
     public void Initialize()
@@ -22,7 +22,7 @@ public class TutorialPanel : MonoBehaviour {
     public void NextButtonPressed()
     {
         headerIndex++;
-        if (headerIndex >= 4)
+        if (headerIndex >= 5)
         {
             EndTutorial();
         }

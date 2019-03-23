@@ -17,6 +17,8 @@ public class GameFlow : Flow
     LoLFunction currentLevelFunction;
     
     int numberOfStacksSolved;
+    int numberOfStacksNotSolved;
+    float time = 0f;
     public int amtOfScience = 0;
     int[] buildingPrices = new int[3]{ 2, 3, 3 };
     
@@ -36,6 +38,7 @@ public class GameFlow : Flow
         UIManager.Instance.Initialize(currentLevelFunction);
       
         numberOfStacksSolved = 0;
+        numberOfStacksNotSolved = 0;
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
         winningStreak = 0;
         base.Initialize(progressNumber);
@@ -49,6 +52,7 @@ public class GameFlow : Flow
     {
         if (initialized && !isTutorial)
         {
+            time += dt;
             UIManager.Instance.Update();
             gameManager.UpdateGameManager();
             UpdateColorLerp();
@@ -91,7 +95,6 @@ public class GameFlow : Flow
             SolvedLevelPackage();
         else
             IncorrectLevelPackageGuess();
-
     }
 
     public void BuyBuilding(GameManager.BuyableBuilding toBuy)
@@ -130,6 +133,7 @@ public class GameFlow : Flow
 
     private void IncorrectLevelPackageGuess()
     {
+        numberOfStacksNotSolved++;
         //LOLAudio.Instance.PlayAudio("NegativeFeedback");
         amtOfScience = Mathf.Clamp(amtOfScience - 1,0,int.MaxValue);
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
@@ -162,6 +166,13 @@ public class GameFlow : Flow
     public void EndGame()
     {
         uiLinks.gameOverPanel.SetActive(true);
+        string gameOverStats = GV.SecondsToTimeString(time);
+        float successRate = (numberOfStacksSolved + numberOfStacksNotSolved > 0) ? 100f * numberOfStacksSolved / (numberOfStacksSolved + numberOfStacksNotSolved) : 0;
+        gameOverStats += "\r\n" + successRate.ToString("0.##") + "%";
+        gameOverStats += "\r\n" + numberOfStacksSolved;
+        gameOverStats += "\r\n" + numberOfStacksNotSolved;
+        gameOverStats += "\r\n" + gameManager.bman.bestStreak;
+        uiLinks.gameOverStats.text = gameOverStats;
         isTutorial = true; //acts like a pause
         ProgressTracker.Instance.SubmitProgress(3);        
     }

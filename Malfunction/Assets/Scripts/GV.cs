@@ -60,6 +60,17 @@ public class GV : MonoBehaviour {
             toOut = "(" + toOut + ")";
         return toOut;
     }
+    
+    public static string SecondsToTimeString(float t)
+    {
+        int hours = (int)(t / 3600);
+        int minutes = ((int)(t / 60) % 60);
+        int seconds = (int)(t % 60);
+        string result = minutes + "m : " + seconds + "s";
+        if (hours > 0)
+            result = hours + "h : " + result;
+        return result;
+    }
 
     //public static int GetNumberOfDigitsFromDifficulty(int difficultyLevel)
     //{

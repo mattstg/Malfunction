@@ -14,6 +14,7 @@ public class UIGameLinks : MonoBehaviour {
     public Button submitButton;
     public Text submitText;
     public GameObject gameOverPanel;
+    public Text gameOverStats;
     public ButtonInteractions buttonInteractions;
 
     [Header("QuestionBalances")]
