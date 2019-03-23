@@ -31,7 +31,8 @@
 	"Tutorial_4":"Select your preferred music",
 	"Tutorial_NextButton":"Next",
 	"GameOverText":"Game over loser",
-	"GameOverButton":"Die"
+    "PlayAgainButton": "Play again",
+    "ExitGameButton":  "Exit game"
 	 },
 
   "jp": {
