@@ -258,6 +258,7 @@ public class SpawnManager : MonoBehaviour {
                 if (!s.IsNull)
                 {
                     s.SetOccupant(((BO_Static)manager.manager.SpawnObjectFromPool(typeToBuild, s.position)));
+                    return true;
                 }
                 else
                 {
