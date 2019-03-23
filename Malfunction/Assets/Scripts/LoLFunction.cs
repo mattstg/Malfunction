@@ -27,7 +27,7 @@ public class LoLFunction  {
                 }
                 else
                 {
-                    toOut += " - " + Mathf.Abs(coefficents[i]) + coefficentVarNames[i].ToString();
+                    toOut += " − " + Mathf.Abs(coefficents[i]) + coefficentVarNames[i].ToString();
                 }
             }
         }
