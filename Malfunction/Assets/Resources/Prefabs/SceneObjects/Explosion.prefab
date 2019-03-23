@@ -71,8 +71,9 @@ MonoBehaviour:
   coli: {fileID: 58074776191294010}
   type: 3
   pooledQuantity: 50
-  duration: 1
+  duration: 0.6
   sizeRange: {x: 1, y: 3}
+  velo: {x: 0, y: 0}
 --- !u!212 &212713719288123034
 SpriteRenderer:
   m_ObjectHideFlags: 1

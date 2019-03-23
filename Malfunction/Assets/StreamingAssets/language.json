@@ -12,7 +12,7 @@
     "NoteForTranslators10": "Entries beginning with 'TTS' are for Text To Speech. These have all formatting tags and special characters removed."
   },
   "en": {
-    "Title":"<color=#FFFFFFFF>MAL</color> FUNCTION ",
+    "Title":"<color=#FFFFFFFF>MAL</color>FUNCTION",
 	"StartButton":"Start",
 	"PostGame_BackToMenu":"Return to main menu",
 	"PostGame_PlayAgain":"Play Again",

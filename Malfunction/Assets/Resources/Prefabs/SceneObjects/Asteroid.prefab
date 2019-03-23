@@ -71,7 +71,7 @@ MonoBehaviour:
   coli: {fileID: 58402445324213846}
   type: 2
   pooledQuantity: 50
-  startVelocity: 2
+  startVelocity: 1.25
 --- !u!212 &212524410221377242
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 41868fafa7c831f4b834d811c7734012, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63b908b517598804197948db9d6d9997, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
