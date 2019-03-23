@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour {
         //lessonAgainBtn.GetComponentInChildren<Text>().text = LangDict.Instance.GetText("LessonButton");
         mainTitleText.text = LangDict.Instance.GetText("Title");
         mainTitleText.gameObject.SetActive(true);
-        LOLAudio.Instance.PlayBackgroundAudio("bgMusic3");
+        LOLAudio.Instance.PlayBackgroundAudio("bgMusic");
     }
 
 	public void StartPressed()

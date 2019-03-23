@@ -25,14 +25,11 @@ public class LOLAudio
     }
     #endregion
 
-    public static readonly int soundPack = 0;   //0(1), 1(0):Kinda thundery and high pitch, 2(0): Super quiet, would need to lower music
-    static readonly int numOfExplosionSounds = 9;  //0: 9, 1:6, 2:5
-    static readonly int numOfNukeExplosionSounds = 4;
-
-    public static readonly string bgMusic0 = "bgMusic0";
-    public static readonly string bgMusic1 = "bgMusic1";
-    public static readonly string bgMusic2 = "bgMusic2";
-    public static readonly string bgMusicMainMenu = "bgMusic3";
+    public static readonly int soundPack = 1;   //0(1), 1(0):Kinda thundery and high pitch, 2(0): Super quiet, would need to lower music
+    static readonly int numOfExplosionSounds = 8;  //0: 9, 1:6, 2:5
+    static readonly int numOfNukeExplosionSounds = 3;
+    
+    public static readonly string bgMusicMainMenu = "bgMusic";
     //public static readonly string lightRain = "lightRain.mp3";
     //public static readonly string land = "land.wav";
     //public static readonly string collectRain = "raindrop.wav";

@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour {
 
     public void SetStreak(float currentStreak)
     {
-        Debug.Log("Current Streak: " + currentStreak);
+        //Debug.Log("Current Streak: " + currentStreak);
         bman.SetStreak((int)currentStreak);
     }
 }

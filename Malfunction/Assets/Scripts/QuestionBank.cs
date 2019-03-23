@@ -43,8 +43,8 @@ public class QuestionBank
 
     public LoLFunction Pop()
     {
-        if (questionBank.Count <= 0)
-            Debug.Log("Holy shit someone beat the game....");
+        //if (questionBank.Count <= 0)
+        //    Debug.Log("Holy shit someone beat the game....");
         return questionBank.Pop();
     }
      

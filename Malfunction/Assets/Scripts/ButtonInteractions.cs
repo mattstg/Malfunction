@@ -14,20 +14,19 @@ public class ButtonInteractions : MonoBehaviour {
 
     public void SubmitAnswerPressed()
     {
-        int ans = int.Parse(GameFlow.uiLinks.ansInputField.text);
-        GameFlow.instance.SubmitButtonPressed(ans);
-        uiGameLinks.ansInputField.text = "";
-        uiGameLinks.ansInputField.Select();
-        uiGameLinks.ansInputField.ActivateInputField();
+        if (GameFlow.uiLinks.ansInputField.text != "")
+        {
+            int ans = int.Parse(GameFlow.uiLinks.ansInputField.text);
+            GameFlow.instance.SubmitButtonPressed(ans);
+            uiGameLinks.ansInputField.text = "";
+            uiGameLinks.ansInputField.Select();
+            uiGameLinks.ansInputField.ActivateInputField();
+        }
     }
 
     public void GameOverButtonPressed()
     {
         GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
     }
-
-    public void MusicSelected(int i)
-    {
-        LOLAudio.Instance.PlayBackgroundAudio("bgMusic" + i);
-    }
+    
 }

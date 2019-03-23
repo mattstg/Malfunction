@@ -48,6 +48,7 @@ public class GameFlow : Flow
         {
             UIManager.Instance.Update();
             gameManager.UpdateGameManager();
+            UpdateColorLerp();
         }
         else if(isTutorial)
         {
@@ -92,15 +93,10 @@ public class GameFlow : Flow
                 UIManager.Instance.ChangeScienceAmt(amtOfScience);
             } //else thing wasnt built
         }
-        else
-        {
-            Debug.Log("Not enough science to buy building");
-        }
     }
 
     private void SolvedLevelPackage()
     {
-        Debug.Log("Solved!");
         numberOfStacksSolved++;
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
@@ -109,14 +105,42 @@ public class GameFlow : Flow
         LOLAudio.Instance.PlayAudio("PositiveFeedback");
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
         UIManager.Instance.ChangeScienceAmt(++amtOfScience);
+
+        uiLinks.scienceAmt.color = Color.green;
+        lerpTimeRemaining = colorLerpTotalTime;
+        lerping = true;
+        fromColor = Color.green;
     }
 
     private void IncorrectLevelPackageGuess()
     {
-        Debug.Log("Incorrect guess you fucking failure of a child");
         LOLAudio.Instance.PlayAudio("NegativeFeedback");
         amtOfScience--;
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
+
+        uiLinks.scienceAmt.color = Color.red;
+        lerpTimeRemaining = colorLerpTotalTime;
+        lerping = true;
+        fromColor = Color.red;
+    }
+
+    bool lerping;
+    float lerpTimeRemaining = 0;
+    Color fromColor = Color.white;
+    readonly float colorLerpTotalTime = .75f;    
+    private void UpdateColorLerp()
+    {
+        if (lerping)
+        {
+            lerpTimeRemaining -= Time.deltaTime;
+            float p = Mathf.Clamp01(lerpTimeRemaining / colorLerpTotalTime);
+            uiLinks.scienceAmt.color = Color.Lerp(Color.white, fromColor, p);
+            if (p <= 0)
+            {
+                lerping = false;
+                uiLinks.scienceAmt.color = Color.white;
+            }
+        }
     }
 
     public void EndGame()
