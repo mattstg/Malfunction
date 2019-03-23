@@ -12,8 +12,9 @@ public class BuffManager {
     public float maxRocketAcc = 3;
     public float turretLockOnBuff = 0.25f;
 
+    public int bestStreak = 0;
     private int _currentStreak = 0;
-    private int currentStreak { set { _currentStreak = value; UpdateStreakText(); } get { return _currentStreak; } }
+    public int currentStreak { private set { _currentStreak = value; UpdateStreakText(); } get { return _currentStreak; } }
 
     public BuffManager(GameManager newMan)
     {
@@ -24,6 +25,7 @@ public class BuffManager {
     public void Reset()
     {
         currentStreak = 0;
+        bestStreak = 0;
         rocketAcceleration = 0;
         turretFireTimePerc = 1;
     }
@@ -31,6 +33,8 @@ public class BuffManager {
     public void SetStreak(int newS)
     {
         currentStreak = newS;
+        if (currentStreak > bestStreak)
+            bestStreak = currentStreak;
         rocketAcceleration = Mathf.Clamp01(currentStreak / maxStreak) * maxRocketAcc;
         turretFireTimePerc = 1 + Mathf.Clamp01(currentStreak / maxStreak) * turretLockOnBuff;
     }
