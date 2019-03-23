@@ -28,5 +28,10 @@ public class ButtonInteractions : MonoBehaviour {
     {
         GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
     }
+
+    public void QuitLoLGamePressed()
+    {
+        LoLSDK.LOLSDK.Instance.CompleteGame();
+    }
     
 }

@@ -7,7 +7,6 @@ using System.Linq;
 
 public class GameFlow : Flow
 {
-    bool useChildBot = true;
     ChildBot childBot;
 
     //LevelPkg currentLevelPkg;
@@ -41,7 +40,7 @@ public class GameFlow : Flow
         winningStreak = 0;
         base.Initialize(progressNumber);
 
-        if (useChildBot)
+        if (ChildBot.childBotActive)
             childBot = new ChildBot();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
     }
@@ -53,7 +52,7 @@ public class GameFlow : Flow
             UIManager.Instance.Update();
             gameManager.UpdateGameManager();
             UpdateColorLerp();
-            if (useChildBot)
+            if (ChildBot.childBotActive)
                 UpdateChildBot();
         }
         else if(isTutorial)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChildBot {
-
+    public static bool childBotActive = false;
     const float childAvrgResponse = 6;
     float childAvrgResponseIncrease = .1f;
     float childCorrectResponseProbability = .9f;

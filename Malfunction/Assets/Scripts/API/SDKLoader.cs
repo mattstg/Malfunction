@@ -28,7 +28,7 @@ public class SDKLoader {
 			ILOLSDK webGL = new LoLSDK.WebGL();
 #endif
         // Initialize the object, passing in the WebGL
-        LOLSDK.Init (webGL, "com.Pansimula.LPlant");
+        LOLSDK.Init (webGL, "com.Pansimula.Malfunction");
         // Register event handlers
         LOLSDK.Instance.StartGameReceived += new StartGameReceivedHandler (HandleStartGame);
 	    LOLSDK.Instance.LanguageDefsReceived += new LanguageDefsReceivedHandler (HandleLanguageDefs);
