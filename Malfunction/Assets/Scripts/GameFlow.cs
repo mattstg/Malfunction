@@ -113,7 +113,7 @@ public class GameFlow : Flow
     private void IncorrectLevelPackageGuess()
     {
         //LOLAudio.Instance.PlayAudio("NegativeFeedback");
-        amtOfScience--;
+        amtOfScience = Mathf.Clamp(amtOfScience - 1,0,int.MaxValue);
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
 
         uiLinks.scienceAmt.color = Color.red;

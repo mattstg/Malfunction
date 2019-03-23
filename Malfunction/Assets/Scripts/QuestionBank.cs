@@ -22,7 +22,7 @@ public class QuestionBank
     #endregion Singleton
 
     Stack<LoLFunction> questionBank;
-    readonly int questionBankInitialSize = 200;
+    readonly int questionBankInitialSize = 500;
     public static bool debugMode = false;
 
     public LoLFunction Initialize()
