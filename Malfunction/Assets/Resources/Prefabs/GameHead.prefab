@@ -584,8 +584,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150533944151058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4830272522165354}
   m_RootOrder: 0
@@ -934,9 +934,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.00000047683716, y: -0.23802125}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 1.013091
 --- !u!58 &58019016947217520
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -1308,8 +1308,8 @@ MonoBehaviour:
   manager: {fileID: 114137943589062888}
   planetFloor: {fileID: 4883693412282606}
   sky: {fileID: 4780342347109648}
-  buildingSeperation: 0.45
-  citySize: 5
+  buildingSeperation: 0.65
+  citySize: 6
   startTimePerAsteroid: 1
   maxTimePerAsteroid: 0.1
   gameTimeToMaxTimePerAsteroid: 120
@@ -1755,7 +1755,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: f95de940548b30d4daba11d4d1eefe2a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1801,9 +1801,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 41868fafa7c831f4b834d811c7734012, type: 3}
-  m_Color: {r: 0.35776964, g: 0.02352941, b: 1, a: 0.38431373}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 11bb1d9885e04c24b8babd3087f84343, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
