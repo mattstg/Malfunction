@@ -40,18 +40,6 @@ public class LoLFunction  {
         return string.Format("Level{0}, Function:{1}, Inputs:{2}, Ans:{3}", currentLevel, ToString(), GV.OutputSampleInput(inputVars),Solve());
     }
 
-
-
-    /*
-     * [Header("QuestionBalances")]
-    public AnimationCurve inputvarUpperRange;
-    public AnimationCurve inputvarLowerRange;
-    public AnimationCurve coefficentUpperRange;
-    public AnimationCurve coefficentLowerRange;
-    public AnimationCurve numberOfCoefficents;
-    public AnimationCurve chanceOfConstant;
-    */
-
     public static LoLFunction GenerateLoLFunction(int difficultLevel)
     {
         return new LoLFunction()
