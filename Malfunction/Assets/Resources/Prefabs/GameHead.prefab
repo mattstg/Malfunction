@@ -1288,10 +1288,10 @@ MonoBehaviour:
   type: 7
   pooledQuantity: 10
   rocketTime: 5
-  rayColor: {r: 1, g: 0.48571634, b: 0, a: 1}
-  rayWidth: 0.075
-  lineRendMat: {fileID: 2100000, guid: bc020b40f3d7ca1449e9fb97c25b4d1d, type: 2}
-  rayAlfaBuffer: 0.4
+  rayColor: {r: 1, g: 1, b: 1, a: 1}
+  rayWidth: 0.25
+  lineRendMat: {fileID: 2100000, guid: 235ed7254c4058e44a5fb3597efe106e, type: 2}
+  rayAlfaBuffer: 0.6
   turretHead: {fileID: 4020705950177612}
   firePoint: {fileID: 4827027784374118}
 --- !u!114 &114560904983083640
@@ -1362,10 +1362,10 @@ MonoBehaviour:
   type: 5
   pooledQuantity: 10
   rocketTime: 5
-  rayColor: {r: 1, g: 0, b: 0, a: 1}
-  rayWidth: 0.05
-  lineRendMat: {fileID: 2100000, guid: bc020b40f3d7ca1449e9fb97c25b4d1d, type: 2}
-  rayAlfaBuffer: 0.4
+  rayColor: {r: 1, g: 1, b: 1, a: 1}
+  rayWidth: 0.25
+  lineRendMat: {fileID: 2100000, guid: 0547d6cb32960124fbef4aaf427ef0d9, type: 2}
+  rayAlfaBuffer: 0.6
   turretHead: {fileID: 4967884772722878}
   firePoint: {fileID: 4554321108237090}
 --- !u!114 &114855021390167688
