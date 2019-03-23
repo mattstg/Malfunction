@@ -12,6 +12,7 @@ public class UIGameLinks : MonoBehaviour {
     public InputField ansInputField;
     public GameObject ansPlaceholderContainer;
     public Button submitButton;
+    public Text submitText;
     public GameObject gameOverPanel;
     public ButtonInteractions buttonInteractions;
 

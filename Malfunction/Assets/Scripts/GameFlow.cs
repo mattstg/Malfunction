@@ -125,18 +125,18 @@ public class GameFlow : Flow
     bool lerping;
     float lerpTimeRemaining = 0;
     Color fromColor = Color.white;
-    readonly float colorLerpTotalTime = .75f;    
+    readonly float colorLerpTotalTime = 1.5f;    
     private void UpdateColorLerp()
     {
         if (lerping)
         {
             lerpTimeRemaining -= Time.deltaTime;
             float p = Mathf.Clamp01(lerpTimeRemaining / colorLerpTotalTime);
-            uiLinks.scienceAmt.color = Color.Lerp(Color.white, fromColor, p);
+            uiLinks.scienceAmt.color = uiLinks.streakText.color = uiLinks.submitText.color = Color.Lerp(Color.white, fromColor, p);
             if (p <= 0)
             {
                 lerping = false;
-                uiLinks.scienceAmt.color = Color.white;
+                uiLinks.scienceAmt.color = uiLinks.streakText.color = uiLinks.submitText.color = Color.white;
             }
         }
     }
