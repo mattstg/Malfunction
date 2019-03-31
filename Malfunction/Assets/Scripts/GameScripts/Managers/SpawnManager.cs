@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour {
     public float maxTimePerAsteroid = 0.25f;
     public float gameTimeToMaxTimePerAsteroid = 120;
 
-    public float TimePerAsteroid => Mathf.Lerp(startTimePerAsteroid, maxTimePerAsteroid, manager.manager.gameTime/gameTimeToMaxTimePerAsteroid);
+    public float TimePerAsteroid => GameFlow.uiLinks.timePerAstroid.Evaluate(manager.manager.gameTime); //Mathf.Lerp(startTimePerAsteroid, maxTimePerAsteroid, manager.manager.gameTime/gameTimeToMaxTimePerAsteroid);
 
     private float asteroidClock = 0;
 
@@ -35,9 +35,10 @@ public class SpawnManager : MonoBehaviour {
 
     public void Refresh(float dt)
     {
-
+        Debug.Log("Game Time: " + manager.manager.gameTime);
         if (asteroidClock > TimePerAsteroid)
         {
+            Debug.Log("Astroid summoned, time per astroid: " + TimePerAsteroid);
             asteroidClock = 0;
             float random = Random.Range(-citySize, citySize);
             Vector3 spawnPos = new Vector3(sky.position.x + random, sky.position.y, 0);

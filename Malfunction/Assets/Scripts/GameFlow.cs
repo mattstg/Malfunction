@@ -88,8 +88,8 @@ public class GameFlow : Flow
 
         bool correctFunc = currentLevelFunction.Solve() == attempt;
 
-        winningStreak = (correctFunc) ? winningStreak + 1 : 0;
-        gameManager.SetStreak(winningStreak);
+        //winningStreak = (correctFunc) ? winningStreak + 1 : 0;
+        //gameManager.SetStreak(winningStreak);
 
         if (correctFunc)
             SolvedLevelPackage();
@@ -117,13 +117,15 @@ public class GameFlow : Flow
     private void SolvedLevelPackage()
     {
         numberOfStacksSolved++;
+        int pts = Mathf.Max(currentLevelFunction.currentLevel / 14,1);
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);
         ProgressTracker.Instance.SubmitProgress(2);        
         //LOLAudio.Instance.PlayAudio("PositiveFeedback");
         UIManager.Instance.ChangeLolFunction(currentLevelFunction);
-        UIManager.Instance.ChangeScienceAmt(++amtOfScience);
+        amtOfScience += pts;
+        UIManager.Instance.ChangeScienceAmt(amtOfScience);
 
         winningStreak++;
         gameManager.SetStreak(winningStreak);

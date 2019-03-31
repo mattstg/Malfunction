@@ -31,11 +31,16 @@ public class QuestionBank
         questionBank = new Stack<LoLFunction>();
         for (int i = questionBankInitialSize; i > 0; --i)
         {
-            LoLFunction lf = LoLFunction.GenerateLoLFunction(i);
-            if(debugMode)
-                Debug.Log(lf.DebugOutput());
+            LoLFunction lf;
+            if (i % 5 == 0 && i <= 25)
+            {
+                lf = LoLFunction.GenerateLoLFunction(i,true);
+            }
+            else
+            {
+                lf = LoLFunction.GenerateLoLFunction(i,false);
+            }
             questionBank.Push(lf);
-
         }
         return questionBank.Pop();
 

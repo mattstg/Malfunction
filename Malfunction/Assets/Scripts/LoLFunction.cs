@@ -7,10 +7,14 @@ public class LoLFunction  {
     public int currentLevel;
     public int[] coefficents = new int[4];
     public int[] inputVars = new int[3];
+    public bool isDumbGraphFunction = false;
 
     public int Solve()
     {
-        return inputVars[0]*coefficents[0] + inputVars[1] * coefficents[1] + inputVars[2] * coefficents[2] + coefficents[3];
+        if (!isDumbGraphFunction)
+            return inputVars[0] * coefficents[0] + inputVars[1] * coefficents[1] + inputVars[2] * coefficents[2] + coefficents[3];
+        else
+            return inputVars[0] * 2;
     }
 
     public override string ToString()
@@ -40,14 +44,27 @@ public class LoLFunction  {
         return string.Format("Level{0}, Function:{1}, Inputs:{2}, Ans:{3}", currentLevel, ToString(), GV.OutputSampleInput(inputVars),Solve());
     }
 
-    public static LoLFunction GenerateLoLFunction(int difficultLevel)
+    public static LoLFunction GenerateLoLFunction(int difficultLevel, bool _isDumbGraphFunction)
     {
-        return new LoLFunction()
+        if (!_isDumbGraphFunction)
         {
-            coefficents = GenerateLoLFunctionCoefficents(difficultLevel),
-            inputVars = GenerateLoLInputVars(difficultLevel),
-            currentLevel = difficultLevel
-        };        
+            return new LoLFunction()
+            {
+                coefficents = GenerateLoLFunctionCoefficents(difficultLevel),
+                inputVars = GenerateLoLInputVars(difficultLevel),
+                currentLevel = difficultLevel
+            };
+        }
+        else
+        {
+            return new LoLFunction()
+            {
+                coefficents = new int[] { 0, 0, 0 },
+                inputVars = new int[] {Random.Range(0,9),0,0},
+                isDumbGraphFunction = true,
+                currentLevel = difficultLevel
+            };
+        }        
     }
 
     private static int[] GenerateLoLFunctionCoefficents(int currentLevel)

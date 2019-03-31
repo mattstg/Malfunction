@@ -16,6 +16,8 @@ public class UIGameLinks : MonoBehaviour {
     public GameObject gameOverPanel;
     public Text gameOverStats;
     public ButtonInteractions buttonInteractions;
+    public GameObject normalFunctionObject;
+    public GameObject graphFunctionObject;
 
     [Header("QuestionBalances")]
     public AnimationCurve inputvarUpperRange;
@@ -24,5 +26,6 @@ public class UIGameLinks : MonoBehaviour {
     public AnimationCurve coefficentLowerRange;
     public AnimationCurve numberOfCoefficents;
     public AnimationCurve chanceOfConstant;
+    public AnimationCurve timePerAstroid;
 
 }

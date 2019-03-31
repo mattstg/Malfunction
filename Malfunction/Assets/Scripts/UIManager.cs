@@ -45,8 +45,20 @@ public class UIManager  {
 
     public void ChangeLolFunction(LoLFunction newLolFunction)
     {
-        uiLinks.questionText.text = newLolFunction.ToString();
-        uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);
+        if (!newLolFunction.isDumbGraphFunction)
+        {
+            uiLinks.questionText.text = newLolFunction.ToString();
+            uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);
+            uiLinks.graphFunctionObject.SetActive(false);
+            uiLinks.normalFunctionObject.SetActive(true);
+        }
+        else
+        {
+            //uiLinks.questionText.text = newLolFunction.ToString();
+            uiLinks.sampleInputText.text = GV.OutputSampleInput(newLolFunction.inputVars);
+            uiLinks.graphFunctionObject.SetActive(true);
+            uiLinks.normalFunctionObject.SetActive(false);
+        }
     }
 
     public void ChangeScienceAmt(int newAmt)
