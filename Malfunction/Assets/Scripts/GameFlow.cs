@@ -128,7 +128,7 @@ public class GameFlow : Flow
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
 
         winningStreak++;
-        gameManager.SetStreak(winningStreak);
+        //gameManager.SetStreak(winningStreak);
 
         uiLinks.scienceAmt.color = Color.green;
         lerpTimeRemaining = colorLerpTotalTime;
@@ -144,7 +144,7 @@ public class GameFlow : Flow
         UIManager.Instance.ChangeScienceAmt(amtOfScience);
 
         winningStreak = 0;
-        gameManager.SetStreak(winningStreak);
+        //gameManager.SetStreak(winningStreak);
 
         uiLinks.scienceAmt.color = Color.red;
         lerpTimeRemaining = colorLerpTotalTime;
