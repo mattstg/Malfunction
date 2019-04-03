@@ -20,7 +20,7 @@ public class GameFlow : Flow
     int numberOfStacksNotSolved;
     float time = 0f;
     public int amtOfScience = 0;
-    int[] buildingPrices = new int[3]{ 2, 3, 3 };
+    int[] buildingPrices = new int[3]{ 3, 4, 4 };
     
     float winningStreak;
     bool isTutorial = true;
