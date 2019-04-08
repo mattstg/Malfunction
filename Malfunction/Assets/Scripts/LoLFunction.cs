@@ -8,13 +8,14 @@ public class LoLFunction  {
     public int[] coefficents = new int[4];
     public int[] inputVars = new int[3];
     public bool isDumbGraphFunction = false;
+    public bool isGraphCoefficientInverse = false;
 
     public int Solve()
     {
         if (!isDumbGraphFunction)
             return inputVars[0] * coefficents[0] + inputVars[1] * coefficents[1] + inputVars[2] * coefficents[2] + coefficents[3];
         else
-            return inputVars[0] * 2;
+            return (isGraphCoefficientInverse) ? inputVars[0] / coefficents[0] + coefficents[3] : inputVars[0] * coefficents[0] + coefficents[3];
     }
 
     public override string ToString()
@@ -57,10 +58,19 @@ public class LoLFunction  {
         }
         else
         {
+            int inverse = Random.Range(0, 2);
+            bool isInverse = (inverse == 1);
+            int coefficient = Random.Range(1, 4);
+            int input;
+            input = Random.Range(0, 9);
+            if (isInverse)
+                while (input % coefficient != 0)
+                    input = Random.Range(0, 9);
             return new LoLFunction()
             {
-                coefficents = new int[] { 0, 0, 0 },
-                inputVars = new int[] {Random.Range(0,9),0,0},
+                isGraphCoefficientInverse = isInverse,
+                coefficents = new int[] { coefficient, 0, 0, Random.Range(0, 5) },
+                inputVars = new int[] { input, 0, 0 },
                 isDumbGraphFunction = true,
                 currentLevel = difficultLevel
             };

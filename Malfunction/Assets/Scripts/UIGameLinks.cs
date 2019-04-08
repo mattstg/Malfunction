@@ -16,8 +16,12 @@ public class UIGameLinks : MonoBehaviour {
     public GameObject gameOverPanel;
     public Text gameOverStats;
     public ButtonInteractions buttonInteractions;
-    public GameObject normalFunctionObject;
     public GameObject graphFunctionObject;
+    public RectTransform graph;
+    public List<Text> graphTextX;
+    public List<Text> graphTextY;
+    public RectTransform graphCurve;
+
 
     [Header("QuestionBalances")]
     public AnimationCurve inputvarUpperRange;
