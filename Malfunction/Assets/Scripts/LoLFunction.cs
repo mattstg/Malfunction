@@ -62,10 +62,17 @@ public class LoLFunction  {
             bool isInverse = (inverse == 1);
             int coefficient = Random.Range(1, 4);
             int input;
-            input = Random.Range(0, 9);
             if (isInverse)
-                while (input % coefficient != 0)
+            {
+                do
                     input = Random.Range(0, 9);
+                while (input % coefficient != 0);
+            }
+            else
+            {
+                int max = (coefficient == 1) ? 8 : (coefficient == 2) ? 6 : 4;
+                input = Random.Range(0, max + 1);
+            }
             return new LoLFunction()
             {
                 isGraphCoefficientInverse = isInverse,
