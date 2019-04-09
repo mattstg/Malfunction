@@ -17,6 +17,7 @@ public class Explosion : BaseObject
 
     private float clock = 0;
     private ContactFilter2D contactFilter;
+    private bool alreadyKilledBuilding = false;
 
     public override BaseObject CreateCopy()
     {
@@ -62,6 +63,7 @@ public class Explosion : BaseObject
     public override void Spawn(Vector2 posistion)
     {
         base.Spawn(posistion);
+        alreadyKilledBuilding = false;
         clock = 0;
         SetScale();
         velo = new Vector2(Random.Range(-randomXMax, randomXMax), yVelo);
@@ -105,25 +107,45 @@ public class Explosion : BaseObject
                 switch (result.type)
                 {
                     case Type.Building:
-                        result.DeathFromExplosion();
+                        if (!alreadyKilledBuilding)
+                        {
+                            result.DeathFromExplosion();
+                            alreadyKilledBuilding = true;
+                        }
                         break;
                     case Type.Asteroid:
                         result.DeathFromExplosion();
                         break;
                     case Type.Rocket:
-                        result.DeathFromExplosion();
+                        if (!alreadyKilledBuilding)
+                        {
+                            result.DeathFromExplosion();
+                            alreadyKilledBuilding = true;
+                        }
                         break;
                     case Type.Sam:
-                        result.DeathFromExplosion();
+                        if (!alreadyKilledBuilding)
+                        {
+                            result.DeathFromExplosion();
+                            alreadyKilledBuilding = true;
+                        }
                         break;
                     case Type.NukeLauncher:
-                        result.DeathFromExplosion();
+                        if (!alreadyKilledBuilding)
+                        {
+                            result.DeathFromExplosion();
+                            alreadyKilledBuilding = true;
+                        }
                         break;
                     case Type.Nuke:
                         result.DeathFromExplosion();
                         break;
                     case Type.ShieldGenerator:
-                        result.DeathFromExplosion();
+                        if (!alreadyKilledBuilding)
+                        {
+                            result.DeathFromExplosion();
+                            alreadyKilledBuilding = true;
+                        }
                         break;
                     default:
                         break;

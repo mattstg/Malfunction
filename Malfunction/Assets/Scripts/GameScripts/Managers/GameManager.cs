@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
     public enum Stage { Uninitialized = 0, Initialized = 1, GameRunning = 2, GameOver = 3 }
     public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
-    public Queue<float> waveTimes = new Queue<float>(new[] { 24.8f, 51.6f, 82.2f, 110.1f, 181.1f, 246.1f, 280.3f, 350f, 400.7f});
+    public Queue<float> waveTimes = new Queue<float>(new[] { 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
     public int currentWave = 0;
 
     public SceneObjectManager objManager;
