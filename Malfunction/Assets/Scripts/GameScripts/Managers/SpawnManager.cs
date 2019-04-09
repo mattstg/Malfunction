@@ -35,10 +35,10 @@ public class SpawnManager : MonoBehaviour {
 
     public void Refresh(float dt)
     {
-        Debug.Log("Game Time: " + manager.manager.gameTime);
+        //Debug.Log("Game Time: " + manager.manager.gameTime);
         if (asteroidClock > TimePerAsteroid)
         {
-            Debug.Log("Astroid summoned, time per astroid: " + TimePerAsteroid);
+            //Debug.Log("Astroid summoned, time per astroid: " + TimePerAsteroid);
             asteroidClock = 0;
             float random = Random.Range(-citySize, citySize);
             Vector3 spawnPos = new Vector3(sky.position.x + random, sky.position.y, 0);

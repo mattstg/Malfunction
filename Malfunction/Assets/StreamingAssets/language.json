@@ -36,7 +36,7 @@
     "Tutorial_9":"In order to earn Science points and buy towers, you need to correctly answer function questions. There are two types of function questions: function rule questions, and function graph questions.\r\n\r\nFor each function rule question, you are given a function rule and the input values for the function. Given this information, you must find the output.\r\n\r\nFor each function graph question, you are given a function graph and the input value for the function. Given this information, you must find the output.",
     "Tutorial_10":"As you answer more questions, the difficulty will increase. Eventually, you will move from function rule questions with 1 input variable (x) to those with 2 input variables (x, y) and 3 input variables (x, y, z).\r\n\r\nMulti-variable linear functions work in the same way as single-variable linear functions. For example, if the function is f(x, y, z) = 2x + 3y − 4z, and the input is (x, y, z) = (4, 2, 1), then the output will be 10, which you can calculate by substituting the values of x, y, and z into the function rule: (2 × 4) + (3 × 2) − (4 × 1) = 8 + 6 − 4 = 10.",
     "Tutorial_11":"Correct answers will earn you science points. But be careful: incorrect answers will cost you science points!",
-    "Tutorial_12":"The game is about to begin. Good luck!",
+    "Tutorial_12":"The game is about to begin. See how many waves you can survive! Good luck!",
 	"Tutorial_NextButton":"Next",
 	"GameOverText":"Time survived\r\nWaves survived\r\nSuccess rate\r\nCorrect answers\r\nIncorrect answers",
     "PlayAgainButton": "Play again",
