@@ -6,12 +6,14 @@ public class GameManager : MonoBehaviour {
     public enum Stage { Uninitialized = 0, Initialized = 1, GameRunning = 2, GameOver = 3 }
     public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
+    public Queue<float> waveTimes = new Queue<float>(new[] { 24.8f, 51.6f, 82.2f, 110.1f, 181.1f, 246.1f, 280.3f, 350f, 400.7f});
+    public int currentWave = 0;
 
     public SceneObjectManager objManager;
     public BuffManager bman;
 
     public float gameTime = 0;
-    public float gameTimeModifier = .2f;
+    public float gameTimeModifier = 5f;
     
     public bool buildTrigger = false;
 
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour {
                 }
                 gameTime += dt;
                 objManager.Refresh(dt);
+                CheckNewWave();
                 if (CheckEndCondition())
                     GameEnd();
                 break;
@@ -132,9 +135,13 @@ public class GameManager : MonoBehaviour {
         return BaseObject.Type.Building;
     }
 
-    public void SetStreak(float currentStreak)
+    public void CheckNewWave()
     {
-        //Debug.Log("Current Streak: " + currentStreak);
-        bman.SetStreak((int)currentStreak);
+        if (waveTimes.Count > 0 && gameTime + 2f >= waveTimes.Peek())
+        {
+            waveTimes.Dequeue();
+            currentWave++;
+            UIManager.Instance.NextWave(currentWave);
+        }
     }
 }

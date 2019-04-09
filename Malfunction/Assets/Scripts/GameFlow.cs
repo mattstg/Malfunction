@@ -162,11 +162,11 @@ public class GameFlow : Flow
         {
             lerpTimeRemaining -= Time.deltaTime;
             float p = Mathf.Clamp01(lerpTimeRemaining / colorLerpTotalTime);
-            uiLinks.scienceAmt.color = uiLinks.streakText.color = uiLinks.submitText.color = Color.Lerp(Color.white, fromColor, p);
+            uiLinks.scienceAmt.color = uiLinks.submitText.color = Color.Lerp(Color.white, fromColor, p);
             if (p <= 0)
             {
                 lerping = false;
-                uiLinks.scienceAmt.color = uiLinks.streakText.color = uiLinks.submitText.color = Color.white;
+                uiLinks.scienceAmt.color = uiLinks.submitText.color = Color.white;
             }
         }
     }
@@ -176,10 +176,10 @@ public class GameFlow : Flow
         uiLinks.gameOverPanel.SetActive(true);
         string gameOverStats = GV.SecondsToTimeString(time);
         float successRate = (numberOfStacksSolved + numberOfStacksNotSolved > 0) ? 100f * numberOfStacksSolved / (numberOfStacksSolved + numberOfStacksNotSolved) : 0;
+        gameOverStats += "\r\n" + gameManager.currentWave;
         gameOverStats += "\r\n" + successRate.ToString("0.##") + "%";
         gameOverStats += "\r\n" + numberOfStacksSolved;
         gameOverStats += "\r\n" + numberOfStacksNotSolved;
-        gameOverStats += "\r\n" + gameManager.bman.bestStreak;
         uiLinks.gameOverStats.text = gameOverStats;
         isTutorial = true; //acts like a pause
         ProgressTracker.Instance.SubmitProgress(3);        

@@ -26,6 +26,12 @@ public class UIManager  {
     bool answerFocused = false;
     float graphAspect;
 
+    private float timer = 0f;
+    private bool incomingWave = false;
+    private readonly float totalTime = 5f;
+    private readonly float fadeInTime = 4.75f;
+    private readonly float fadeOutTime = 2f;
+
     public void Initialize(LoLFunction firstLolFunction)
     {
         uiLinks = GameFlow.uiLinks;
@@ -33,6 +39,8 @@ public class UIManager  {
         SetPlaceholderContainerActive(!answerFocused);
         Rect rect = uiLinks.graph.rect;
         graphAspect = (rect.width > 0) ? rect.height / rect.width : 0f;
+        timer = 0f;
+        SetIncomingWaveAlpha(0f);
     }
 
     public void Update()
@@ -44,6 +52,35 @@ public class UIManager  {
         }
         if (Input.GetKey(KeyCode.Return) && uiLinks.ansInputField.text != "")
             uiLinks.buttonInteractions.SubmitAnswerPressed();
+        if (incomingWave)
+            UpdateIncomingWave();
+    }
+
+    public void UpdateIncomingWave()
+    {
+        timer -= Time.deltaTime;
+        if (timer > fadeInTime)
+        {
+            SetIncomingWaveAlpha((timer - totalTime) / (fadeInTime - totalTime));
+        }
+        else if (timer < fadeOutTime)
+        {
+            if (timer <= 0f)
+            {
+                timer = 0f;
+                incomingWave = false;
+            }
+            SetIncomingWaveAlpha(timer / fadeOutTime);
+        }
+        else
+            SetIncomingWaveAlpha(1f);
+    }
+
+    public void SetIncomingWaveAlpha(float alpha)
+    {
+        Color c = uiLinks.incomingWavePanel.color;
+        c.a = Mathf.Clamp01(alpha);
+        uiLinks.incomingWavePanel.color = uiLinks.incomingWaveText.color = c;
     }
 
     public void ChangeLolFunction(LoLFunction newLolFunction)
@@ -92,5 +129,13 @@ public class UIManager  {
     public void SetPlaceholderContainerActive(bool active)
     {
         uiLinks.ansPlaceholderContainer.SetActive(active);
+    }
+
+    public void NextWave(int wave)
+    {
+        uiLinks.waveText.text = wave.ToString();
+        SetIncomingWaveAlpha(0f);
+        timer = totalTime;
+        incomingWave = true;
     }
 }

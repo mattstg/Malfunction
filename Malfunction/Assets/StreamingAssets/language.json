@@ -31,7 +31,7 @@
     "Tutorial_4": "As you answer more questions, the difficulty will increase. Eventually you will move from 1 input variable (x) to 2 input variables (x, y) and then 3 input variables (x, y, z).\r\n\r\nMulti-variable functions work in the same way as single-variable functions. For example, if the function is f(x, y, z) = 2x + 3y − 4z, and the input is (x, y, z) = (4, 2, 1), then the output will be 10, which you can calculate by substituting the values of x, y, and z into the function: (2 × 4) + (3 × 2) − (4 × 1) = 8 + 6 − 4 = 10.",
     "Tutorial_5": "Correct answers will earn you science points. But be careful: incorrect answers will cost you science points!\r\n\r\nIf you continuously answer questions correctly with no mistakes, you will build up a streak! The higher your streak, the faster your rockets and rocket fire rate. However, as soon as you make a mistake, you will lose your streak, and your rocket speed and fire rate will return to normal.",
 	"Tutorial_NextButton":"Next",
-	"GameOverText":"Time survived\r\nSuccess rate\r\nCorrect answers\r\nIncorrect answers\r\nBest streak",
+	"GameOverText":"Time survived\r\nWaves survived\r\nSuccess rate\r\nCorrect answers\r\nIncorrect answers",
     "PlayAgainButton": "Play again",
     "ExitGameButton":  "Exit game"
 	 },

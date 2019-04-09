@@ -7,7 +7,7 @@ public class UIGameLinks : MonoBehaviour {
 
     public Text questionText;
     public Text scienceAmt;
-    public Text streakText;
+    public Text waveText;
     public Text sampleInputText;
     public InputField ansInputField;
     public GameObject ansPlaceholderContainer;
@@ -21,6 +21,8 @@ public class UIGameLinks : MonoBehaviour {
     public List<Text> graphTextX;
     public List<Text> graphTextY;
     public RectTransform graphCurve;
+    public Image incomingWavePanel;
+    public Text incomingWaveText;
 
 
     [Header("QuestionBalances")]
