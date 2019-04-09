@@ -41,7 +41,7 @@
 	"GameOverText":"Time survived\r\nWaves survived\r\nSuccess rate\r\nCorrect answers\r\nIncorrect answers",
     "PlayAgainButton": "Play again",
     "ExitGameButton":  "Exit game",
-	"ResetGame": "Reset Game"
+	"RestartGame": "RESTART"
 	 },
 
   "jp": {
