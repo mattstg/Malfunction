@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
 
     public void Refresh(float dt)
     {
-        Debug.Log("Game Time: " + manager.manager.gameTime);
+        //Debug.Log("Game Time: " + manager.manager.gameTime);
         if (asteroidClock > TimePerAsteroid)
         {
             Debug.Log("Astroid summoned, time per astroid: " + TimePerAsteroid);

@@ -58,15 +58,13 @@ public class LoLFunction  {
         }
         else
         {
-            int inverse = Random.Range(0, 2);
-            bool isInverse = (inverse == 1);
+            bool isInverse = (Random.Range(0, 2) == 1);
             int coefficient = Random.Range(1, 4);
             int input;
             if (isInverse)
             {
-                do
-                    input = Random.Range(0, 9);
-                while (input % coefficient != 0);
+                int max = 8 / coefficient + 1;
+                input = Random.Range(0, max) * coefficient;
             }
             else
             {
