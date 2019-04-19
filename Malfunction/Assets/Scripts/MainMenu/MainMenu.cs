@@ -31,7 +31,7 @@ public class MainMenu : MonoBehaviour {
 	public void StartPressed()
     {
         ProgressTracker.Instance.SubmitProgress(1); //Congrats the first arbitrary checkpoint is the start button
-        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
+        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Tutorial);
         //if (progressPt <= GV.LastTutorialProgressPoint)
         //{
         //    ProgressTracker.Instance.SubmitProgress(1);
