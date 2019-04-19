@@ -114,10 +114,12 @@ public class GameFlow : Flow
         }
     }
 
+    
+
     private void SolvedLevelPackage()
     {
         numberOfStacksSolved++;
-        int pts = Mathf.Max(currentLevelFunction.currentLevel / 14,1);
+        int pts = Mathf.Max(currentLevelFunction.currentLevel / 15,1);
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);

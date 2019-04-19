@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour {
     public enum Stage { Uninitialized = 0, Initialized = 1, GameRunning = 2, GameOver = 3 }
     public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
-    public Queue<float> waveTimes = new Queue<float>(new[] { 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
+    public Queue<float> waveTimes = new Queue<float>(new[] { 390f, 300f, 210f, 120f, 30f});   //{ 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
+    float[] timePerAsteroid = { .7f, .52f, .36f, .22f, .17f };
     public int currentWave = 0;
 
     public SceneObjectManager objManager;
@@ -14,12 +15,38 @@ public class GameManager : MonoBehaviour {
 
     public float gameTime = 0;
     public float gameTimeModifier = 5f;
-    
+    public float timeRemaining = 480;
     public bool buildTrigger = false;
 
     public void UpdateGameManager()
     {
         Refresh(Time.deltaTime * gameTimeModifier);
+        UpdateTimeRemaining();
+
+    }
+
+    private void StartNextWave(int waveNumber)
+    {
+        SpawnManager.instance.TimePerAsteroid = timePerAsteroid[currentWave - 1];// Mathf.Lerp(.85f, .2f, (currentWave / 6f));
+        Debug.Log("is now: " + SpawnManager.instance.TimePerAsteroid);
+        StartCoroutine(StopWave());
+    }
+
+    IEnumerator StopWave()
+    {
+        yield return new WaitForSeconds(21);
+        SpawnManager.instance.TimePerAsteroid = 2f - .12f * currentWave;
+        if (currentWave >= 6)
+            SpawnManager.instance.TimePerAsteroid = 0;
+        Debug.Log("back to normal: " + SpawnManager.instance.TimePerAsteroid);
+    }
+
+    private void UpdateTimeRemaining()
+    {
+        timeRemaining -= Time.deltaTime;
+        int min = (int)(timeRemaining / 60);
+        int sec = (int)(timeRemaining % 60);
+        GameFlow.uiLinks.timeRemaining.text = min.ToString("00") + ":" + sec.ToString("00");
     }
 
     public void Initialize()
@@ -137,11 +164,12 @@ public class GameManager : MonoBehaviour {
 
     public void CheckNewWave()
     {
-        if (waveTimes.Count > 0 && gameTime + 2f >= waveTimes.Peek())
+        if (waveTimes.Count > 0 && timeRemaining - 2f <= waveTimes.Peek())
         {
             waveTimes.Dequeue();
             currentWave++;
             UIManager.Instance.NextWave(currentWave);
+            StartNextWave(currentWave);
         }
     }
 }

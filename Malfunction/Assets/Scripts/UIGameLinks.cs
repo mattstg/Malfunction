@@ -23,6 +23,7 @@ public class UIGameLinks : MonoBehaviour {
     public RectTransform graphCurve;
     public Image incomingWavePanel;
     public Text incomingWaveText;
+    public Text timeRemaining;
 
 
     [Header("QuestionBalances")]

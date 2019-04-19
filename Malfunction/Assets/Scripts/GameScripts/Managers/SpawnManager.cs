@@ -5,6 +5,7 @@ using System.Linq;
 
 public class SpawnManager : MonoBehaviour {
     public SceneObjectManager manager;
+    public static SpawnManager instance;
 
     public Transform planetFloor;
     public Transform sky;
@@ -16,7 +17,7 @@ public class SpawnManager : MonoBehaviour {
     public float maxTimePerAsteroid = 0.25f;
     public float gameTimeToMaxTimePerAsteroid = 120;
 
-    public float TimePerAsteroid => GameFlow.uiLinks.timePerAstroid.Evaluate(manager.manager.gameTime); //Mathf.Lerp(startTimePerAsteroid, maxTimePerAsteroid, manager.manager.gameTime/gameTimeToMaxTimePerAsteroid);
+    public float TimePerAsteroid; // => GameFlow.uiLinks.timePerAstroid.Evaluate(manager.manager.gameTime); //Mathf.Lerp(startTimePerAsteroid, maxTimePerAsteroid, manager.manager.gameTime/gameTimeToMaxTimePerAsteroid);
 
     private float asteroidClock = 0;
 
@@ -28,8 +29,9 @@ public class SpawnManager : MonoBehaviour {
     
     public void Initialize()
     {
-
+        instance = this;
         city = new CityManager(this);
+        TimePerAsteroid = 2.2f;
     }
 
 
