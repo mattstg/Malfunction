@@ -8,7 +8,7 @@ public class TutorialGameLinks : MonoBehaviour {
 
     public Text tutorialText;
     public GameObject tutorialNextButton;
-    
+    public GameObject submitAnsButton;
 
     public GameObject fieldSubmitButton;
     public GameObject xFieldObject;

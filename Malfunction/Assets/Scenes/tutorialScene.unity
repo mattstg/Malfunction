@@ -948,7 +948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.33, y: 0.165}
-  m_AnchoredPosition: {x: 2.399994, y: 1.5}
+  m_AnchoredPosition: {x: 2.4000244, y: 1.5}
   m_SizeDelta: {x: -4.7999, y: 3.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &208235790
@@ -2224,7 +2224,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.1000061, y: 50}
+  m_AnchoredPosition: {x: 1.0999756, y: 50}
   m_SizeDelta: {x: -21.6, y: -118.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356081417
@@ -4568,7 +4568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &741550939
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7435,6 +7435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialText: {fileID: 356081417}
   tutorialNextButton: {fileID: 549365022}
+  submitAnsButton: {fileID: 2130859147}
   fieldSubmitButton: {fileID: 1965687490}
   xFieldObject: {fileID: 208235788}
   yFieldObject: {fileID: 869999323}

@@ -22,39 +22,42 @@ public class TutorialFlow : Flow
         delgStack = new Queue<tutEventDelg>();
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_1"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_2"); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.gridImg.gameObject.SetActive(true);goNext = false; });
+        delgStack.Enqueue(() => { tutGameLinks.gridImg.gameObject.SetActive(true); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_3"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_4"); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.gridLinesRocket.gameObject.SetActive(true); goNext = false; });
+        delgStack.Enqueue(() => { tutGameLinks.gridLinesRocket.gameObject.SetActive(true); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_5"); });
+
+        //Solve the X,Y cordinate problem
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_6"); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.tutorialNextButton.SetActive(false); });
-        delgStack.Enqueue(() => { tutGameLinks.xFieldObject.SetActive(true); });
-        delgStack.Enqueue(() => { tutGameLinks.yFieldObject.SetActive(true); });
-        delgStack.Enqueue(() => { tutGameLinks.fieldSubmitButton.SetActive(true); goNext = false; });
+        delgStack.Enqueue(() => { tutGameLinks.tutorialNextButton.SetActive(false); goNext = true; });
+        delgStack.Enqueue(() => { tutGameLinks.xFieldObject.SetActive(true); goNext = true; });
+        delgStack.Enqueue(() => { tutGameLinks.yFieldObject.SetActive(true); goNext = true; });
+        delgStack.Enqueue(() => { tutGameLinks.fieldSubmitButton.SetActive(true); });
+        //Disable that stuff, go back to normal tutorial flow
         delgStack.Enqueue(() => { tutGameLinks.tutorialNextButton.SetActive(true); goNext = true; });
         delgStack.Enqueue(() => { tutGameLinks.fieldSubmitButton.SetActive(false); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.xFieldObject.SetActive(false); });
-        delgStack.Enqueue(() => { tutGameLinks.yFieldObject.SetActive(false); });
-        
+        delgStack.Enqueue(() => { tutGameLinks.xFieldObject.SetActive(false); goNext = true; });
+        delgStack.Enqueue(() => { tutGameLinks.yFieldObject.SetActive(false); goNext = true; });        
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_7"); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.gridLinesAstroid.gameObject.SetActive(true); goNext = false; });
+        delgStack.Enqueue(() => { tutGameLinks.gridLinesAstroid.gameObject.SetActive(true); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_8"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_9"); });
-        delgStack.Enqueue(() => { tutGameLinks.rocketFuncLine.SetActive(true); goNext = true; });
-        delgStack.Enqueue(() => { SetTutorialText("Tutorial_10"); goNext = false; });
+        delgStack.Enqueue(() => { SetTutorialText("Tutorial_10"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_11"); });
+        delgStack.Enqueue(() => { tutGameLinks.rocketFuncLine.SetActive(true); goNext = true; });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_12"); });
-        delgStack.Enqueue(() => { tutGameLinks.tutorialText.transform.parent.gameObject.SetActive(true); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.microPanelText.transform.parent.gameObject.SetActive(false); goNext = true; });
-        delgStack.Enqueue(() => { tutGameLinks.astroidFuncLine.SetActive(true); goNext = true; });
-        delgStack.Enqueue(() => { SetMicroPanelTutorialText("Tutorial_13"); goNext = false; });
-        delgStack.Enqueue(() => { SetMicroPanelTutorialText("Tutorial_14"); });
-        
-        delgStack.Enqueue(() => { SetMicroPanelTutorialText("Tutorial_15"); });
+        delgStack.Enqueue(() => { SetTutorialText("Tutorial_13"); });
+        //switching over to the micro text
+        delgStack.Enqueue(() => { SetMicroPanelTutorialText("Tutorial_14"); goNext = true; });
         delgStack.Enqueue(() => { tutGameLinks.tutorialText.transform.parent.gameObject.SetActive(false); goNext = true; });
         delgStack.Enqueue(() => { tutGameLinks.microPanelText.transform.parent.gameObject.SetActive(true); goNext = true; });
-        delgStack.Enqueue(() => { SetTutorialText("Tutorial_16"); goNext = false; });
+        delgStack.Enqueue(() => { tutGameLinks.astroidFuncLine.SetActive(true); });        
+        delgStack.Enqueue(() => { SetMicroPanelTutorialText("Tutorial_15"); });
+        //Swap back to normal text
+        delgStack.Enqueue(() => { tutGameLinks.tutorialText.transform.parent.gameObject.SetActive(true); goNext = true; });
+        delgStack.Enqueue(() => { tutGameLinks.microPanelText.transform.parent.gameObject.SetActive(false); goNext = true; });
+        delgStack.Enqueue(() => { SetTutorialText("Tutorial_16"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_17"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_18"); });
         delgStack.Enqueue(() => { SetTutorialText("Tutorial_19"); });
@@ -82,8 +85,11 @@ public class TutorialFlow : Flow
     public void ProgressStack()
     {
         delgStack.Dequeue().Invoke();
-        while(goNext)
+        while (goNext)
+        {
+            goNext = false;
             delgStack.Dequeue().Invoke();
+        }
     }
 
     public void SetTutorialText(string jsonName)
@@ -110,16 +116,21 @@ public class TutorialFlow : Flow
             {
                 ProgressStack();
                 isFirstFieldSubmit = false;
+                
             }
             else
                 tutGameLinks.tutorialText.text = LangDict.Instance.GetText("Tutorial_7_Wrong");
         }       
         else
         {
-            if(tutGameLinks.outputField.text == "10")
+            if (tutGameLinks.outputField.text == "10")
+            {
                 ProgressStack();
+                tutGameLinks.submitAnsButton.GetComponentInChildren<UnityEngine.UI.Text>().text = LangDict.Instance.GetText("Tutorial_NextButton");
+                tutGameLinks.outputField.gameObject.SetActive(false);
+            }
             else
-                tutGameLinks.microPanelText.text = LangDict.Instance.GetText("Tutorial_13_Wrong");
+                tutGameLinks.microPanelText.text = LangDict.Instance.GetText("Tutorial_14_Wrong");
         }     
     }
 
