@@ -37,12 +37,13 @@ public class Sam : BO_Static {
 
         UpdateLaser();
 
-        if (clock > rocketTime) // - rocketTime * BuffManager.turretLockOnReduction));
+        if (clock > rocketTime && targetAsteroid != null) // - rocketTime * BuffManager.turretLockOnReduction));
         {
             clock = 0;
             Rocket rocket = (Rocket)manager.SpawnObjectFromPool(RocketTypeToSpawn, firePoint.position);
             rocket.SetVelocity();
             rocket.SetTarget(targetAsteroid);
+            SetTarget(dt);
         }
     }
 
@@ -50,8 +51,18 @@ public class Sam : BO_Static {
     {
         if(manager.activeAsteroids.Count > 0)
         {
-            int index = Random.Range(0, manager.activeAsteroids.Count);
-            targetAsteroid = manager.activeAsteroids.ToArray()[index];
+            Transform closest = null;
+            float distance = 0;
+            foreach(Transform t in manager.activeAsteroids)
+            {
+                float dist = (t.position - transform.position).magnitude;
+                if (closest == null || dist < distance)
+                {
+                    distance = dist;
+                    closest = t;
+                }
+            }
+            targetAsteroid = closest;
         }
     }
 
