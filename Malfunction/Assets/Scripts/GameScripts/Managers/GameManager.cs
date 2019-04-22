@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
         timeRemaining -= Time.deltaTime;
         int min = (int)(timeRemaining / 60);
         int sec = (int)(timeRemaining % 60);
-        GameFlow.uiLinks.timeRemaining.text = min.ToString("00") + ":" + sec.ToString("00");
+        GameFlow.uiLinks.timeRemaining.text = min.ToString("0") + ":" + sec.ToString("00");
     }
 
     public void Initialize()

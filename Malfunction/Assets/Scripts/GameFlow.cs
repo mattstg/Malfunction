@@ -13,7 +13,6 @@ public class GameFlow : Flow
     public static GameFlow instance;
     public static UIGameLinks uiLinks;
     public static GameManager gameManager;
-    public static TutorialPanel tutorialPanel;
     LoLFunction currentLevelFunction;
     
     int numberOfStacksSolved;
@@ -23,7 +22,7 @@ public class GameFlow : Flow
     int[] buildingPrices = new int[3]{ 3, 4, 4 };
     
     float winningStreak;
-    bool isTutorial = true;
+    bool isTutorial = false;
 
     public override void Initialize(int progressNumber)
     {
@@ -31,8 +30,6 @@ public class GameFlow : Flow
         uiLinks = GameObject.FindObjectOfType<UIGameLinks>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         gameManager.Initialize();
-        tutorialPanel = GameObject.FindObjectOfType<TutorialPanel>();
-        tutorialPanel.Initialize();
 
         currentLevelFunction = QuestionBank.Instance.Initialize();
         UIManager.Instance.Initialize(currentLevelFunction);
@@ -59,10 +56,6 @@ public class GameFlow : Flow
             if (ChildBot.childBotActive)
                 UpdateChildBot();
         }
-        else if(isTutorial)
-        {
-            tutorialPanel.UpdateTutorialPanel();
-        }
     }
 
     private void UpdateChildBot()
@@ -74,11 +67,6 @@ public class GameFlow : Flow
             else
                 IncorrectLevelPackageGuess();
         }
-    }
-    
-    public void TutorialFinished()
-    {
-        isTutorial = false;
     }
 
     public void SubmitButtonPressed(int attempt)

@@ -33,6 +33,6 @@ public class TutorialPanel : MonoBehaviour {
     private void EndTutorial()
     {
         gameObject.SetActive(false);
-        GameFlow.instance.TutorialFinished();
+        //GameFlow.instance.TutorialFinished();
     }
 }
