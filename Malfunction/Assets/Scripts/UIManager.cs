@@ -35,12 +35,12 @@ public class UIManager  {
     public void Initialize(LoLFunction firstLolFunction)
     {
         uiLinks = GameFlow.uiLinks;
-        ChangeLolFunction(firstLolFunction);
         SetPlaceholderContainerActive(!answerFocused);
         Rect rect = uiLinks.graph.rect;
         graphAspect = (rect.width > 0) ? rect.height / rect.width : 0f;
         timer = 0f;
         SetIncomingWaveAlpha(0f);
+        ChangeLolFunction(firstLolFunction);
     }
 
     public void Update()
@@ -103,11 +103,11 @@ public class UIManager  {
             if (newLolFunction.isGraphCoefficientInverse)
                 slope = 1f / slope;
             int offset = newLolFunction.coefficents[3];
-            int output = newLolFunction.Solve();
+            //int output = newLolFunction.Solve();
 
             int scale = 1;
-            while (output > (scale * 8))
-                scale *= 2;
+            //while (output > (scale * 8))
+            //    scale *= 2;
 
             for (int i = 0; i < 5; i++)
                 uiLinks.graphTextX[i].text = uiLinks.graphTextY[i].text = (i * scale * 2).ToString();

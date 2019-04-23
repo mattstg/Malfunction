@@ -15,6 +15,8 @@ public class UIGameLinks : MonoBehaviour {
     public Text submitText;
     public GameObject gameOverPanel;
     public Text gameOverStats;
+    public RectTransform gameOverStatsContainer;
+    public GameObject victoryText;
     public ButtonInteractions buttonInteractions;
     public GameObject graphFunctionObject;
     public RectTransform graph;

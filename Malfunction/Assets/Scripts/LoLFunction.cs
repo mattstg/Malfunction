@@ -58,23 +58,31 @@ public class LoLFunction  {
         }
         else
         {
-            bool isInverse = (Random.Range(0, 2) == 1);
-            int coefficient = Random.Range(1, 4);
+            bool isInverse = (Random.Range(0, 2) == 1); // 50/50 coefficient = inverse: {1 or 1/2 or 1/3} or not inverse: {1 or 2 or 3}
+            int coefficient = Random.Range(1, 4);   // 1 - 3
             int input;
-            if (isInverse)
+            int offset = Random.Range(0, 5);    // 0 - 4
+            int inputMax;
+            // This if statement only works for specific arrangements of the values above.
+            if (isInverse && coefficient != 1)
             {
-                int max = 8 / coefficient + 1;
-                input = Random.Range(0, max) * coefficient;
+                inputMax = (8 / coefficient);
+                input = Random.Range(0, inputMax + 1) * coefficient;
             }
             else
             {
-                int max = (coefficient == 1) ? 8 : (coefficient == 2) ? 6 : 4;
-                input = Random.Range(0, max + 1);
+                inputMax = ((8 - offset) / coefficient);
+                input = Random.Range(0, inputMax + 1);
             }
+            int output = coefficient * input + offset;
+            Debug.Log(string.Format("function: isInverse = {0}, coefficient = {1}, offset = {2}, inputMax = {3}, input = {4}, output = {5} : ({4}, {5})",
+                isInverse, coefficient, offset, inputMax, input, output));
+            if (input < 0 || input > 8 || output < 0 || output > 8)
+                Debug.Log("Error. (" + input + ", " + output + ") : out of bounds.");
             return new LoLFunction()
             {
                 isGraphCoefficientInverse = isInverse,
-                coefficents = new int[] { coefficient, 0, 0, Random.Range(0, 5) },
+                coefficents = new int[] { coefficient, 0, 0, offset },
                 inputVars = new int[] { input, 0, 0 },
                 isDumbGraphFunction = true,
                 currentLevel = difficultLevel

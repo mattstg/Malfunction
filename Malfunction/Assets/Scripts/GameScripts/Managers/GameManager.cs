@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour {
     public void UpdateGameManager()
     {
         Refresh(Time.deltaTime * gameTimeModifier);
-        UpdateTimeRemaining();
-
     }
 
     private void StartNextWave(int waveNumber)
@@ -72,10 +70,13 @@ public class GameManager : MonoBehaviour {
                     BuyBuilding(BuyableBuilding.Sam);
                 }
                 gameTime += dt;
+                UpdateTimeRemaining();
                 objManager.Refresh(dt);
                 CheckNewWave();
-                if (CheckEndCondition())
-                    GameEnd();
+                if (CheckWinCondition())
+                    GameEnd(true);
+                else if (CheckEndCondition())
+                    GameEnd(false);
                 break;
             case Stage.GameOver:
                 GameStart();
@@ -90,16 +91,21 @@ public class GameManager : MonoBehaviour {
         objManager.StartGame();
     }
 
-    public void GameEnd()
+    public void GameEnd(bool win)
     {
         stage = Stage.GameOver;
         objManager.EndGame();
-        GameFlow.instance.EndGame();
+        GameFlow.instance.EndGame(win);
     }
 
     private bool CheckEndCondition()
     {
         return objManager.activeBuildings.Count == 0;
+    }
+
+    private bool CheckWinCondition()
+    {
+        return timeRemaining <= 0f;
     }
 
     public bool BuyBuilding(BuyableBuilding typeToBuy)

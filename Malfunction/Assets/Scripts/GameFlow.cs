@@ -161,10 +161,20 @@ public class GameFlow : Flow
         }
     }
 
-    public void EndGame()
+    public void EndGame(bool win)
     {
         uiLinks.gameOverPanel.SetActive(true);
         string gameOverStats = GV.SecondsToTimeString(time);
+        if (win)
+        {
+            uiLinks.gameOverStatsContainer.anchorMax = new Vector2(1f, 0.85f);
+            uiLinks.victoryText.SetActive(true);
+        }
+        else
+        {
+            uiLinks.gameOverStatsContainer.anchorMax = new Vector2(1f, 1f);
+            uiLinks.victoryText.SetActive(false);
+        }
         float successRate = (numberOfStacksSolved + numberOfStacksNotSolved > 0) ? 100f * numberOfStacksSolved / (numberOfStacksSolved + numberOfStacksNotSolved) : 0;
         gameOverStats += "\r\n" + gameManager.currentWave;
         gameOverStats += "\r\n" + successRate.ToString("0.##") + "%";
