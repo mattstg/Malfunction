@@ -74,11 +74,11 @@ public class LoLFunction  {
                 inputMax = ((8 - offset) / coefficient);
                 input = Random.Range(0, inputMax + 1);
             }
-            int output = coefficient * input + offset;
+            int output = ((isInverse) ? input / coefficient : input * coefficient) + offset;
             Debug.Log(string.Format("function: isInverse = {0}, coefficient = {1}, offset = {2}, inputMax = {3}, input = {4}, output = {5} : ({4}, {5})",
                 isInverse, coefficient, offset, inputMax, input, output));
             if (input < 0 || input > 8 || output < 0 || output > 8)
-                Debug.Log("Error. (" + input + ", " + output + ") : out of bounds.");
+                Debug.LogError("Error. (" + input + ", " + output + ") : out of bounds.");
             return new LoLFunction()
             {
                 isGraphCoefficientInverse = isInverse,
