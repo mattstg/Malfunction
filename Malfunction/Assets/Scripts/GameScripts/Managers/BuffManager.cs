@@ -6,7 +6,7 @@ public class BuffManager {
     public GameManager manager;
 
     public static float rocketAcceleration = 1; //0
-    public static float turretFireTimePerc = .7f;
+    public static float turretFireTimePerc = .8f;
 
     public float maxRocketAcc = 3;
     public float turretLockOnBuff = 0.25f;

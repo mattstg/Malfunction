@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour {
     public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
     public Queue<float> waveTimes = new Queue<float>(new[] { 390f, 300f, 210f, 120f, 30f});   //{ 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
-    float[] timePerAsteroid = { .7f, .52f, .36f, .22f, .17f };
+    float[] timePerAsteroid = { .79f, .56f, .40f, .33f ,.26f, .185f };
     public int currentWave = 0;
+    float timeBetweenWaves = 70;
 
     public SceneObjectManager objManager;
     public BuffManager bman;
@@ -18,6 +19,22 @@ public class GameManager : MonoBehaviour {
     public float timeRemaining = 480;
     public bool buildTrigger = false;
 
+    public void Initialize()
+    {
+        waveTimes = new Queue<float>();
+        float nextWave = 480 - timeBetweenWaves;
+        while(nextWave >= 0)
+        {
+            waveTimes.Enqueue(nextWave);
+            nextWave = nextWave - timeBetweenWaves; ;
+        }
+
+
+        objManager.Initialize(this);
+        stage = Stage.Initialized;
+        bman = new BuffManager(this);
+    }
+
     public void UpdateGameManager()
     {
         Refresh(Time.deltaTime * gameTimeModifier);
@@ -26,17 +43,17 @@ public class GameManager : MonoBehaviour {
     private void StartNextWave(int waveNumber)
     {
         SpawnManager.instance.TimePerAsteroid = timePerAsteroid[currentWave - 1];// Mathf.Lerp(.85f, .2f, (currentWave / 6f));
-        Debug.Log("is now: " + SpawnManager.instance.TimePerAsteroid);
+        //Debug.Log("is now: " + SpawnManager.instance.TimePerAsteroid);
         StartCoroutine(StopWave());
     }
 
     IEnumerator StopWave()
     {
         yield return new WaitForSeconds(21);
-        SpawnManager.instance.TimePerAsteroid = 2f - .12f * currentWave;
+        SpawnManager.instance.TimePerAsteroid = 1.9f - .12f * currentWave;
         if (currentWave >= 6)
             SpawnManager.instance.TimePerAsteroid = 0;
-        Debug.Log("back to normal: " + SpawnManager.instance.TimePerAsteroid);
+        //Debug.Log("back to normal: " + SpawnManager.instance.TimePerAsteroid);
     }
 
     private void UpdateTimeRemaining()
@@ -47,12 +64,6 @@ public class GameManager : MonoBehaviour {
         GameFlow.uiLinks.timeRemaining.text = min.ToString("0") + ":" + sec.ToString("00");
     }
 
-    public void Initialize()
-    {
-        objManager.Initialize(this);
-        stage = Stage.Initialized;
-        bman = new BuffManager(this);
-    }
 
     public void Refresh(float dt)
     {

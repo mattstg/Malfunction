@@ -33,7 +33,7 @@ public class Sam : BO_Static {
 
         UpdateTargetting(dt);
 
-        clock += dt * BuffManager.turretFireTimePerc;
+        clock += dt * BuffManager.turretFireTimePerc * Random.Range(.98f,1.01f); //To undo allignment of all aiming the same
 
         UpdateLaser();
 
