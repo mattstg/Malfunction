@@ -24,14 +24,18 @@ public class ButtonInteractions : MonoBehaviour {
         }
     }
 
+	public static bool firstPlay = true;
     public void GameOverButtonPressed()
     {
-        GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
+		ProgressTracker.Instance.SubmitProgress(8);
+		GameObject.FindObjectOfType<MainScript>().GoToNextFlow(CurrentState.Game);
+		firstPlay = false;
     }
 
     public void QuitLoLGamePressed()
     {
-        LoLSDK.LOLSDK.Instance.CompleteGame();
+		ProgressTracker.Instance.SubmitProgress(8);
+		LoLSDK.LOLSDK.Instance.CompleteGame();
     }
     
 }

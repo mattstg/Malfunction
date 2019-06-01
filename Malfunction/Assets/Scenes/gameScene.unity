@@ -80,7 +80,7 @@ LightmapSettings:
     m_PVRFilterTypeDirect: 0
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
-    m_PVRFilteringMode: 1
+    m_PVRFilteringMode: 2
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
@@ -3636,7 +3636,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 10}
+  m_AnchoredPosition: {x: 87.4, y: 10}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &788815601
@@ -4172,6 +4172,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 857941951}
   m_CullTransparentMesh: 0
+--- !u!1001 &924340386
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58728c05b089474409a649d2b93de975, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &934509003
 GameObject:
   m_ObjectHideFlags: 0
@@ -5129,7 +5171,7 @@ Transform:
   m_Children:
   - {fileID: 1606398593}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109299426
 GameObject:
@@ -5448,6 +5490,7 @@ MonoBehaviour:
   incomingWavePanel: {fileID: 1604054049}
   incomingWaveText: {fileID: 579861447}
   timeRemaining: {fileID: 289430404}
+  replayButton: {fileID: 2039387967}
   inputvarUpperRange:
     serializedVersion: 2
     m_Curve:
@@ -8929,7 +8972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2039387968
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8946,7 +8989,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -20, y: 10}
+  m_AnchoredPosition: {x: -11.8, y: 10}
   m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2039387969
@@ -9192,68 +9235,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084345549}
   m_CullTransparentMesh: 0
---- !u!1001 &2097005436
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4014958040159228, guid: 58728c05b089474409a649d2b93de975, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: gameTimeToMaxTimePerAsteroid
-      value: 210
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: startTimePerAsteroid
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114373992047849694, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: gameTimeModifier
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114560904983083640, guid: 58728c05b089474409a649d2b93de975,
-        type: 2}
-      propertyPath: samsToSpawn
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58728c05b089474409a649d2b93de975, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &2119253545
 GameObject:
   m_ObjectHideFlags: 0

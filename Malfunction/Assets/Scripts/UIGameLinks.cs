@@ -26,7 +26,7 @@ public class UIGameLinks : MonoBehaviour {
     public Image incomingWavePanel;
     public Text incomingWaveText;
     public Text timeRemaining;
-
+	public GameObject replayButton;
 
     [Header("QuestionBalances")]
     public AnimationCurve inputvarUpperRange;

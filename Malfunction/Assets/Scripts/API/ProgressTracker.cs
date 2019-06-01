@@ -21,8 +21,8 @@ public class ProgressTracker {
 	}
     #endregion
 
-    public int maxProgress = 3;
-    public int currentProgress = 1;
+    public int maxProgress = 8;
+    public int currentProgress = 0;
     public int score = 0;
     public int maxGrowthHeight = 50;
 

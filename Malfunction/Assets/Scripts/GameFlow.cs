@@ -28,6 +28,9 @@ public class GameFlow : Flow
     {
         instance = this; //half sad singleton
         uiLinks = GameObject.FindObjectOfType<UIGameLinks>();
+		if (!ButtonInteractions.firstPlay)
+			uiLinks.replayButton.SetActive(false);
+
         gameManager = GameObject.FindObjectOfType<GameManager>();
         gameManager.Initialize();
 
@@ -107,7 +110,8 @@ public class GameFlow : Flow
     private void SolvedLevelPackage()
     {
         numberOfStacksSolved++;
-        int pts = Mathf.Max(currentLevelFunction.currentLevel / 15,1);
+		ProgressTracker.Instance.ModScore(1);
+		int pts = Mathf.Max(currentLevelFunction.currentLevel / 15,1);
         currentLevelFunction = QuestionBank.Instance.Pop();
         //LoadLevelPkg(LevelPkg.GenerateLevelPackage(currentDifficulty), currentDifficulty);
         ProgressTracker.Instance.SetScore(numberOfStacksSolved);

@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
     public enum Stage { Uninitialized = 0, Initialized = 1, GameRunning = 2, GameOver = 3 }
     public enum BuyableBuilding { Sam = 0, Nuke = 1, Shield = 2 }
     private Stage stage = Stage.Uninitialized;
-    public Queue<float> waveTimes = new Queue<float>(new[] { 390f, 300f, 210f, 120f, 30f});   //{ 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
+	public Queue<float> waveTimes;// = new Queue<float>(new[] { 390f, 300f, 210f, 120f, 30f});   //{ 24.8f, 51.6f, 82.2f, 127.5f, 181.1f, 246.1f, 280.3f, 350f, 400.7f, 430f,450f,470f,500f});
     float[] timePerAsteroid = { .79f, .56f, .40f, .33f ,.26f, .185f };
     public int currentWave = 0;
     float timeBetweenWaves = 70;
@@ -51,8 +51,12 @@ public class GameManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(21);
         SpawnManager.instance.TimePerAsteroid = 1.9f - .12f * currentWave;
-        if (currentWave >= 6)
-            SpawnManager.instance.TimePerAsteroid = 0;
+		if (currentWave >= 6)
+		{
+			SpawnManager.instance.TimePerAsteroid = 1.2f;
+			yield return new WaitForSeconds(35);
+			SpawnManager.instance.TimePerAsteroid = 100f;
+		}
         //Debug.Log("back to normal: " + SpawnManager.instance.TimePerAsteroid);
     }
 
